@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katalog Undangan Digital</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
+    }
+
+    header {
+      background-color: #3b82f6;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    #catalog-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .catalog-item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .catalog-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .catalog-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .catalog-content {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .catalog-content h3 {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .catalog-content button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .catalog-content button:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Katalog Undangan Digital</h1>
+  </header>
+
+  <main id="catalog-container">
+    <!-- Katalog akan muncul di sini -->
+  </main>
+
+  <script>
+    const katalogData = [
+      {
+        nama: "Undangan Elegant",
+        gambar: "https://via.placeholder.com/400x200?text=Elegant",
+        link: "https://contoh-undangan1.com"
+      },
+      {
+        nama: "Undangan Floral",
+        gambar: "https://via.placeholder.com/400x200?text=Floral",
+        link: "https://contoh-undangan2.com"
+      },
+      {
+        nama: "Undangan Minimalis",
+        gambar: "https://via.placeholder.com/400x200?text=Minimalis",
+        link: "https://contoh-undangan3.com"
+      }
+    ];
+
+    const container = document.getElementById("catalog-container");
+
+    katalogData.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "catalog-item";
+
+      card.innerHTML = `
+        <img src="${item.gambar}" alt="${item.nama}" />
+        <div class="catalog-content">
+          <h3>${item.nama}</h3>
+          <button onclick="window.open('${item.link}', '_blank')">Lihat Website</button>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
