@@ -2,8 +2,8 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rumah Digital Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Digital</title>
   <style>
     body {
       margin: 0;
@@ -12,249 +12,233 @@
       color: #333;
     }
 
-    /* Hero Section */
-    .hero {
+    /* Slider */
+    .slider {
       position: relative;
-      height: 100vh;
+      height: 300px;
       overflow: hidden;
     }
-
-    .slider {
-      position: absolute;
-      width: 100%;
+    .slides {
+      display: flex;
+      width: 200%;
       height: 100%;
-      z-index: -1;
+      animation: slide 8s infinite;
     }
-
-    .slider img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
+    .slides img {
+      width: 100vw;
       object-fit: cover;
-      opacity: 0;
-      animation: fade 12s infinite;
+    }
+    @keyframes slide {
+      0%, 45% { transform: translateX(0); }
+      55%, 100% { transform: translateX(-100vw); }
     }
 
-    .slider img:nth-child(1) { animation-delay: 0s; }
-    .slider img:nth-child(2) { animation-delay: 6s; }
-
-    @keyframes fade {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      40% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-
-    .hero-overlay {
-      background-color: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(4px);
-      padding: 50px;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      position: relative;
-      z-index: 1;
     }
-
-    .hero h1 {
-      font-size: 3em;
-      margin: 0;
-      font-weight: bold;
-      color: #111;
-      text-shadow: 1px 1px 2px #ccc;
+    .overlay h1 {
+      font-size: 2em;
+      color: #000;
     }
 
     /* Katalog */
-    .katalog-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 40px 20px;
-      gap: 20px;
-    }
-
     .katalog {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 40px 20px;
+    }
+    .card {
       background: white;
-      width: 45%;
-      min-width: 250px;
-      max-width: 300px;
-      border-radius: 16px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      padding: 20px;
-      text-align: center;
-    }
-
-    .katalog img {
-      width: 100%;
       border-radius: 10px;
-      margin-bottom: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s;
     }
-
-    .katalog h3 {
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card h3 {
       margin: 10px 0 5px;
-      font-weight: bold;
     }
-
-    .katalog .price {
-      color: #999;
+    .card p {
+      margin: 5px;
+    }
+    .card .harga {
+      color: #888;
       text-decoration: line-through;
     }
-
-    .katalog .discount {
-      font-size: 1.2em;
-      font-weight: bold;
-      color: #111;
-    }
-
-    .katalog button {
-      margin: 8px;
-      padding: 10px 18px;
+    .btn {
+      margin: 10px 5px;
+      padding: 8px 14px;
       border: none;
-      border-radius: 50px;
+      border-radius: 20px;
+      background-color: #0072ff;
       color: white;
-      background-color: #00bcd4;
       cursor: pointer;
-      font-weight: bold;
+      font-size: 0.9em;
+    }
+    .btn:hover {
+      background-color: #005ecb;
     }
 
     /* FAQ */
     .faq-section {
       padding: 40px 20px;
-      background: #e0f7fa;
     }
-
-    .faq-title {
-      text-align: center;
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      font-weight: bold;
+    .faq {
+      max-width: 700px;
+      margin: auto;
     }
-
     .faq-item {
       background: white;
       margin-bottom: 10px;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       cursor: pointer;
       position: relative;
     }
-
     .faq-item h4 {
       margin: 0;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
     }
-
-    .faq-item p {
-      margin-top: 10px;
+    .faq-item .answer {
       display: none;
+      margin-top: 10px;
     }
-
-    .faq-item.active p {
+    .faq-item.active .answer {
       display: block;
     }
 
-    .arrow {
-      font-size: 1.2em;
-      transition: transform 0.3s;
-    }
-
-    .faq-item.active .arrow {
-      transform: rotate(90deg);
-    }
-
-    /* Info Section */
-    .info-section {
-      padding: 40px 20px;
+    .order-section {
+      background: linear-gradient(to bottom right, #00c6ff, #0072ff);
+      padding: 50px 20px;
       text-align: center;
-      background: linear-gradient(to right, #00bcd4, #81d4fa);
+    }
+    .order-section h2 {
       color: white;
+      margin-bottom: 20px;
+    }
+    .order-section .btn {
+      background-color: white;
+      color: #0072ff;
+      font-weight: bold;
     }
 
-    .info-section h2 {
-      margin-bottom: 10px;
-    }
-
-    .info-section p {
-      margin: 0;
-    }
-
-    @media screen and (max-width: 600px) {
+    @media (max-width: 768px) {
       .katalog {
-        width: 45%;
-      }
-
-      .hero h1 {
-        font-size: 2em;
+        grid-template-columns: 1fr 1fr;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="slider">
+  <!-- Slider Header -->
+  <div class="slider">
+    <div class="slides">
       <img src="gambar1.jpg" alt="Slide 1">
       <img src="gambar2.jpg" alt="Slide 2">
     </div>
-    <div class="hero-overlay">
+    <div class="overlay">
       <h1>RUMAH DIGITAL PROJECT</h1>
     </div>
   </div>
 
-  <!-- KATALOG -->
-  <div class="katalog-container">
-    <!-- 6 Katalog -->
-    <div class="katalog">
-      <img src="https://via.placeholder.com/300x150" alt="Tema 01">
-      <div>Tema 01</div>
-      <h3>MINIMALIST 01</h3>
-      <div class="price">Rp. 210.000</div>
-      <div class="discount">Rp. 132.000</div>
-      <button onclick="window.open('https://wa.me/6281234567890?text=Halo, saya ingin pesan Tema MINIMALIST 01')">Pesan</button>
-      <button>Lihat Contoh</button>
+  <!-- Katalog -->
+  <div class="katalog">
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 1">
+      <h3>Undangan Sakura</h3>
+      <p class="harga">Rp150.000</p>
+      <p>Rp90.000</p>
+      <button class="btn" onclick="window.open('https://contoh1.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Sakura')">Pesan</button>
     </div>
-    <!-- Salin blok di atas dan ganti isinya sesuai katalog -->
-    <div class="katalog">... Tema 02 ...</div>
-    <div class="katalog">... Tema 03 ...</div>
-    <div class="katalog">... Tema 04 ...</div>
-    <div class="katalog">... Tema 05 ...</div>
-    <div class="katalog">... Tema 06 ...</div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 2">
+      <h3>Undangan Minimalis</h3>
+      <p class="harga">Rp130.000</p>
+      <p>Rp85.000</p>
+      <button class="btn" onclick="window.open('https://contoh2.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Minimalis')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 3">
+      <h3>Undangan Gold</h3>
+      <p class="harga">Rp180.000</p>
+      <p>Rp120.000</p>
+      <button class="btn" onclick="window.open('https://contoh3.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Gold')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 4">
+      <h3>Undangan Vintage</h3>
+      <p class="harga">Rp160.000</p>
+      <p>Rp100.000</p>
+      <button class="btn" onclick="window.open('https://contoh4.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Vintage')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 5">
+      <h3>Undangan Floral</h3>
+      <p class="harga">Rp140.000</p>
+      <p>Rp95.000</p>
+      <button class="btn" onclick="window.open('https://contoh5.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Floral')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 6">
+      <h3>Undangan Elegant</h3>
+      <p class="harga">Rp200.000</p>
+      <p>Rp150.000</p>
+      <button class="btn" onclick="window.open('https://contoh6.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Elegant')">Pesan</button>
+    </div>
   </div>
 
   <!-- FAQ -->
   <div class="faq-section">
-    <div class="faq-title">F.A.Q</div>
-    <div class="faq-item">
-      <h4>Bagaimana cara saya order undangannya?<span class="arrow">▶</span></h4>
-      <p>Langsung chat admin kami via WhatsApp atau DM Instagram. Admin akan bantu prosesnya.</p>
-    </div>
-    <div class="faq-item">
-      <h4>Berapa lama pengerjaannya?<span class="arrow">▶</span></h4>
-      <p>Estimasi pengerjaan 1-3 hari kerja setelah data lengkap.</p>
-    </div>
-    <div class="faq-item">
-      <h4>Apakah bisa mengganti info setelah undangan jadi?<span class="arrow">▶</span></h4>
-      <p>Bisa. Kami sediakan 1x revisi gratis.</p>
-    </div>
-    <div class="faq-item">
-      <h4>Apakah bisa tanpa foto?<span class="arrow">▶</span></h4>
-      <p>Bisa. Desain bisa disesuaikan sesuai request kamu.</p>
-    </div>
-    <div class="faq-item">
-      <h4>Apakah dibatasi nama tamu undangannya?<span class="arrow">▶</span></h4>
-      <p>Tidak. Bisa untuk tamu tanpa batas.</p>
+    <h2 style="text-align:center; color:white;">Pertanyaan Umum</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h4>Apakah undangan digital bisa dicetak? <span>▶</span></h4>
+        <div class="answer">Bisa, kami menyediakan file resolusi tinggi untuk dicetak.</div>
+      </div>
+      <div class="faq-item">
+        <h4>Berapa lama proses pembuatan undangan? <span>▶</span></h4>
+        <div class="answer">Proses pembuatan memakan waktu 1-2 hari setelah data lengkap.</div>
+      </div>
+      <div class="faq-item">
+        <h4>Apakah undangan bisa diubah setelah selesai? <span>▶</span></h4>
+        <div class="answer">Bisa dilakukan revisi sebanyak 2 kali setelah pengerjaan awal.</div>
+      </div>
     </div>
   </div>
 
-  <!-- Info Section -->
-  <div class="info-section">
-    <h2>Siap Order?</h2>
-    <p>Hubungi kami langsung via WhatsApp untuk pemesanan dan pertanyaan lainnya.</p>
+  <!-- Order CTA Section -->
+  <div class="order-section">
+    <h2>Tertarik Pesan Undangan Digital?</h2>
+    <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Halo, saya tertarik membuat undangan digital')">Pesan Sekarang via WhatsApp</button>
   </div>
 
-  <!-- SCRIPT FAQ -->
   <script>
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
