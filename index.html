@@ -2,71 +2,117 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Katalog Undangan Digital</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      background: #f7f7f7;
+      background: #20c4b0;
     }
 
     header {
-      background-color: #3b82f6;
-      color: white;
-      padding: 1rem;
       text-align: center;
+      padding: 1rem;
+      color: white;
     }
 
-    #catalog-container {
+    .catalog {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+      gap: 20px;
+      padding: 20px;
     }
 
-    .catalog-item {
+    .card {
       background: white;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       overflow: hidden;
-      transition: transform 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
-    .catalog-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .catalog-item img {
+    .card img {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
+      height: auto;
+      display: block;
     }
 
-    .catalog-content {
-      padding: 1rem;
+    .label-diskon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: red;
+      color: white;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transform: rotate(45deg);
+      transform-origin: top right;
+      margin-top: 10px;
+      margin-right: -40px;
+      width: 120px;
       text-align: center;
     }
 
-    .catalog-content h3 {
-      margin: 0.5rem 0;
-      font-size: 1.2rem;
+    .card-content {
+      padding: 1rem;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .catalog-content button {
-      background-color: #3b82f6;
+    .tema {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .judul {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .harga-asli {
+      text-decoration: line-through;
+      color: #a94442;
+      font-size: 0.95rem;
+    }
+
+    .harga-diskon {
+      color: #333;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      background-color: #7c5c80;
       color: white;
       border: none;
-      padding: 0.5rem 1rem;
-      margin-top: 0.5rem;
-      border-radius: 6px;
+      padding: 10px;
+      border-radius: 24px;
+      font-size: 1rem;
       cursor: pointer;
       transition: background 0.3s;
+      margin: 5px;
+      width: 90%;
     }
 
-    .catalog-content button:hover {
-      background-color: #2563eb;
+    .btn:hover {
+      background-color: #5f4460;
+    }
+
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   </style>
 </head>
@@ -75,40 +121,87 @@
     <h1>Katalog Undangan Digital</h1>
   </header>
 
-  <main id="catalog-container">
-    <!-- Katalog akan muncul di sini -->
+  <main class="catalog" id="catalog-container">
+    <!-- Kartu akan digenerate oleh JavaScript -->
   </main>
 
   <script>
-    const katalogData = [
+    const katalog = [
       {
-        nama: "Undangan Elegant",
-        gambar: "https://via.placeholder.com/400x200?text=Elegant",
-        link: "https://contoh-undangan1.com"
+        tema: "TEMA 01",
+        judul: "MINIMALIST 01",
+        hargaAsli: "Rp. 210.000",
+        hargaDiskon: "Rp. 132.000",
+        gambar: "https://via.placeholder.com/400x300?text=Tema+01",
+        demoLink: "https://contoh1.com"
       },
       {
-        nama: "Undangan Floral",
-        gambar: "https://via.placeholder.com/400x200?text=Floral",
-        link: "https://contoh-undangan2.com"
+        tema: "TEMA 02",
+        judul: "MINIMALIST 02",
+        hargaAsli: "Rp. 210.000",
+        hargaDiskon: "Rp. 132.000",
+        gambar: "https://via.placeholder.com/400x300?text=Tema+02",
+        demoLink: "https://contoh2.com"
       },
       {
-        nama: "Undangan Minimalis",
-        gambar: "https://via.placeholder.com/400x200?text=Minimalis",
-        link: "https://contoh-undangan3.com"
+        tema: "TEMA 03",
+        judul: "MINIMALIST 03",
+        hargaAsli: "Rp. 210.000",
+        hargaDiskon: "Rp. 132.000",
+        gambar: "https://via.placeholder.com/400x300?text=Tema+03",
+        demoLink: "https://contoh3.com"
+      },
+      {
+        tema: "TEMA 04",
+        judul: "MINIMALIST 04",
+        hargaAsli: "Rp. 210.000",
+        hargaDiskon: "Rp. 132.000",
+        gambar: "https://via.placeholder.com/400x300?text=Tema+04",
+        demoLink: "https://contoh4.com"
+      },
+      {
+        tema: "TEMA 05",
+        judul: "MINIMALIST 05",
+        hargaAsli: "Rp. 210.000",
+        hargaDiskon: "Rp. 132.000",
+        gambar: "https://via.placeholder.com/400x300?text=Tema+05",
+        demoLink: "https://contoh5.com"
+      },
+      {
+        tema: "TEMA 06",
+        judul: "MINIMALIST 06",
+        hargaAsli: "Rp. 210.000",
+        hargaDiskon: "Rp. 132.000",
+        gambar: "https://via.placeholder.com/400x300?text=Tema+06",
+        demoLink: "https://contoh6.com"
       }
     ];
 
+    const noWA = "6281234567890"; // ← Ganti dengan nomor WA kamu (format internasional, tanpa +)
+
     const container = document.getElementById("catalog-container");
 
-    katalogData.forEach((item) => {
+    katalog.forEach(item => {
       const card = document.createElement("div");
-      card.className = "catalog-item";
+      card.className = "card";
+
+      const pesanTeks = `Halo, saya ingin memesan undangan *${item.judul}*. Apakah masih tersedia?`;
+      const waLink = `https://wa.me/${noWA}?text=${encodeURIComponent(pesanTeks)}`;
 
       card.innerHTML = `
-        <img src="${item.gambar}" alt="${item.nama}" />
-        <div class="catalog-content">
-          <h3>${item.nama}</h3>
-          <button onclick="window.open('${item.link}', '_blank')">Lihat Website</button>
+        <div class="label-diskon">DISC. 40%</div>
+        <img src="${item.gambar}" alt="${item.judul}" />
+        <div class="card-content">
+          <div>
+            <div class="tema">${item.tema}</div>
+            <div class="judul">${item.judul}</div>
+            <div class="harga-asli">${item.hargaAsli}</div>
+            <div class="harga-diskon">${item.hargaDiskon}</div>
+          </div>
+          <div class="btn-container">
+            <button class="btn" onclick="window.open('${item.demoLink}', '_blank')">Lihat Contoh</button>
+            <button class="btn" onclick="window.open('${waLink}', '_blank')">Pesan</button>
+          </div>
         </div>
       `;
 
