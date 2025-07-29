@@ -12,6 +12,45 @@
       background: #20c4b0;
     }
 
+    /* ========== HEADER SLIDER SECTION ========== */
+    .hero {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity 1s ease-in-out;
+      opacity: 0;
+    }
+
+    .hero img.active {
+      opacity: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px 30px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .hero-overlay h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #333;
+    }
+
     header {
       text-align: center;
       padding: 1rem;
@@ -28,7 +67,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 20px;
       width: 100%;
-      max-width: 800px; /* Membatasi agar tidak terlalu lebar di desktop */
+      max-width: 800px;
       padding: 20px;
       box-sizing: border-box;
     }
@@ -122,20 +161,89 @@
       flex-direction: column;
       align-items: center;
     }
+
+    /* ========== FAQ SECTION ========== */
+    .faq {
+      background: #ffffff;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .faq h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .faq-item {
+      margin-bottom: 20px;
+    }
+
+    .faq-item h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #3b3b3b;
+    }
+
+    .faq-item p {
+      margin: 5px 0 0;
+      color: #555;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Katalog Undangan Digital</h1>
-  </header>
 
+  <!-- Hero Slider -->
+  <div class="hero">
+    <img src="https://via.placeholder.com/1200x300?text=Slide+1" class="active" />
+    <img src="https://via.placeholder.com/1200x300?text=Slide+2" />
+    <img src="https://via.placeholder.com/1200x300?text=Slide+3" />
+    <div class="hero-overlay">
+      <h1>RUMAH DIGITAL PROJECT</h1>
+    </div>
+  </div>
+
+  <!-- Katalog -->
   <div class="catalog-wrapper">
     <main class="catalog" id="catalog-container">
       <!-- Kartu akan digenerate oleh JavaScript -->
     </main>
   </div>
 
+  <!-- FAQ Section -->
+  <section class="faq">
+    <h2>Pertanyaan Umum (FAQ)</h2>
+    
+    <div class="faq-item">
+      <h3>Apa itu undangan digital?</h3>
+      <p>Undangan digital adalah undangan berbasis website yang bisa dibagikan lewat link, WhatsApp, atau media sosial.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Apakah undangan digital bisa dicetak?</h3>
+      <p>Bisa, kami menyediakan versi cetak jika Anda menginginkan bentuk fisik.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Berapa lama proses pembuatan undangan digital?</h3>
+      <p>Rata-rata 1-2 hari kerja setelah data lengkap dikirimkan.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Apakah bisa request desain khusus?</h3>
+      <p>Tentu, kami menerima request desain sesuai keinginan Anda dengan biaya tambahan.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Apa saja kelebihan undangan digital dibanding cetak?</h3>
+      <p>Lebih hemat, ramah lingkungan, bisa dibagikan ke mana saja tanpa batas, dan tampilannya interaktif.</p>
+    </div>
+  </section>
+
   <script>
+    // Katalog data
     const katalog = [
       {
         tema: "TEMA 01",
@@ -168,26 +276,10 @@
         hargaDiskon: "Rp. 132.000",
         gambar: "https://via.placeholder.com/400x300?text=Tema+04",
         demoLink: "https://contoh4.com"
-      },
-      {
-        tema: "TEMA 05",
-        judul: "MINIMALIST 05",
-        hargaAsli: "Rp. 210.000",
-        hargaDiskon: "Rp. 132.000",
-        gambar: "https://via.placeholder.com/400x300?text=Tema+05",
-        demoLink: "https://contoh5.com"
-      },
-      {
-        tema: "TEMA 06",
-        judul: "MINIMALIST 06",
-        hargaAsli: "Rp. 210.000",
-        hargaDiskon: "Rp. 132.000",
-        gambar: "https://via.placeholder.com/400x300?text=Tema+06",
-        demoLink: "https://contoh6.com"
       }
     ];
 
-    const noWA = "6281234567890"; // ← Ganti dengan nomor WA kamu
+    const noWA = "6281234567890"; // Ganti dengan nomor WhatsApp kamu
 
     const container = document.getElementById("catalog-container");
 
@@ -217,6 +309,16 @@
 
       container.appendChild(card);
     });
+
+    // Slider logic
+    const slides = document.querySelectorAll('.hero img');
+    let current = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 4000);
   </script>
 </body>
 </html>
