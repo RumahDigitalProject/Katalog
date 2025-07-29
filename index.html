@@ -18,11 +18,19 @@
       color: white;
     }
 
+    .catalog-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
     .catalog {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: 1fr 1fr;
       gap: 20px;
+      width: 100%;
+      max-width: 800px; /* Membatasi agar tidak terlalu lebar di desktop */
       padding: 20px;
+      box-sizing: border-box;
     }
 
     .card {
@@ -121,9 +129,11 @@
     <h1>Katalog Undangan Digital</h1>
   </header>
 
-  <main class="catalog" id="catalog-container">
-    <!-- Kartu akan digenerate oleh JavaScript -->
-  </main>
+  <div class="catalog-wrapper">
+    <main class="catalog" id="catalog-container">
+      <!-- Kartu akan digenerate oleh JavaScript -->
+    </main>
+  </div>
 
   <script>
     const katalog = [
@@ -177,7 +187,7 @@
       }
     ];
 
-    const noWA = "6281234567890"; // ← Ganti dengan nomor WA kamu (format internasional, tanpa +)
+    const noWA = "6281234567890"; // ← Ganti dengan nomor WA kamu
 
     const container = document.getElementById("catalog-container");
 
