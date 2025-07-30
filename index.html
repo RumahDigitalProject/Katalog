@@ -3,116 +3,248 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Katalog Undangan Digital</title>
+  <title>Undangan Digital</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f7f7f7;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+      color: #333;
     }
 
-    header {
-      background-color: #3b82f6;
-      color: white;
-      padding: 1rem;
+    /* Slider */
+    .slider {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+    }
+    .slides {
+      display: flex;
+      width: 200%;
+      height: 100%;
+      animation: slide 8s infinite;
+    }
+    .slides img {
+      width: 100vw;
+      object-fit: cover;
+    }
+    @keyframes slide {
+      0%, 45% { transform: translateX(0); }
+      55%, 100% { transform: translateX(-100vw); }
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
-
-    #catalog-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+    .overlay h1 {
+      font-size: 2em;
+      color: #000;
     }
 
-    .catalog-item {
+    /* Katalog */
+    .katalog {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 40px 20px;
+    }
+    .card {
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       overflow: hidden;
+      text-align: center;
       transition: transform 0.3s;
     }
-
-    .catalog-item:hover {
+    .card:hover {
       transform: translateY(-5px);
     }
-
-    .catalog-item img {
+    .card img {
       width: 100%;
       height: 180px;
       object-fit: cover;
     }
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+    .card p {
+      margin: 5px;
+    }
+    .card .harga {
+      color: #888;
+      text-decoration: line-through;
+    }
+    .btn {
+      margin: 10px 5px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 20px;
+      background-color: #0072ff;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .btn:hover {
+      background-color: #005ecb;
+    }
 
-    .catalog-content {
-      padding: 1rem;
+    /* FAQ */
+    .faq-section {
+      padding: 40px 20px;
+    }
+    .faq {
+      max-width: 700px;
+      margin: auto;
+    }
+    .faq-item {
+      background: white;
+      margin-bottom: 10px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      position: relative;
+    }
+    .faq-item h4 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .faq-item .answer {
+      display: none;
+      margin-top: 10px;
+    }
+    .faq-item.active .answer {
+      display: block;
+    }
+
+    .order-section {
+      background: linear-gradient(to bottom right, #00c6ff, #0072ff);
+      padding: 50px 20px;
       text-align: center;
     }
-
-    .catalog-content h3 {
-      margin: 0.5rem 0;
-      font-size: 1.2rem;
-    }
-
-    .catalog-content button {
-      background-color: #3b82f6;
+    .order-section h2 {
       color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      margin-top: 0.5rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
+      margin-bottom: 20px;
+    }
+    .order-section .btn {
+      background-color: white;
+      color: #0072ff;
+      font-weight: bold;
     }
 
-    .catalog-content button:hover {
-      background-color: #2563eb;
+    @media (max-width: 768px) {
+      .katalog {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Katalog Undangan Digital</h1>
-  </header>
+  <!-- Slider Header -->
+  <div class="slider">
+    <div class="slides">
+      <img src="https://images.app.goo.gl/p1QzG" alt="Slide 1">
+      <img src="gambar2.jpg" alt="Slide 2">
+    </div>
+    <div class="overlay">
+      <h1>RUMAH DIGITAL PROJECT</h1>
+    </div>
+  </div>
 
-  <main id="catalog-container">
-    <!-- Katalog akan muncul di sini -->
-  </main>
+  <!-- Katalog -->
+  <div class="katalog">
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 1">
+      <h3>Undangan Sakura</h3>
+      <p class="harga">Rp50.000</p>
+      <p>Rp30.000</p>
+      <button class="btn" onclick="window.open('https://rumahdigitalproject.github.io/Irawan-Ayu/')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Sakura')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 2">
+      <h3>Undangan Minimalis</h3>
+      <p class="harga">Rp130.000</p>
+      <p>Rp85.000</p>
+      <button class="btn" onclick="window.open('https://contoh2.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Minimalis')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 3">
+      <h3>Undangan Gold</h3>
+      <p class="harga">Rp180.000</p>
+      <p>Rp120.000</p>
+      <button class="btn" onclick="window.open('https://contoh3.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Gold')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 4">
+      <h3>Undangan Vintage</h3>
+      <p class="harga">Rp160.000</p>
+      <p>Rp100.000</p>
+      <button class="btn" onclick="window.open('https://contoh4.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Vintage')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 5">
+      <h3>Undangan Floral</h3>
+      <p class="harga">Rp140.000</p>
+      <p>Rp95.000</p>
+      <button class="btn" onclick="window.open('https://contoh5.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Floral')">Pesan</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Katalog 6">
+      <h3>Undangan Elegant</h3>
+      <p class="harga">Rp200.000</p>
+      <p>Rp150.000</p>
+      <button class="btn" onclick="window.open('https://contoh6.com')">Lihat Preview</button>
+      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Elegant')">Pesan</button>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2 style="text-align:center; color:white;">Pertanyaan Umum</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h4>Apakah undangan digital bisa dicetak? <span>▶</span></h4>
+        <div class="answer">Bisa, kami menyediakan file resolusi tinggi untuk dicetak.</div>
+      </div>
+      <div class="faq-item">
+        <h4>Berapa lama proses pembuatan undangan? <span>▶</span></h4>
+        <div class="answer">Proses pembuatan memakan waktu 1-2 hari setelah data lengkap.</div>
+      </div>
+      <div class="faq-item">
+        <h4>Apakah undangan bisa diubah setelah selesai? <span>▶</span></h4>
+        <div class="answer">Bisa dilakukan revisi sebanyak 2 kali setelah pengerjaan awal.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order CTA Section -->
+  <div class="order-section">
+    <h2>Tertarik Pesan Undangan Digital?</h2>
+    <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Halo, saya tertarik membuat undangan digital')">Pesan Sekarang via WhatsApp</button>
+  </div>
 
   <script>
-    const katalogData = [
-      {
-        nama: "Undangan Elegant",
-        gambar: "https://via.placeholder.com/400x200?text=Elegant",
-        link: "https://contoh-undangan1.com"
-      },
-      {
-        nama: "Undangan Floral",
-        gambar: "https://via.placeholder.com/400x200?text=Floral",
-        link: "https://contoh-undangan2.com"
-      },
-      {
-        nama: "Undangan Minimalis",
-        gambar: "https://via.placeholder.com/400x200?text=Minimalis",
-        link: "https://contoh-undangan3.com"
-      }
-    ];
-
-    const container = document.getElementById("catalog-container");
-
-    katalogData.forEach((item) => {
-      const card = document.createElement("div");
-      card.className = "catalog-item";
-
-      card.innerHTML = `
-        <img src="${item.gambar}" alt="${item.nama}" />
-        <div class="catalog-content">
-          <h3>${item.nama}</h3>
-          <button onclick="window.open('${item.link}', '_blank')">Lihat Website</button>
-        </div>
-      `;
-
-      container.appendChild(card);
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
     });
   </script>
 </body>
