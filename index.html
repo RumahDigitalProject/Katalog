@@ -1,251 +1,266 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Undangan Digital</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Katalog Undangan Digital — Maroon</title>
+  <meta name="description" content="Katalog undangan digital modern — template one-page siap dipakai di GitHub Pages" />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #e0f7fa, #ffffff);
-      color: #333;
+    :root{
+      --maroon-1: #6b0f18; /* dark */
+      --maroon-2: #a0212b; /* mid */
+      --accent: #ffd9d4; /* soft highlight */
+      --muted: #f3f7f7;
+      --card: #ffffff;
+      --glass: rgba(255,255,255,0.08);
+      --shadow: 0 8px 24px rgba(0,0,0,0.12);
+      --radius: 14px;
+      --maxw: 1100px;
+      --glass-2: rgba(255,255,255,0.06);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--maroon-1),var(--maroon-2) 60%, #f9f5f4 100%);
+      color: #092; /* temporary, overridden below */
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+    }
+    /* Container */
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px;}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;color:#fff}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;background:linear-gradient(135deg,#fff4f4, #ffdfe0);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--maroon-1);font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    nav{display:flex;gap:10px;align-items:center}
+    .btn{background:rgba(255,255,255,0.95);color:var(--maroon-1);padding:10px 14px;border-radius:999px;font-weight:600;border:none;cursor:pointer;box-shadow:var(--shadow)}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center;padding:36px 0}
+    .hero h2{color:#fff;font-size:38px;margin:0 0 12px;line-height:1.02}
+    .hero h2 .accent{background:linear-gradient(90deg,#ffd9d4,#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:rgba(255,255,255,0.9);margin-bottom:18px}
+    .hero .actions{display:flex;gap:12px}
+    .btn-ghost{background:transparent;border:2px solid rgba(255,255,255,0.12);color:#fff;padding:10px 14px;border-radius:999px}
+
+    /* Phone mockups */
+    .phones{display:flex;gap:12px;justify-content:center}
+    .phone{width:180px;height:360px;border-radius:28px;background:linear-gradient(180deg,var(--card),#f8eef0);box-shadow:0 20px 40px rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+    .phone img{width:92%;height:auto;border-radius:18px}
+    .phones .floating{transform:rotate(-12deg);}
+    .phones .floating.right{transform:rotate(6deg);}
+
+    /* Glass section */
+    .glass-card{background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));padding:18px;border-radius:18px;backdrop-filter: blur(6px);box-shadow:var(--shadow);color:#fff}
+
+    /* Features */
+    .features{margin:32px 0;display:flex;gap:18px;align-items:flex-start}
+    .features .left{flex:1}
+    .feature-list{background:var(--card);color:#2e2e2e;padding:18px;border-radius:14px;box-shadow:0 8px 28px rgba(11,11,11,0.08)}
+    .feature-list ul{list-style:none;padding:0;margin:0}
+    .feature-list li{padding:8px 0;border-bottom:1px dashed #eee;font-weight:600}
+    .feature-list li:last-child{border-bottom:0}
+
+    /* Themes */
+    .themes{margin:18px 0}
+    .pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+    .pill{background:transparent;border:2px solid rgba(255,255,255,0.18);color:#fff;padding:8px 14px;border-radius:999px;cursor:pointer}
+    .pill.active{background:rgba(255,255,255,0.95);color:var(--maroon-1);border-color:transparent}
+
+    .theme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .card{background:var(--card);padding:16px;border-radius:14px;box-shadow:0 8px 24px rgba(8,8,8,0.08)}
+    .card .thumb{height:220px;border-radius:10px;background:linear-gradient(180deg,#f7f2f2,#efe6e6);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--maroon-1)}
+    .card h4{margin:12px 0 6px}
+    .card p{margin:0 0 12px;color:#666}
+    .card .cta{display:flex;gap:8px}
+    .ghost{background:transparent;border:2px solid var(--maroon-2);padding:8px 12px;border-radius:10px;color:var(--maroon-2);cursor:pointer}
+
+    /* Footer */
+    footer{margin-top:40px;color:#fff;padding:28px 0;text-align:center}
+    .small{font-size:13px;opacity:0.85}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .hero h2{font-size:32px}
+      .phones{justify-content:flex-start}
+      .theme-grid{grid-template-columns:1fr}
     }
 
-    /* Slider */
-    .slider {
-      position: relative;
-      height: 300px;
-      overflow: hidden;
-    }
-    .slides {
-      display: flex;
-      width: 200%;
-      height: 100%;
-      animation: slide 8s infinite;
-    }
-    .slides img {
-      width: 100vw;
-      object-fit: cover;
-    }
-    @keyframes slide {
-      0%, 45% { transform: translateX(0); }
-      55%, 100% { transform: translateX(-100vw); }
+    @media (max-width:520px){
+      .container{padding:16px}
+      .brand h1{font-size:16px}
+      .phone{width:140px;height:280px}
+      .hero h2{font-size:26px}
     }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(255, 255, 255, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .overlay h1 {
-      font-size: 2em;
-      color: #000;
-    }
-
-    /* Katalog */
-    .katalog {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      padding: 40px 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .card h3 {
-      margin: 10px 0 5px;
-    }
-    .card p {
-      margin: 5px;
-    }
-    .card .harga {
-      color: #888;
-      text-decoration: line-through;
-    }
-    .btn {
-      margin: 10px 5px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 20px;
-      background-color: #0072ff;
-      color: white;
-      cursor: pointer;
-      font-size: 0.9em;
-    }
-    .btn:hover {
-      background-color: #005ecb;
-    }
-
-    /* FAQ */
-    .faq-section {
-      padding: 40px 20px;
-    }
-    .faq {
-      max-width: 700px;
-      margin: auto;
-    }
-    .faq-item {
-      background: white;
-      margin-bottom: 10px;
-      padding: 15px 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      cursor: pointer;
-      position: relative;
-    }
-    .faq-item h4 {
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .faq-item .answer {
-      display: none;
-      margin-top: 10px;
-    }
-    .faq-item.active .answer {
-      display: block;
-    }
-
-    .order-section {
-      background: linear-gradient(to bottom right, #00c6ff, #0072ff);
-      padding: 50px 20px;
-      text-align: center;
-    }
-    .order-section h2 {
-      color: white;
-      margin-bottom: 20px;
-    }
-    .order-section .btn {
-      background-color: white;
-      color: #0072ff;
-      font-weight: bold;
-    }
-
-    @media (max-width: 768px) {
-      .katalog {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+    /* subtle entrance */
+    .fade-up{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
+    .in-view{opacity:1;transform:none}
   </style>
 </head>
 <body>
-  <!-- Slider Header -->
-  <div class="slider">
-    <div class="slides">
-      <img src="https://images.app.goo.gl/p1QzG" alt="Slide 1">
-      <img src="gambar2.jpg" alt="Slide 2">
-    </div>
-    <div class="overlay">
-      <h1>RUMAH DIGITAL PROJECT</h1>
-    </div>
-  </div>
-
-  <!-- Katalog -->
-  <div class="katalog">
-    <div class="card">
-      <img src="https://via.placeholder.com/300x180" alt="Katalog 1">
-      <h3>Undangan Sakura</h3>
-      <p class="harga">Rp50.000</p>
-      <p>Rp30.000</p>
-      <button class="btn" onclick="window.open('https://rumahdigitalproject.github.io/Irawan-Ayu/')">Lihat Preview</button>
-      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Sakura')">Pesan</button>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x180" alt="Katalog 2">
-      <h3>Undangan Minimalis</h3>
-      <p class="harga">Rp130.000</p>
-      <p>Rp85.000</p>
-      <button class="btn" onclick="window.open('https://contoh2.com')">Lihat Preview</button>
-      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Minimalis')">Pesan</button>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x180" alt="Katalog 3">
-      <h3>Undangan Gold</h3>
-      <p class="harga">Rp180.000</p>
-      <p>Rp120.000</p>
-      <button class="btn" onclick="window.open('https://contoh3.com')">Lihat Preview</button>
-      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Gold')">Pesan</button>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x180" alt="Katalog 4">
-      <h3>Undangan Vintage</h3>
-      <p class="harga">Rp160.000</p>
-      <p>Rp100.000</p>
-      <button class="btn" onclick="window.open('https://contoh4.com')">Lihat Preview</button>
-      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Vintage')">Pesan</button>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x180" alt="Katalog 5">
-      <h3>Undangan Floral</h3>
-      <p class="harga">Rp140.000</p>
-      <p>Rp95.000</p>
-      <button class="btn" onclick="window.open('https://contoh5.com')">Lihat Preview</button>
-      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Floral')">Pesan</button>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x180" alt="Katalog 6">
-      <h3>Undangan Elegant</h3>
-      <p class="harga">Rp200.000</p>
-      <p>Rp150.000</p>
-      <button class="btn" onclick="window.open('https://contoh6.com')">Lihat Preview</button>
-      <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Saya mau pesan Undangan Elegant')">Pesan</button>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="faq-section">
-    <h2 style="text-align:center; color:white;">Pertanyaan Umum</h2>
-    <div class="faq">
-      <div class="faq-item">
-        <h4>Apakah undangan digital bisa dicetak? <span>▶</span></h4>
-        <div class="answer">Bisa, kami menyediakan file resolusi tinggi untuk dicetak.</div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">RU</div>
+        <div>
+          <h1>Rumah Digital Project</h1>
+          <div class="small">Katalog undangan digital</div>
+        </div>
       </div>
-      <div class="faq-item">
-        <h4>Berapa lama proses pembuatan undangan? <span>▶</span></h4>
-        <div class="answer">Proses pembuatan memakan waktu 1-2 hari setelah data lengkap.</div>
-      </div>
-      <div class="faq-item">
-        <h4>Apakah undangan bisa diubah setelah selesai? <span>▶</span></h4>
-        <div class="answer">Bisa dilakukan revisi sebanyak 2 kali setelah pengerjaan awal.</div>
-      </div>
-    </div>
-  </div>
+      <nav>
+        <button class="btn" onclick="scrollToSection('themes')">Lihat Tema</button>
+        <button class="btn" onclick="scrollToSection('contact')">Pesan</button>
+      </nav>
+    </header>
 
-  <!-- Order CTA Section -->
-  <div class="order-section">
-    <h2>Tertarik Pesan Undangan Digital?</h2>
-    <button class="btn" onclick="window.open('https://wa.me/6281234567890?text=Halo, saya tertarik membuat undangan digital')">Pesan Sekarang via WhatsApp</button>
+    <section class="hero">
+      <div>
+        <h2>Undangan <span class="accent">Digital</span></h2>
+        <p class="lead">Bagikan momen spesial dengan cepat dan elegan. Template modern, responsif, dan mudah disesuaikan.</p>
+        <div class="actions">
+          <button class="btn">Pesan Sekarang</button>
+          <button class="btn-ghost" onclick="scrollToSection('themes')">Lihat Katalog</button>
+        </div>
+        <div style="height:18px"></div>
+        <div class="glass-card fade-up" style="max-width:520px;margin-top:12px;">
+          <strong>Fitur Terlengkap</strong>
+          <p style="margin:8px 0 0;color:rgba(255,255,255,0.9)">Dipercaya lebih dari 4000 pasangan setiap bulannya</p>
+        </div>
+      </div>
+
+      <div class="phones">
+        <div class="phone floating" aria-hidden>
+          <!-- simple inline mockup: use svg content as placeholder -->
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='720' viewBox='0 0 360 720'><rect rx='24' width='360' height='720' fill='%23fffaf9'/><g font-family='Arial'><text x='50%' y='45%' font-size='22' text-anchor='middle' fill='%236b0f18'>Spesial 01</text></g></svg>" alt="mock" />
+        </div>
+        <div class="phone floating right" aria-hidden>
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='720' viewBox='0 0 360 720'><rect rx='24' width='360' height='720' fill='%23fff8f8'/><g font-family='Arial'><text x='50%' y='45%' font-size='22' text-anchor='middle' fill='%23a0212b'>Spesial 02</text></g></svg>" alt="mock" />
+        </div>
+      </div>
+    </section>
+
+    <section class="features fade-up" id="features">
+      <div class="left">
+        <h3 style="color:#fff;margin-top:0">Fitur Unggulan</h3>
+        <p style="color:rgba(255,255,255,0.9)">Solusi lengkap dari desain hingga pengiriman undangan digital.</p>
+        <div style="height:12px"></div>
+        <div class="feature-list">
+          <ul>
+            <li>Pengerjaan kurang dari 24 jam</li>
+            <li>Revisi sampai hari - H</li>
+            <li>Nama tamu tak terbatas</li>
+            <li>Bebas request musik</li>
+            <li>Desain Premium</li>
+            <li>Kualitas Terbaik</li>
+          </ul>
+        </div>
+      </div>
+      <div style="width:320px">
+        <div class="glass-card">
+          <h4 style="margin:0 0 8px;color:#fff">Pilihan Tema</h4>
+          <p style="margin:0 0 10px;color:rgba(255,255,255,0.9)">Klik tombol di bawah untuk melihat contoh</p>
+          <div class="pills">
+            <button class="pill active" onclick="filter('all', this)">Spesial Foto</button>
+            <button class="pill" onclick="filter('tanpa-foto', this)">Tanpa Foto</button>
+            <button class="pill" onclick="filter('vintage', this)">Vintage</button>
+            <button class="pill" onclick="filter('minimal', this)">Minimalist</button>
+          </div>
+          <div style="height:8px"></div>
+          <button class="btn" onclick="scrollToSection('themes')">Jelajahi Semua Tema</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="themes" class="themes fade-up">
+      <h3 style="color:#fff">Pilihan Tema</h3>
+      <div class="theme-grid" style="margin-top:10px">
+        <!-- Card 1 -->
+        <div class="card" data-tags="all,spesial">
+          <div class="thumb">SPESIAL 01</div>
+          <h4>Spesial 01</h4>
+          <p>Template elegan dengan foto pasangan — cocok untuk tema modern.</p>
+          <div class="cta">
+            <button class="ghost">Lihat Contoh</button>
+            <button class="btn">Pilih</button>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="card" data-tags="all,vintage">
+          <div class="thumb">SPESIAL 02</div>
+          <h4>Spesial 02</h4>
+          <p>Nuansa vintage hangat dengan ornamen klasik.</p>
+          <div class="cta">
+            <button class="ghost">Lihat Contoh</button>
+            <button class="btn">Pilih</button>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="card" data-tags="all,minimal">
+          <div class="thumb">SPESIAL 03</div>
+          <h4>Spesial 03</h4>
+          <p>Minimalis modern — fokus pada tipografi dan ruang.</p>
+          <div class="cta">
+            <button class="ghost">Lihat Contoh</button>
+            <button class="btn">Pilih</button>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="card" data-tags="all,spesial">
+          <div class="thumb">SPESIAL 04</div>
+          <h4>Spesial 04</h4>
+          <p>Design hangat dengan aksen maroon yang elegan.</p>
+          <div class="cta">
+            <button class="ghost">Lihat Contoh</button>
+            <button class="btn">Pilih</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div class="glass-card" style="display:inline-block;padding:18px 28px;margin-bottom:12px;color:#fff">
+        <h4 style="margin:0">Ingin custom desain?</h4>
+        <p style="margin:6px 0 0">Hubungi kami via WhatsApp atau pesan langsung di halaman ini. (placeholder)</p>
+      </div>
+      <div class="small">© 2025 Rumah Undangan • Template demo</div>
+    </footer>
   </div>
 
   <script>
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      item.addEventListener('click', () => {
-        item.classList.toggle('active');
-      });
-    });
+    // smooth reveal for elements with .fade-up
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target)}})
+    },{threshold:0.12});
+    document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(!el) return window.scrollTo({top:0,behavior:'smooth'});
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    // simple filter for theme pills
+    function filter(tag, btn){
+      document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(c=>{
+        const tags = c.getAttribute('data-tags') || '';
+        if(tag==='all' || tags.includes(tag)){
+          c.style.display='block'
+        } else c.style.display='none'
+      })
+    }
+
+    // init
+    filter('all');
   </script>
 </body>
 </html>
