@@ -5,44 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Katalog Undangan Digital</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
-    }
+    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; max-width: 900px; margin: auto; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-
+    /* Perbaikan tampilan item katalog */
     .item {
       background: white;
-      border-radius: 10px;
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
       text-align: center;
-      padding-bottom: 15px;
+      padding-bottom: 20px;
+      transition: 0.2s;
     }
+    .item:hover { transform: translateY(-4px); }
 
     .item img {
       width: 100%;
+      height: 260px;
+      object-fit: cover;
       display: block;
     }
 
-    .title {
-      margin-top: 10px;
-      font-size: 16px;
+    /* Harga di bawah foto */
+    .harga {
+      font-size: 18px;
       font-weight: bold;
+      margin-top: 12px;
+      color: #27ae60;
     }
 
-    .btn-group { margin-top: 10px; }
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
     button {
-      padding: 8px 12px;
-      margin: 5px;
+      padding: 9px 14px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
@@ -52,94 +53,66 @@
     }
     button:hover { opacity: 0.9; }
 
-    /* Popup */
-    .popup-bg {
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: rgba(0,0,0,0.6);
-      display:none;
-      justify-content:center;
-      align-items:center;
-    }
-    .popup-box {
-      width: 90%; max-width: 600px;
-      background:white;
-      padding:20px;
-      border-radius:12px;
-      display:flex;
-      gap:20px;
-    }
-    .popup-box img {
-      width:180px;
-      border-radius:10px;
-    }
-    .form input {
-      width:100%;
-      padding:10px;
-      margin-bottom:10px;
-      border-radius:6px;
-      border:1px solid #ccc;
-    }
-    .close {
-      margin-top:10px;
-      background:#e74c3c;
-    }
+    .popup-bg { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; }
+    .popup-box { width: 90%; max-width: 600px; background:white; padding:20px; border-radius:12px; display:flex; gap:20px; }
+    .popup-box img { width:180px; border-radius:10px; }
+    .form input { width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:1px solid #ccc; }
+    .close { margin-top:10px; background:#e74c3c; }
   </style>
 </head>
 <body>
-  <h2 style="text-align:center;">Katalog Undangan Digital</h2>
+  <h2 style="text-align:center; margin-bottom:25px;">Katalog Undangan Digital</h2>
 
   <div class="grid">
-    <!-- Item Template -->
-    <div class="item" data-img="https://share.google/2mMXbOYPxNv2MRvHf" data-title="Undangan 1" data-preview="https://rumahdigitalproject.github.io/Arifa-Maulana/">
-      <img src="https://via.placeholder.com/400x250" alt="Undangan 1">
-      <div class="title">Undangan 1</div>
+    <!-- ITEM BARU DENGAN DESAIN RAPI -->
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und1">
+      <img src="https://via.placeholder.com/400x250">
+      <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
         <button onclick="pesan(this)">Pesan</button>
       </div>
     </div>
 
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 2" data-preview="https://rumahdigitalproject.github.io/Arifa-Maulana/">
-      <img src="https://via.placeholder.com/400x250" alt="Undangan 2">
-      <div class="title">Undangan 2</div>
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und2">
+      <img src="https://via.placeholder.com/400x250">
+      <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
         <button onclick="pesan(this)">Pesan</button>
       </div>
     </div>
 
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 3">
-      <img src="https://via.placeholder.com/400x250" alt="Undangan 3">
-      <div class="title">Undangan 3</div>
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und3">
+      <img src="https://via.placeholder.com/400x250">
+      <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
         <button onclick="pesan(this)">Pesan</button>
       </div>
     </div>
 
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 4">
-      <img src="https://via.placeholder.com/400x250" alt="Undangan 4">
-      <div class="title">Undangan 4</div>
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und4">
+      <img src="https://via.placeholder.com/400x250">
+      <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
         <button onclick="pesan(this)">Pesan</button>
       </div>
     </div>
 
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 5">
-      <img src="https://via.placeholder.com/400x250" alt="Undangan 5">
-      <div class="title">Undangan 5</div>
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und5">
+      <img src="https://via.placeholder.com/400x250">
+      <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
         <button onclick="pesan(this)">Pesan</button>
       </div>
     </div>
 
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 6">
-      <img src="https://via.placeholder.com/400x250" alt="Undangan 6">
-      <div class="title">Undangan 6</div>
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und6">
+      <img src="https://via.placeholder.com/400x250">
+      <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
         <button onclick="pesan(this)">Pesan</button>
@@ -147,7 +120,7 @@
     </div>
   </div>
 
-  <!-- POPUP PESAN -->
+  <!-- POPUP -->
   <div class="popup-bg" id="popup">
     <div class="popup-box">
       <img id="popup-img" src="" />
@@ -163,9 +136,9 @@
 
   <script>
     function preview(btn){
-  let item = btn.closest('.item');
-  let link = item.dataset.preview;
-  window.open(link, "_blank");
+      let item = btn.closest('.item');
+      let link = item.dataset.preview;
+      window.open(link, "_blank");
     }
 
     function pesan(btn){
@@ -174,24 +147,18 @@
       document.getElementById("popup").style.display = 'flex';
     }
 
-    function closePopup(){
-      document.getElementById("popup").style.display = 'none';
-    }
+    function closePopup(){ document.getElementById("popup").style.display = 'none'; }
 
     function kirimWa(){
       let tgl = document.getElementById("tanggal").value;
       let nama = document.getElementById("nama").value;
 
-      if(!tgl || !nama){
-        alert("Harap isi semua kolom sebelum mengirim!");
-        return;
-      }
+      if(!tgl || !nama){ alert("Harap isi semua kolom sebelum mengirim!"); return; }
 
       let pesan = `Halo, saya ingin pesan undangan. Tanggal: ${tgl}, Nama: ${nama}`;
-      let wa = "https://wa.me/6285706889273?text=" + encodeURIComponent(pesan);
+      let wa = "https://wa.me/6281234567890?text=" + encodeURIComponent(pesan);
       window.open(wa, "_blank");
     }
   </script>
-
 </body>
 </html>
