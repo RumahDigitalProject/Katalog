@@ -38,37 +38,160 @@
       font-size: 16px;
       font-weight: bold;
     }
+
+    .btn-group { margin-top: 10px; }
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #3498db;
+      color: white;
+      font-size: 14px;
+    }
+    button:hover { opacity: 0.9; }
+
+    /* Popup */
+    .popup-bg {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.6);
+      display:none;
+      justify-content:center;
+      align-items:center;
+    }
+    .popup-box {
+      width: 90%; max-width: 600px;
+      background:white;
+      padding:20px;
+      border-radius:12px;
+      display:flex;
+      gap:20px;
+    }
+    .popup-box img {
+      width:180px;
+      border-radius:10px;
+    }
+    .form input {
+      width:100%;
+      padding:10px;
+      margin-bottom:10px;
+      border-radius:6px;
+      border:1px solid #ccc;
+    }
+    .close {
+      margin-top:10px;
+      background:#e74c3c;
+    }
   </style>
 </head>
 <body>
   <h2 style="text-align:center;">Katalog Undangan Digital</h2>
 
   <div class="grid">
-    <div class="item">
-      <img src="https://rumahdigitalproject.github.io/Arifa-Maulana/" alt="Undangan 1">
+    <!-- Item Template -->
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 1">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 1">
       <div class="title">Undangan 1</div>
+      <div class="btn-group">
+        <button onclick="preview(this)">Preview</button>
+        <button onclick="pesan(this)">Pesan</button>
+      </div>
     </div>
-    <div class="item">
+
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 2">
       <img src="https://via.placeholder.com/400x250" alt="Undangan 2">
       <div class="title">Undangan 2</div>
+      <div class="btn-group">
+        <button onclick="preview(this)">Preview</button>
+        <button onclick="pesan(this)">Pesan</button>
+      </div>
     </div>
-    <div class="item">
+
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 3">
       <img src="https://via.placeholder.com/400x250" alt="Undangan 3">
       <div class="title">Undangan 3</div>
+      <div class="btn-group">
+        <button onclick="preview(this)">Preview</button>
+        <button onclick="pesan(this)">Pesan</button>
+      </div>
     </div>
-    <div class="item">
+
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 4">
       <img src="https://via.placeholder.com/400x250" alt="Undangan 4">
       <div class="title">Undangan 4</div>
+      <div class="btn-group">
+        <button onclick="preview(this)">Preview</button>
+        <button onclick="pesan(this)">Pesan</button>
+      </div>
     </div>
-    <div class="item">
+
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 5">
       <img src="https://via.placeholder.com/400x250" alt="Undangan 5">
       <div class="title">Undangan 5</div>
+      <div class="btn-group">
+        <button onclick="preview(this)">Preview</button>
+        <button onclick="pesan(this)">Pesan</button>
+      </div>
     </div>
-    <div class="item">
+
+    <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 6">
       <img src="https://via.placeholder.com/400x250" alt="Undangan 6">
       <div class="title">Undangan 6</div>
+      <div class="btn-group">
+        <button onclick="preview(this)">Preview</button>
+        <button onclick="pesan(this)">Pesan</button>
+      </div>
     </div>
   </div>
+
+  <!-- POPUP PESAN -->
+  <div class="popup-bg" id="popup">
+    <div class="popup-box">
+      <img id="popup-img" src="" />
+      <div class="form">
+        <input type="date" id="tanggal" placeholder="Tanggal Acara" />
+        <input type="text" id="nama" placeholder="Nama Pengantin" />
+        <div id="harga">Harga: Rp 50.000</div>
+        <button onclick="kirimWa()">Kirim ke WhatsApp</button>
+        <button class="close" onclick="closePopup()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function preview(btn){
+      let item = btn.closest('.item');
+      let link = "https://example.com/preview"; // ganti nanti
+      window.open(link, "_blank");
+    }
+
+    function pesan(btn){
+      let item = btn.closest('.item');
+      document.getElementById("popup-img").src = item.dataset.img;
+      document.getElementById("popup").style.display = 'flex';
+    }
+
+    function closePopup(){
+      document.getElementById("popup").style.display = 'none';
+    }
+
+    function kirimWa(){
+      let tgl = document.getElementById("tanggal").value;
+      let nama = document.getElementById("nama").value;
+
+      if(!tgl || !nama){
+        alert("Harap isi semua kolom sebelum mengirim!");
+        return;
+      }
+
+      let pesan = `Halo, saya ingin pesan undangan. Tanggal: ${tgl}, Nama: ${nama}`;
+      let wa = "https://wa.me/6285706889273?text=" + encodeURIComponent(pesan);
+      window.open(wa, "_blank");
+    }
+  </script>
 
 </body>
 </html>
