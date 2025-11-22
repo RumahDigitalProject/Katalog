@@ -144,6 +144,12 @@
     function pesan(btn){
       let item = btn.closest('.item');
       document.getElementById("popup-img").src = item.dataset.img;
+
+      let hargaPopup = document.getElementById("harga");
+      if(item.querySelector('.harga')){
+        hargaPopup.textContent = "Harga: " + item.querySelector('.harga').textContent.replace('Rp','Rp ');
+      }
+
       document.getElementById("popup").style.display = 'flex';
     }
 
