@@ -1,294 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Katalog Undangan Digital — Demo</title>
-  <meta name="description" content="Katalog undangan digital mirip rumahundangan.id — demo untuk deploy ke GitHub Pages" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katalog Undangan Digital</title>
   <style>
-    /* Reset minimal */
-    :root{--accent:#b47a6b;--muted:#6b6b6b;--card:#fff;--bg:#f6f6f8}
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:#222}
-    a{color:inherit}
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
 
-    /* Header / Hero */
-    header{background:linear-gradient(180deg,#fff 0%, #f8f7f9 100%);padding:28px 20px;border-bottom:1px solid #e6e6ea}
-    .container{max-width:1100px;margin:0 auto}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#efc9c0);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-    .nav-actions{display:flex;gap:10px;align-items:center}
-    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600}
-    .ghost{background:transparent;border:1px solid #ddd;padding:8px 12px;border-radius:8px}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
 
-    .hero{display:flex;gap:24px;align-items:center;padding:28px 0}
-    .hero-left{flex:1}
-    .hero-right{flex:1;display:flex;justify-content:center}
-    .hero h1{margin:0;font-size:28px}
-    .hero p{color:var(--muted);margin:10px 0 18px}
+    .item {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      padding-bottom: 15px;
+    }
 
-    /* Controls */
-    .controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-    .search{flex:1;min-width:220px}
-    input[type=search]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #ddd}
-    select{padding:10px;border-radius:10px;border:1px solid #ddd}
+    .item img {
+      width: 100%;
+      display: block;
+    }
 
-    /* Grid */
-    .grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr); /* fix jadi 2 kolom */
-  gap:16px;
-}
-    .card{background:var(--card);border-radius:12px;padding:12px;border:1px solid #eaeaea;box-shadow:0 6px 18px rgba(20,20,30,0.03);display:flex;flex-direction:column}
-    .thumb{height:180px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:12px}
-    .meta{display:flex;justify-content:space-between;align-items:center;gap:8px}
-    .title{font-weight:700}
-    .price{font-weight:800;color:var(--accent)}
-    .tags{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
-    .tag{font-size:12px;padding:6px 8px;border-radius:8px;background:#f4f4f6;color:#444}
-    .card-actions{margin-top:12px;display:flex;gap:8px}
-    .small{padding:8px 10px;border-radius:8px;border:1px solid #ddd;background:#fff}
-
-    /* Modal */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;padding:20px}
-    .modal.show{display:flex}
-    .preview{width:100%;max-width:980px;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-    .preview-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eee}
-    .preview-body{padding:16px;display:flex;gap:16px}
-    .preview-frame{flex:1;border:1px solid #eee;height:480px;border-radius:8px;overflow:hidden}
-    .preview-info{width:320px}
-
-    /* Footer */
-    footer{padding:22px 0;color:var(--muted);font-size:14px}
-
-    /* Responsive */
-    @media (max-width:640px){
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-    
-@media (max-width:640px){.grid{grid-template-columns:1fr}.brand .brand-title{display:none}.topbar{flex-direction:column;align-items:flex-start}}
-
+    .title {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="topbar">
-        <div class="brand">
-          <div class="logo">RU</div>
-          <div>
-            <div style="font-weight:800">Katalog Undangan</div>
-            <div style="font-size:12px;color:var(--muted)">Demo mirip rumahundangan.id</div>
-          </div>
-        </div>
-        <div class="nav-actions">
-          <a class="ghost" href="#download" id="btnDownload">Download JSON</a>
-          <a class="btn" href="#" id="btnContact">Pesan via WhatsApp</a>
-        </div>
-      </div>
+  <h2 style="text-align:center;">Katalog Undangan Digital</h2>
 
-      <div class="hero">
-        <div class="hero-left">
-          <h1>Berbagi momen spesial dengan undangan digital</h1>
-          <p>Pilih tema, preview, dan pesan cepat melalui WhatsApp. Template siap pakai, bisa edit nama & detail acara.</p>
-          <div style="display:flex;gap:10px;margin-top:12px">
-            <a class="btn" href="#catalog">Lihat Katalog</a>
-            <a class="ghost" href="#how">Cara Pesan</a>
-          </div>
-        </div>
-        <div class="hero-right">
-          <div style="width:320px;background:#fff;border-radius:12px;padding:14px;border:1px solid #eee;box-shadow:0 10px 30px rgba(18,18,20,0.05)">
-            <strong>Contoh Promo:</strong>
-            <p style="margin:8px 0;color:var(--muted)">Paket mulai dari <span class="price">Rp35.000</span>. Free revisi sampai H.</p>
-            <div style="display:flex;gap:8px">
-              <button class="small" id="sampleTheme">Lihat Contoh</button>
-              <button class="small" id="openCatalog">Buka Katalog</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Controls -->
-      <div id="catalog" style="margin-top:6px">
-        <div class="controls">
-          <div class="search">
-            <input type="search" id="q" placeholder="Cari tema, nama, harga..." />
-          </div>
-          <select id="category">
-            <option value="all">Semua Kategori</option>
-            <option value="spesial">Spesial</option>
-            <option value="minimalist">Minimalist</option>
-            <option value="vintage">Premium Vintage</option>
-            <option value="adat">Adat</option>
-          </select>
-          <select id="sort">
-            <option value="newest">Terbaru</option>
-            <option value="price_asc">Harga: Rendah &uarr;</option>
-            <option value="price_desc">Harga: Tinggi &darr;</option>
-          </select>
-        </div>
-
-        <div class="grid container" id="grid">
-          <!-- cards injected here -->
-        </div>
-      </div>
-
-      <div style="height:28px"></div>
-
-      <footer class="container">
-        <small>© Demo Katalog — Siapkan gambar & detail produk, lalu upload ke GitHub Pages.</small>
-      </footer>
+  <div class="grid">
+    <div class="item">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 1">
+      <div class="title">Undangan 1</div>
     </div>
-  </header>
-
-  <!-- Modal Preview -->
-  <div class="modal" id="modal">
-    <div class="preview" role="dialog" aria-modal="true">
-      <div class="preview-header">
-        <div style="font-weight:800" id="modalTitle">Preview Tema</div>
-        <div>
-          <button class="ghost" id="btnClose">Tutup</button>
-        </div>
-      </div>
-      <div class="preview-body">
-        <div class="preview-frame" id="previewFrame">
-          <!-- We'll render a simple HTML preview here -->
-        </div>
-        <div class="preview-info">
-          <h3 id="infoName">Nama Tema</h3>
-          <p id="infoDesc" style="color:var(--muted)">Deskripsi singkat tema.</p>
-          <div style="margin-top:12px"><strong>Harga: <span id="infoPrice" class="price">Rp0</span></strong></div>
-          <div style="margin-top:12px" class="card-actions">
-            <button class="btn" id="btnOrder">Pesan via WhatsApp</button>
-            <button class="small" id="btnCopyLink">Salin Link</button>
-          </div>
-        </div>
-      </div>
+    <div class="item">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 2">
+      <div class="title">Undangan 2</div>
+    </div>
+    <div class="item">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 3">
+      <div class="title">Undangan 3</div>
+    </div>
+    <div class="item">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 4">
+      <div class="title">Undangan 4</div>
+    </div>
+    <div class="item">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 5">
+      <div class="title">Undangan 5</div>
+    </div>
+    <div class="item">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 6">
+      <div class="title">Undangan 6</div>
     </div>
   </div>
 
-  <script>
-    /* Sample data: ganti sesuai kebutuhan atau tarik dari JSON/API */
-    const products = [
-      { id: 'sp-01', category:'spesial', title:'SPESIAL 01', price:35000, desc:'Tema spesial foto, desain modern elegan', img:'https://picsum.photos/seed/sp1/800/600' },
-      { id: 'sp-02', category:'spesial', title:'SPESIAL 02', price:40000, desc:'Tema spesial tanpa foto, nuansa minimal', img:'https://picsum.photos/seed/sp2/800/600' },
-      { id: 'ml-01', category:'minimalist', title:'Minimalist 01', price:45000, desc:'Minimalist luxury dengan foto', img:'https://picsum.photos/seed/ml1/800/600' },
-      { id: 'pv-01', category:'vintage', title:'Premium Vintage 01', price:75000, desc:'Vintage klasik, warna hangat', img:'https://picsum.photos/seed/pv1/800/600' },
-      { id: 'adat-01', category:'adat', title:'TEMA WAYANG 01', price:65000, desc:'Tema adat wayang', img:'https://picsum.photos/seed/ad1/800/600' },
-      { id: 'adat-02', category:'adat', title:'Tema Bali', price:60000, desc:'Tema adat Bali', img:'https://picsum.photos/seed/ad2/800/600' }
-    ];
-
-    const grid = document.getElementById('grid');
-    const q = document.getElementById('q');
-    const category = document.getElementById('category');
-    const sort = document.getElementById('sort');
-    const modal = document.getElementById('modal');
-    const previewFrame = document.getElementById('previewFrame');
-    const infoName = document.getElementById('infoName');
-    const infoDesc = document.getElementById('infoDesc');
-    const infoPrice = document.getElementById('infoPrice');
-    const modalTitle = document.getElementById('modalTitle');
-
-    function formatRupiah(n){ return 'Rp' + n.toLocaleString('id-ID'); }
-
-    function renderCard(p){
-      const el = document.createElement('div'); el.className='card';
-      el.innerHTML = `
-        <div class="thumb" style="background-image:url('${p.img}')"></div>
-        <div class="meta">
-          <div style="flex:1">
-            <div class="title">${p.title}</div>
-            <div style="font-size:13px;color:var(--muted)">${p.desc}</div>
-          </div>
-          <div style="text-align:right">
-            <div class="price">${formatRupiah(p.price)}</div>
-            <div style="font-size:12px;color:#999">ID: ${p.id}</div>
-          </div>
-        </div>
-        <div class="tags"><div class="tag">${p.category}</div></div>
-        <div class="card-actions">
-          <button class="small" data-preview="${p.id}">Preview</button>
-          <button class="btn" data-order="${p.id}">Pesan</button>
-        </div>
-      `;
-      return el;
-    }
-
-    function loadGrid(){
-      grid.innerHTML='';
-      let list = products.slice();
-      const qv = q.value.trim().toLowerCase();
-      if(category.value!=='all') list = list.filter(x=>x.category===category.value);
-      if(qv) list = list.filter(x=> (x.title+x.desc+x.id).toLowerCase().includes(qv));
-      if(sort.value==='price_asc') list.sort((a,b)=>a.price-b.price);
-      if(sort.value==='price_desc') list.sort((a,b)=>b.price-a.price);
-      if(sort.value==='newest') list = list; // assuming products is in newest-first
-
-      if(list.length===0){ grid.innerHTML='<div style="padding:28px;background:#fff;border-radius:8px;grid-column:1/-1;text-align:center">Tidak ada hasil</div>'; return }
-
-      list.forEach(p=> grid.appendChild(renderCard(p)));
-      // attach listeners
-      document.querySelectorAll('[data-preview]').forEach(btn=> btn.onclick = ()=> openPreview(btn.getAttribute('data-preview')));
-      document.querySelectorAll('[data-order]').forEach(btn=> btn.onclick = ()=> orderNow(btn.getAttribute('data-order')));
-    }
-
-    function openPreview(id){
-      const p = products.find(x=>x.id===id); if(!p) return;
-      modalTitle.textContent = p.title;
-      infoName.textContent = p.title;
-      infoDesc.textContent = p.desc;
-      infoPrice.textContent = formatRupiah(p.price);
-      // render a simple HTML preview inside previewFrame
-      previewFrame.innerHTML = `
-        <iframe srcdoc="<html><head><meta name=viewport content='width=device-width,initial-scale=1'><style>body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:24px;background:#faf8f6;color:#222} .hero{display:flex;gap:12px;align-items:center} .hero img{width:120px;height:120px;object-fit:cover;border-radius:12px} h2{margin:0 0 8px} p{color:#555}</style></head><body><div class='hero'><img src='${p.img}' alt=''><div><h2>${p.title}</h2><p>${p.desc}</p><p><strong>${formatRupiah(p.price)}</strong></p></div></div></body></html>" style="width:100%;height:100%;border:0"></iframe>
-      `;
-      modal.classList.add('show');
-    }
-
-    function orderNow(id){
-      const p = products.find(x=>x.id===id); if(!p) return;
-      const wa = '6281234567890'; // ganti nomor seller (format internasional tanpa +)
-      const text = encodeURIComponent(`Halo, saya mau pesan *${p.title}* (ID: ${p.id}). Harga: ${formatRupiah(p.price)}. Mohon info langkah selanjutnya.`);
-      const url = `https://wa.me/${wa}?text=${text}`;
-      window.open(url,'_blank');
-    }
-
-    document.getElementById('btnClose').onclick = ()=> modal.classList.remove('show');
-    window.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('show') });
-
-    // search & filters
-    [q, category, sort].forEach(el=> el.addEventListener('input', loadGrid));
-
-    // Download JSON
-    document.getElementById('btnDownload').addEventListener('click', e=>{
-      e.preventDefault();
-      const dataStr = JSON.stringify(products, null, 2);
-      const blob = new Blob([dataStr], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href=url; a.download='katalog-undangan.json'; document.body.appendChild(a); a.click(); a.remove();
-      URL.revokeObjectURL(url);
-    });
-
-    // Contact button
-    document.getElementById('btnContact').addEventListener('click', e=>{
-      e.preventDefault(); window.open('https://wa.me/6281234567890','_blank');
-    });
-
-    // copy link
-    document.getElementById('btnCopyLink').addEventListener('click', ()=>{
-      const txt = location.href + '#preview=' + modalTitle.textContent.replace(/\s+/g,'-');
-      navigator.clipboard.writeText(txt).then(()=> alert('Link preview disalin'));
-    });
-
-    // initial render
-    loadGrid();
-
-    // small utility: allow adding new product via console for testing
-    window.__addProduct = function(p){ products.unshift(p); loadGrid(); }
-  </script>
 </body>
 </html>
