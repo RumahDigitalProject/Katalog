@@ -113,6 +113,7 @@
     <div class="item" data-img="https://via.placeholder.com/400x250" data-title="Undangan 3">
       <img src="https://via.placeholder.com/400x250" alt="Undangan 3">
       <div class="title">Undangan 3</div>
+      <div data-preview="https://rumahdigitalproject.github.io/Arifa-Maulana/">
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
         <button onclick="pesan(this)">Pesan</button>
@@ -163,9 +164,9 @@
 
   <script>
     function preview(btn){
-      let item = btn.closest('.item');
-      let link = "https://example.com/preview"; // ganti nanti
-      window.open(link, "_blank");
+  let item = btn.closest('.item');
+  let link = item.dataset.preview;
+  window.open(link, "_blank");
     }
 
     function pesan(btn){
