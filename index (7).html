@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Katalog Undangan Digital — Rumah Digital</title>
+
+  <!-- Icon & fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Michroma&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ===== Reset & root ===== */
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#ffd166; --glass: rgba(255,255,255,0.04);
+      --success:#22c55e; --danger:#ef4444; --glass-2: rgba(255,255,255,0.03);
+      --max-width:1100px; --radius:14px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #0f1724 70%);color:#e6eef8}
+    a{color:inherit}
+    .container{max-width:var(--max-width);margin:36px auto;padding:20px}
+
+    /* ===== Header ===== */
+    header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:58px;height:58px;border-radius:10px;background:linear-gradient(135deg,#121826,#1b2b44);display:flex;align-items:center;justify-content:center;font-family:Michroma;color:var(--accent);font-size:20px}
+    .brand h1{margin:0;font-size:18px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+    nav.actions{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:9px 12px;border-radius:10px;cursor:pointer;color:inherit}
+    .btn.primary{background:linear-gradient(90deg,#ffd166,#ff9f1c);color:#081020;font-weight:700}
+
+    /* ===== Catalog controls ===== */
+    .controls{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+    .search{flex:1;display:flex;gap:8px}
+    .search input{flex:1;padding:12px;border-radius:10px;border:0;background:var(--glass);color:inherit}
+    .filters{display:flex;gap:8px}
+    select, .price-range{padding:10px;border-radius:10px;border:0;background:var(--glass);color:inherit}
+
+    /* ===== Grid ===== */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+
+    /* ===== Product card ===== */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:16px;position:relative;overflow:hidden;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .card .thumb{height:160px;border-radius:10px;background:linear-gradient(135deg,#071428,#092040);display:flex;align-items:center;justify-content:center;color:var(--muted);margin-bottom:12px}
+    .tag{position:absolute;left:12px;top:12px;background:rgba(0,0,0,0.45);padding:6px 8px;border-radius:8px;font-size:13px}
+    .title{font-weight:700;margin:0 0 6px 0}
+    .desc{margin:0;color:var(--muted);font-size:13px}
+    .price{margin-top:10px;font-weight:800;font-size:18px;color:var(--accent)}
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+
+    .card .actions{display:flex;gap:8px}
+    .small{padding:8px 10px;border-radius:8px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+
+    /* ===== Preview modal & order modal ===== */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:24px;z-index:9999}
+    .modal{width:100%;max-width:980px;background:linear-gradient(180deg,#061225,#07172a);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03)}
+    .modal .row{display:flex;gap:14px}
+    .preview-frame{flex:1;background:#05111a;border-radius:8px;min-height:420px;overflow:auto;padding:14px}
+    .order-side{width:340px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:8px}
+    .close-x{position:absolute;right:14px;top:14px;cursor:pointer}
+
+    /* ===== Cart & invoice ===== */
+    .cart{position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,#071428,#051023);padding:12px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .cart h4{margin:0 0 8px 0;font-size:14px}
+    .cart-list{min-width:260px;max-width:320px}
+    .cart-item{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+
+    /* ===== Footer ===== */
+    footer{margin-top:36px;padding:24px;border-radius:12px;background:linear-gradient(180deg,transparent, rgba(255,255,255,0.02));display:flex;justify-content:space-between;align-items:center}
+
+    /* Responsive tweaks */
+    @media (max-width:900px){.modal .row{flex-direction:column}.order-side{width:100%}}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    input[type=number]{width:100%}
+    .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03)}
+    .kbd{background:#0b1220;border-radius:6px;padding:6px 8px;font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">RD</div>
+        <div>
+          <h1>Rumah Digital — Katalog Undangan</h1>
+          <p>2 jenis undangan digital — Siap pesan & preview</p>
+        </div>
+      </div>
+
+      <nav class="actions">
+        <div class="pill muted">Jenis: 2</div>
+        <button class="btn" id="openCart"><i class="fa-solid fa-cart-shopping"></i> Keranjang <span id="cartCount" class="kbd">0</span></button>
+        <button class="btn primary" id="btnContact">Pesan Custom</button>
+      </nav>
+    </header>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="search">
+        <input id="q" placeholder="Cari undangan (nama tema, fitur, harga)...">
+        <button class="btn" id="clearSearch"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="filters">
+        <select id="sort">
+          <option value="popular">Urutkan: Populer</option>
+          <option value="price-asc">Harga naik</option>
+          <option value="price-desc">Harga turun</option>
+        </select>
+        <select id="typeFilter">
+          <option value="all">Tipe: Semua</option>
+          <option value="classic">Classic (Template A)</option>
+          <option value="modern">Modern (Template B)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Grid of products -->
+    <section class="grid" id="catalog">
+
+      <!-- PRODUCT 1 - Classic (Simple) -->
+      <article class="card" data-id="A1" data-type="classic" data-price="75" data-title="Classic Elegance">
+        <div class="tag">Template A</div>
+        <div class="thumb" style="background-image: linear-gradient(135deg,#071428,#0b1a2b);background-size:cover">
+          <div style="text-align:center">
+            <h3 style="margin:0">Classic Elegance</h3>
+            <p class="muted" style="margin:6px 0 0 0;font-size:13px">Undangan web minimal, fokus teks & foto</p>
+          </div>
+        </div>
+        <h3 class="title">Classic Elegance</h3>
+        <p class="desc">Tampilan sederhana, cocok untuk yang ingin cepat dan elegan. Fitur: RSVP, peta, galeri foto.</p>
+        <div class="price">Rp <span class="price-val">75.000</span></div>
+        <div class="meta">
+          <div class="rating muted">⭐ 4.7</div>
+          <div class="actions">
+            <button class="small" data-action="preview">Preview</button>
+            <button class="small" data-action="add">Pesan</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 2 - Modern (Rich) -->
+      <article class="card" data-id="B1" data-type="modern" data-price="150" data-title="Modern Motion">
+        <div class="tag">Template B</div>
+        <div class="thumb" style="background-image: linear-gradient(135deg,#0b1a2b,#0a2336);background-size:cover">
+          <div style="text-align:center">
+            <h3 style="margin:0">Modern Motion</h3>
+            <p class="muted" style="margin:6px 0 0 0;font-size:13px">Animasi, musik, RSVP interaktif & form pesan</p>
+          </div>
+        </div>
+        <h3 class="title">Modern Motion</h3>
+        <p class="desc">Tampilan dinamis dengan animasi, musik latar, galeri interaktif, dan integrasi pembayaran.</p>
+        <div class="price">Rp <span class="price-val">150.000</span></div>
+        <div class="meta">
+          <div class="rating muted">⭐ 4.9</div>
+          <div class="actions">
+            <button class="small" data-action="preview">Preview</button>
+            <button class="small" data-action="add">Pesan</button>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <footer>
+      <div>
+        <strong>Rumah Digital</strong> — solusi undangan digital. <span class="muted">Support: chat, email, custom</span>
+      </div>
+      <div class="muted">© 2025 Rumah Digital • All rights reserved</div>
+    </footer>
+  </div>
+
+  <!-- Cart floating -->
+  <div class="cart" id="cartBox" style="display:none">
+    <h4>Keranjang</h4>
+    <div class="cart-list" id="cartList"></div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button class="btn" id="clearCart">Kosongkan</button>
+      <button class="btn primary" id="checkoutBtn">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Modal backdrop (preview + order) -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" id="modal">
+      <span class="close-x" id="closeModal"><i class="fa-solid fa-xmark"></i></span>
+      <div class="row">
+        <div class="preview-frame" id="previewFrame">
+          <!-- live preview injected -->
+          <div style="padding:18px;color:var(--muted)">
+            <h3 id="previewTitle">Preview</h3>
+            <div id="previewContent" style="border-radius:8px;overflow:hidden;border:1px dashed rgba(255,255,255,0.03);background:#041021;padding:12px">
+              <p class="muted">Klik "Preview" pada salah satu produk untuk menampilkan contoh undangan di sini.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="order-side">
+          <h3>Pemesanan & Harga</h3>
+          <div style="margin:10px 0" id="orderSummary">
+            <div class="muted">Item</div>
+            <div id="orderItemList"></div>
+            <hr style="border:none;border-top:1px dashed rgba(255,255,255,0.03)">
+            <div style="display:flex;justify-content:space-between;gap:8px;margin-top:8px">
+              <div class="muted">Subtotal</div>
+              <div id="orderSubtotal">Rp 0</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <label class="muted">Nama pasangan</label>
+            <input id="nameInput" placeholder="Nama Pengantin" style="width:100%;padding:10px;border-radius:8px;border:0;background:var(--glass);color:inherit;margin-top:6px">
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="muted">Tanggal acara</label>
+            <input id="dateInput" type="date" style="width:100%;padding:10px;border-radius:8px;border:0;background:var(--glass);color:inherit;margin-top:6px">
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="muted">Jumlah tamu (estimasi)</label>
+            <input id="guestsInput" type="number" min="0" value="100" style="width:100%;padding:10px;border-radius:8px;border:0;background:var(--glass);color:inherit;margin-top:6px">
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn" id="addToCartFromModal">Tambahkan ke Keranjang</button>
+            <button class="btn primary" id="confirmOrder">Pesan Sekarang</button>
+          </div>
+
+          <div style="margin-top:12px;font-size:13px;color:var(--muted)">
+            <strong>Catatan:</strong> Harga awal adalah biaya pembuatan. Biaya tambahan (kustom domain, revisi, integrasi pembayaran) dihitung terpisah saat konfirmasi.
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout / Contact form (simple) -->
+  <div id="contactForm" style="display:none;position:fixed;right:20px;top:80px;background:linear-gradient(180deg,#071428,#04111a);padding:18px;border-radius:12px;z-index:999">
+    <h4>Pesan Custom</h4>
+    <div style="margin-top:8px">
+      <input id="cName" placeholder="Nama" style="width:260px;padding:10px;border-radius:8px;border:0;background:var(--glass);color:inherit;margin-bottom:8px">
+      <input id="cPhone" placeholder="No. HP" style="width:260px;padding:10px;border-radius:8px;border:0;background:var(--glass);color:inherit;margin-bottom:8px">
+      <textarea id="cNote" placeholder="Keterangan singkat..." style="width:260px;padding:10px;border-radius:8px;border:0;background:var(--glass);color:inherit"></textarea>
+      <div style="margin-top:8px;display:flex;gap:8px">
+        <button class="btn" id="sendContact">Kirim</button>
+        <button class="btn" id="closeContact">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== small utils ======
+    const rupiah = v => 'Rp ' + Number(v).toLocaleString('id-ID');
+
+    // ====== Catalog interactions ======
+    const catalog = document.getElementById('catalog');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modal = document.getElementById('modal');
+    const previewContent = document.getElementById('previewContent');
+    const previewTitle = document.getElementById('previewTitle');
+
+    let cart = [];
+
+    function refreshCartUI(){
+      const cartBox = document.getElementById('cartBox');
+      const cartList = document.getElementById('cartList');
+      const cartCount = document.getElementById('cartCount');
+      cartList.innerHTML='';
+      let total = 0;
+      cart.forEach((it,i)=>{
+        const el = document.createElement('div'); el.className='cart-item';
+        el.innerHTML = `<div>${it.title} <div class=\"muted\">(${it.type})</div></div><div>${rupiah(it.price)}</div>`;
+        cartList.appendChild(el);
+        total += Number(it.price);
+      });
+      cartBox.style.display = cart.length ? 'block':'none';
+      cartCount.textContent = cart.length;
+
+      // quick subtotal
+      const subtotal = document.getElementById('orderSubtotal');
+      if(subtotal) subtotal.textContent = rupiah(total);
+    }
+
+    // handle product buttons
+    catalog.addEventListener('click', e=>{
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const card = e.target.closest('.card');
+      if(!card) return;
+      const action = btn.dataset.action;
+      const id = card.dataset.id;
+      const title = card.dataset.title;
+      const type = card.dataset.type;
+      const price = Number(card.dataset.price);
+
+      if(action==='preview'){
+        openPreview({id,title,type,price,card});
+      } else if(action==='add'){
+        cart.push({id,title,type,price});
+        refreshCartUI();
+        alert('Berhasil ditambahkan ke keranjang: '+title);
+      }
+    });
+
+    // preview builder (simple HTML mock)
+    function buildPreviewHtml(item){
+      const html = `
+        <div style=\"padding:18px;background:linear-gradient(180deg,#06121a,#071728);border-radius:8px;color:#dbeffd;\">
+          <h2 style=\"margin:0 0 6px 0;\">${item.title}</h2>
+          <p class=\"muted\">Tipe: ${item.type} • Harga: ${rupiah(item.price)}</p>
+          <div style=\"margin-top:12px;border-radius:8px;overflow:hidden;background:#001427;padding:12px\">
+            <h3>Contoh Undangan</h3>
+            <p class=\"muted\">Ini adalah preview sederhana. Pada versi produksi akan ada halaman undangan penuh dengan foto, cerita pengantin, galeri, peta, dan fitur RSVP.</p>
+            <div style=\"display:flex;gap:10px;margin-top:12px;flex-wrap:wrap\">
+              <div style=\"width:84px;height:84px;border-radius:8px;background:linear-gradient(135deg,#0b1a2b,#0a2336);display:flex;align-items:center;justify-content:center\">Foto</div>
+              <div style=\"flex:1\"> <strong>Nama Pengantin</strong><br><span class=\"muted\">Arifa & Maulana</span></div>
+            </div>
+          </div>
+        </div>
+      `;
+      return html;
+    }
+
+    function openPreview(it){
+      previewTitle.textContent = it.title + ' — Preview';
+      previewContent.innerHTML = buildPreviewHtml(it);
+      // populate order summary
+      document.getElementById('orderItemList').innerHTML = `<div style=\"padding:6px 0\">${it.title} <div class=\\"muted\\">${it.type}</div></div>`;
+      document.getElementById('orderSubtotal').textContent = rupiah(it.price);
+      modalBackdrop.style.display = 'flex';
+      // store current item in modal element
+      modal.dataset.current = JSON.stringify(it);
+    }
+
+    document.getElementById('closeModal').addEventListener('click',()=> modalBackdrop.style.display='none');
+    modalBackdrop.addEventListener('click', e=>{ if(e.target===modalBackdrop) modalBackdrop.style.display='none'});
+
+    // order actions inside modal
+    document.getElementById('addToCartFromModal').addEventListener('click', ()=>{
+      const cur = JSON.parse(modal.dataset.current||'null');
+      if(!cur) return alert('Tidak ada item.');
+      cart.push(cur);
+      refreshCartUI();
+      alert('Item ditambahkan ke keranjang');
+    });
+
+    document.getElementById('confirmOrder').addEventListener('click', ()=>{
+      const cur = JSON.parse(modal.dataset.current||'null');
+      const name = document.getElementById('nameInput').value || '-';
+      const date = document.getElementById('dateInput').value || '-';
+      const guests = document.getElementById('guestsInput').value || '0';
+      if(!cur) return alert('Pilih produk dulu.');
+      // simulate order
+      const order = {item:cur, name, date, guests, total:cur.price};
+      // for demo just show invoice
+      previewContent.innerHTML = `<div style=\"padding:18px;color:#dbeffd\"><h3>Invoice Pesanan</h3><pre style=\"background:#001425;padding:12px;border-radius:8px;color:#dbeffd\">${JSON.stringify(order,null,2)}</pre><p class=\\"muted\\">Tim kami akan menghubungi Anda (via WhatsApp) untuk konfirmasi dan pembayaran.</p></div>`;
+      // clear cart and close after 3s
+      cart = [];
+      refreshCartUI();
+    });
+
+    // cart interactions
+    document.getElementById('openCart').addEventListener('click', ()=>{
+      const box = document.getElementById('cartBox'); box.style.display = box.style.display==='block' ? 'none' : 'block';
+    });
+    document.getElementById('clearCart').addEventListener('click', ()=>{ if(confirm('Kosongkan keranjang?')){cart=[];refreshCartUI()} });
+    document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+      if(!cart.length) return alert('Keranjang kosong.');
+      // show quick checkout preview
+      previewTitle.textContent = 'Checkout — Keranjang';
+      document.getElementById('orderItemList').innerHTML = cart.map(it=>`<div style=\"padding:6px 0\">${it.title} <div class=\\"muted\\">${it.type}</div></div>`).join('');
+      document.getElementById('orderSubtotal').textContent = rupiah(cart.reduce((s,it)=>s+Number(it.price),0));
+      modalBackdrop.style.display='flex';
+    });
+
+    // search & filters
+    document.getElementById('q').addEventListener('input', e=>{
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('#catalog .card').forEach(c=>{
+        const t = c.dataset.title.toLowerCase() + ' ' + c.dataset.type + ' ' + c.querySelector('.desc').textContent.toLowerCase();
+        c.style.display = t.includes(q) ? '' : 'none';
+      });
+    });
+    document.getElementById('typeFilter').addEventListener('change', e=>{
+      const v = e.target.value;
+      document.querySelectorAll('#catalog .card').forEach(c=> c.style.display = (v==='all' || c.dataset.type===v) ? '' : 'none');
+    });
+    document.getElementById('sort').addEventListener('change', e=>{
+      const v = e.target.value; const parent = document.getElementById('catalog');
+      const items = Array.from(parent.querySelectorAll('.card'));
+      if(v==='price-asc') items.sort((a,b)=>a.dataset.price-b.dataset.price);
+      if(v==='price-desc') items.sort((a,b)=>b.dataset.price-a.dataset.price);
+      if(v==='popular') items.sort((a,b)=>b.querySelector('.rating').textContent.localeCompare(a.querySelector('.rating').textContent));
+      items.forEach(i=>parent.appendChild(i));
+    });
+
+    // contact form
+    document.getElementById('btnContact').addEventListener('click', ()=> document.getElementById('contactForm').style.display='block');
+    document.getElementById('closeContact').addEventListener('click', ()=> document.getElementById('contactForm').style.display='none');
+    document.getElementById('sendContact').addEventListener('click', ()=>{
+      const name = document.getElementById('cName').value; const phone = document.getElementById('cPhone').value; const note = document.getElementById('cNote').value;
+      if(!name || !phone) return alert('Isi nama dan nomor telepon.');
+      alert('Terima kasih! Pesan Anda telah dikirim. Tim kami akan menghubungi: ' + phone);
+      document.getElementById('contactForm').style.display='none';
+    });
+
+    // init
+    refreshCartUI();
+  </script>
+</body>
+</html>
