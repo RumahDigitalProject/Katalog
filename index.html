@@ -1,21 +1,3 @@
-<!--
-Katalog Undangan (index.html)
-Cara pakai:
-1. Buat repo GitHub baru (mis. `katalog-undangan`).
-2. Upload file ini sebagai `index.html` di root repo.
-3. Di Settings -> Pages, pilih branch `main` / folder `/ (root)` -> Save untuk aktifkan GitHub Pages.
-
-Fitur yang disertakan:
-- Hero + CTA
-- Katalog kartu/tema dengan filter kategori dan pencarian
-- Kartu produk responsif
-- Preview modal (preview web undangan) + tombol pesan (WhatsApp link)
-- Data produk di-embed sebagai array JS (mudah diganti atau tarik dari JSON/CSV)
-- Export sederhana ke JSON (download katalog)
-
-Ganti gambar (placeholder) dan detail produk sesuai kebutuhan.
--->
-
 <!doctype html>
 <html lang="id">
 <head>
@@ -54,7 +36,11 @@ Ganti gambar (placeholder) dan detail produk sesuai kebutuhan.
     select{padding:10px;border-radius:10px;border:1px solid #ddd}
 
     /* Grid */
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr); /* fix jadi 2 kolom */
+  gap:16px;
+}
     .card{background:var(--card);border-radius:12px;padding:12px;border:1px solid #eaeaea;box-shadow:0 6px 18px rgba(20,20,30,0.03);display:flex;flex-direction:column}
     .thumb{height:180px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:12px}
     .meta{display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -78,8 +64,12 @@ Ganti gambar (placeholder) dan detail produk sesuai kebutuhan.
     footer{padding:22px 0;color:var(--muted);font-size:14px}
 
     /* Responsive */
-    @media (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.hero{flex-direction:column}.preview-body{flex-direction:column}.preview-info{width:100%}}
-    @media (max-width:640px){.grid{grid-template-columns:1fr}.brand .brand-title{display:none}.topbar{flex-direction:column;align-items:flex-start}}
+    @media (max-width:640px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
   </style>
 </head>
 <body>
