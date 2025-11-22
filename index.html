@@ -142,14 +142,11 @@
     }
 
     function pesan(btn){
-      let item = btn.closest('.item');
-      let imgSrc = item.querySelector('img').src;
-      document.getElementById("popup-img").src = imgSrc;
-
-      let hargaPopup = document.getElementById("harga");
-      if(item.querySelector('.harga')){
-        hargaPopup.textContent = "Harga: " + item.querySelector('.harga').textContent.replace('Rp','Rp ');
-      }
+      const item = btn.closest('.item');
+      const img = item.querySelector('img').src;
+      document.getElementById('popup-img').src = img;
+      document.getElementById('popup').style.display = 'flex';
+    }
 
       document.getElementById("popup").style.display = 'flex';
     }
