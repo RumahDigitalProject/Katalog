@@ -53,11 +53,27 @@
     }
     button:hover { opacity: 0.9; }
 
-    .popup-bg { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; z-index: 9999999; }
+    .popup-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999999;
+    }
     .popup-box { width: 90%; max-width: 600px; background:white; padding:20px; border-radius:12px; display:flex; gap:20px; }
-    .popup-box img { width:180px; border-radius:10px; }
+    .popup-box img { width:180px; border-radius:10px; object-fit:cover; }
     .form input { width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:1px solid #ccc; }
     .close { margin-top:10px; background:#e74c3c; }
+
+    /* Responsive */
+    @media (max-width:700px){
+      .grid{ grid-template-columns: 1fr; }
+      .popup-box{ flex-direction: column; align-items: center; }
+      .popup-box img{ width:100%; max-width:320px; }
+    }
   </style>
 </head>
 <body>
@@ -66,7 +82,7 @@
   <div class="grid">
     <!-- ITEM BARU DENGAN DESAIN RAPI -->
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und1">
-      <img src="1234.webp">
+      <img src="1234.webp" alt="Undangan 1">
       <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
@@ -75,7 +91,7 @@
     </div>
 
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und2">
-      <img src="https://via.placeholder.com/400x250">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 2">
       <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
@@ -84,7 +100,7 @@
     </div>
 
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und3">
-      <img src="https://via.placeholder.com/400x250">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 3">
       <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
@@ -93,7 +109,7 @@
     </div>
 
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und4">
-      <img src="https://via.placeholder.com/400x250">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 4">
       <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
@@ -102,7 +118,7 @@
     </div>
 
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und5">
-      <img src="https://via.placeholder.com/400x250">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 5">
       <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
@@ -111,7 +127,7 @@
     </div>
 
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und6">
-      <img src="https://via.placeholder.com/400x250">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 6">
       <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
@@ -121,13 +137,13 @@
   </div>
 
   <!-- POPUP -->
-  <div class="popup-bg" id="popup">
-    <div class="popup-box">
-      <img id="popup-img" src="" />
+  <div class="popup-bg" id="popup" aria-hidden="true">
+    <div class="popup-box" role="dialog" aria-modal="true">
+      <img id="popup-img" src="" alt="Preview undangan" />
       <div class="form">
         <input type="date" id="tanggal" placeholder="Tanggal Acara" />
         <input type="text" id="nama" placeholder="Nama Pengantin" />
-        <div id="harga">Harga: Rp 50.000</div>
+        <div id="popup-harga">Harga: Rp 50.000</div>
         <button onclick="kirimWa()">Kirim ke WhatsApp</button>
         <button class="close" onclick="closePopup()">Tutup</button>
       </div>
@@ -136,36 +152,69 @@
 
   <script>
     function preview(btn){
-      let item = btn.closest('.item');
-      let link = item.dataset.preview;
-      window.open(link, "_blank");
+      const item = btn.closest('.item');
+      const link = item.dataset.preview || '#';
+      window.open(link, '_blank');
     }
 
     function pesan(btn){
       const item = btn.closest('.item');
-      const img = item.querySelector('img').src;
-      document.getElementById('popup-img').src = img;
-      document.getElementById('popup').style.display = 'flex';
+      if(!item) return; // safety
+
+      const imgEl = item.querySelector('img');
+      const hargaEl = item.querySelector('.harga');
+
+      const popup = document.getElementById('popup');
+      const popupImg = document.getElementById('popup-img');
+      const popupHarga = document.getElementById('popup-harga');
+
+      // set image
+      popupImg.src = imgEl ? imgEl.src : (item.dataset.img || '');
+      popupImg.alt = imgEl ? imgEl.alt || 'Preview undangan' : 'Preview undangan';
+
+      // set harga jika ada
+      if(hargaEl) {
+        popupHarga.textContent = hargaEl.textContent.trim();
+      } else if(item.dataset.price){
+        popupHarga.textContent = 'Harga: ' + item.dataset.price;
+      }
+
+      // show popup
+      popup.style.display = 'flex';
+      popup.setAttribute('aria-hidden','false');
+
+      // trap focus (basic)
+      const focusable = popup.querySelectorAll('button, input');
+      if(focusable.length) focusable[0].focus();
     }
 
-      document.getElementById("popup").style.display = 'flex';
+    function closePopup(){
+      const popup = document.getElementById('popup');
+      popup.style.display = 'none';
+      popup.setAttribute('aria-hidden','true');
     }
-
-      document.getElementById("popup").style.display = 'flex';
-    }
-
-    function closePopup(){ document.getElementById("popup").style.display = 'none'; }
 
     function kirimWa(){
-      let tgl = document.getElementById("tanggal").value;
-      let nama = document.getElementById("nama").value;
+      const tgl = document.getElementById('tanggal').value;
+      const nama = document.getElementById('nama').value;
 
-      if(!tgl || !nama){ alert("Harap isi semua kolom sebelum mengirim!"); return; }
+      if(!tgl || !nama){ alert('Harap isi semua kolom sebelum mengirim!'); return; }
 
-      let pesan = `Halo, saya ingin pesan undangan. Tanggal: ${tgl}, Nama: ${nama}`;
-      let wa = "https://wa.me/6281234567890?text=" + encodeURIComponent(pesan);
-      window.open(wa, "_blank");
+      const pesan = `Halo, saya ingin pesan undangan. Tanggal: ${tgl}, Nama: ${nama}`;
+      const wa = 'https://wa.me/6281234567890?text=' + encodeURIComponent(pesan);
+      window.open(wa, '_blank');
     }
+
+    // close popup when clicking outside box
+    document.addEventListener('click', function(e){
+      const popup = document.getElementById('popup');
+      if(popup.style.display === 'flex' && e.target === popup){
+        closePopup();
+      }
+    });
+
+    // close on Esc
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePopup(); });
   </script>
 </body>
 </html>
