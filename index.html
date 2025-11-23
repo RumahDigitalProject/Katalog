@@ -73,22 +73,30 @@
     <!-- ITEM BARU DENGAN DESAIN RAPI -->
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und1">
       <img src="1234.webp" alt="Undangan 1">
-      <div class="harga">PANDAWA</div>
-      <div class="harga">Rp 50.000</div>
+      <div class="katalog">PANDAWA</div>
+      <div class="harga">Rp 100.000</div>
       <div class="btn-group">
+        <button onclick="kirimWa('Katalog 01')">Pesan</button>
         <button onclick="preview(this)">Preview</button>
         <button onclick="pesan(this)">Pesan</button>
       </div>
     </div>
 
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und2">
-      <img src="https://via.placeholder.com/400x250" alt="Undangan 2">
-      <div class="harga">Rp 50.000</div>
-      <div class="btn-group">
-        <button onclick="preview(this)">Preview</button>
-        <button onclick="pesan(this)">Pesan</button>
-      </div>
-    </div>
+    <div class="item" 
+     data-name="Katalog Undangan 2"
+     data-img="https://via.placeholder.com/400x250" 
+     data-preview="https://example.com/und2">
+
+  <img src="1234.webp" alt="Undangan 2">
+
+  <div class="harga">Rp 80.000</div>
+
+  <div class="btn-group">
+    <button onclick="preview(this)">Preview</button>
+    <button onclick="pesan(this)">Pesan</button>
+  </div>
+</div>
+
 
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und3">
       <img src="1234.webp" alt="Undangan 3">
@@ -141,75 +149,83 @@
     </div>
   </div>
 
-  <script>
-    function preview(btn){
-      const item = btn.closest('.item');
-      const link = item.dataset.preview || '#';
-      window.open(link, '_blank');
+
+<script>
+  let namaKatalog = '';
+
+  function preview(btn){
+    const item = btn.closest('.item');
+    const link = item.dataset.preview || '#';
+    window.open(link, '_blank');
+  }
+
+  function pesan(btn){
+    const item = btn.closest('.item');
+    if(!item) return;
+
+    // ambil nama katalog dari data-name
+    namaKatalog = item.dataset.name || 'Tidak diketahui';
+
+    const imgEl = item.querySelector('img');
+    const hargaEl = item.querySelector('.harga');
+
+    const popup = document.getElementById('popup');
+    const popupImg = document.getElementById('popup-img');
+    const popupHarga = document.getElementById('popup-harga');
+
+    popupImg.src = imgEl ? imgEl.src : (item.dataset.img || '');
+    popupImg.alt = imgEl ? imgEl.alt || 'Preview undangan' : 'Preview undangan';
+
+    if(hargaEl) {
+      popupHarga.textContent = hargaEl.textContent.trim();
+    } else if(item.dataset.price){
+      popupHarga.textContent = 'Harga: ' + item.dataset.price;
     }
 
-    function pesan(btn){
-      const item = btn.closest('.item');
-      if(!item) return; // safety
+    popup.style.display = 'flex';
+    popup.setAttribute('aria-hidden','false');
 
-      const imgEl = item.querySelector('img');
-      const hargaEl = item.querySelector('.harga');
+    const focusable = popup.querySelectorAll('button, input');
+    if(focusable.length) focusable[0].focus();
+  }
 
-      const popup = document.getElementById('popup');
-      const popupImg = document.getElementById('popup-img');
-      const popupHarga = document.getElementById('popup-harga');
+  function closePopup(){
+    const popup = document.getElementById('popup');
+    popup.style.display = 'none';
+    popup.setAttribute('aria-hidden','true');
+  }
 
-      // set image
-      popupImg.src = imgEl ? imgEl.src : (item.dataset.img || '');
-      popupImg.alt = imgEl ? imgEl.alt || 'Preview undangan' : 'Preview undangan';
+  function kirimWa(){
+    const tgl = document.getElementById('tanggal').value;
+    const nama = document.getElementById('nama').value;
 
-      // set harga jika ada
-      if(hargaEl) {
-        popupHarga.textContent = hargaEl.textContent.trim();
-      } else if(item.dataset.price){
-        popupHarga.textContent = 'Harga: ' + item.dataset.price;
-      }
-
-      // show popup
-      popup.style.display = 'flex';
-      popup.setAttribute('aria-hidden','false');
-
-      // trap focus (basic)
-      const focusable = popup.querySelectorAll('button, input');
-      if(focusable.length) focusable[0].focus();
+    if(!tgl || !nama){
+      alert('Harap isi semua kolom sebelum mengirim!');
+      return;
     }
 
-    function closePopup(){
-      const popup = document.getElementById('popup');
-      popup.style.display = 'none';
-      popup.setAttribute('aria-hidden','true');
-    }
+    const pesan = 
+`Halo, saya ingin pesan undangan.
 
-    function kirimWa(){
-      const tgl = document.getElementById('tanggal').value;
-      const nama = document.getElementById('nama').value;
-
-      if(!tgl || !nama){ alert('Harap isi semua kolom sebelum mengirim!'); return; }
-
-      const pesan = `Halo, saya ingin pesan undangan\n\n` +
-                  `Tanggal: ${tgl}\n\n` +
-                  `Nama: ${nama}`;
+Katalog: ${namaKatalog}
+Tanggal: ${tgl}
+Nama: ${nama}`;
 
     const wa = 'https://wa.me/6285706889273?text=' + encodeURIComponent(pesan);
-
     window.open(wa, '_blank');
-}
+  }
 
-    // close popup when clicking outside box
-    document.addEventListener('click', function(e){
-      const popup = document.getElementById('popup');
-      if(popup.style.display === 'flex' && e.target === popup){
-        closePopup();
-      }
-    });
+  document.addEventListener('click', function(e){
+    const popup = document.getElementById('popup');
+    if(popup.style.display === 'flex' && e.target === popup){
+      closePopup();
+    }
+  });
 
-    // close on Esc
-    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePopup(); });
-  </script>
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closePopup();
+  });
+</script>
+
 </body>
 </html>
