@@ -7,6 +7,35 @@
   <style>
     body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 20px; }
 
+/*===Filter===*/
+.filter-box {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.filter-btn {
+  padding: 12px 22px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.filter-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-3px);
+}
+
+.filter-btn.active {
+  background: #1d6fa5;
+}
+    
     /* ==== FIX TOTAL: PAKSA 2 KOLOM SELAMANYA ==== */
     .grid {
       display: grid;
@@ -76,9 +105,19 @@
 <body>
   <h2 style="text-align:center; margin-bottom:25px;">Katalog Undangan Digital</h2>
 
+  <!--FILTER-->
+  <div class="filter-box">
+  <button class="filter-btn" onclick="filterKategori('premium')">Premium</button>
+  <button class="filter-btn" onclick="filterKategori('sedang')">Sedang</button>
+  <button class="filter-btn" onclick="filterKategori('low')">Low</button>
+  <button onclick="filterKategori('all')" class="btn-kat">Semua</button>
+  </div>
+
+
   <div class="grid">
-    <!-- ITEM BARU DENGAN DESAIN RAPI -->
+  <!-- ITEM BARU DENGAN DESAIN RAPI -->
     <div class="item" 
+     data-kategori="premium"
      data-name="Katalog Undangan JAWA"
      data-price="Rp 50.000"
      data-img="https://via.placeholder.com/400x250" 
@@ -95,6 +134,7 @@
 
 <div class="item" 
      data-name="Katalog Undangan 2"
+     data-kategori="low"
      data-price="Rp 80.000"
      data-img="https://via.placeholder.com/400x250" 
      data-preview="https://example.com/und2">
@@ -165,6 +205,22 @@
 <script>
   let namaKatalog = '';
   let hargaKatalog = '';
+
+  // === FILTER KATEGORI START ===
+  function filterKategori(kat){
+    const items = document.querySelectorAll('.item');
+
+    items.forEach(item => {
+      const kategori = item.dataset.category || '';
+      if(kat === 'all' || kategori === kat){
+        item.style.display = 'block'; 
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+  // === FILTER KATEGORI END ===
+
 
   function preview(btn){
     const item = btn.closest('.item');
@@ -244,6 +300,7 @@ Nama: ${nama}`;
     if(e.key === 'Escape') closePopup();
   });
 </script>
+
 
 </body>
 </html>
