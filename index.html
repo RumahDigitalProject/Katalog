@@ -71,31 +71,34 @@
 
   <div class="grid">
     <!-- ITEM BARU DENGAN DESAIN RAPI -->
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und1">
-      <img src="1234.webp" alt="Undangan 1">
-      <div class="katalog">PANDAWA</div>
-      <div class="harga">Rp 100.000</div>
-      <div class="btn-group">
-        <button onclick="kirimWa('Katalog 01')">Pesan</button>
-        <button onclick="preview(this)">Preview</button>
-        <button onclick="pesan(this)">Pesan</button>
-      </div>
-    </div>
-
     <div class="item" 
-     data-name="Katalog Undangan 2"
+     data-name="Katalog Undangan 1"
+     data-price="Rp 50.000"
      data-img="https://via.placeholder.com/400x250" 
      data-preview="https://example.com/und2">
 
   <img src="1234.webp" alt="Undangan 2">
-
-  <div class="harga">Rp 80.000</div>
-
+  <div class="harga">Rp 50.000</div>
   <div class="btn-group">
     <button onclick="preview(this)">Preview</button>
     <button onclick="pesan(this)">Pesan</button>
   </div>
 </div>
+
+<div class="item" 
+     data-name="Katalog Undangan 2"
+     data-price="Rp 80.000"
+     data-img="https://via.placeholder.com/400x250" 
+     data-preview="https://example.com/und2">
+
+  <img src="1234.webp" alt="Undangan 2">
+  <div class="harga">Rp 80.000</div>
+  <div class="btn-group">
+    <button onclick="preview(this)">Preview</button>
+    <button onclick="pesan(this)">Pesan</button>
+  </div>
+</div>
+
 
 
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und3">
@@ -150,8 +153,10 @@
   </div>
 
 
+
 <script>
   let namaKatalog = '';
+  let hargaKatalog = '';
 
   function preview(btn){
     const item = btn.closest('.item');
@@ -176,10 +181,13 @@
     popupImg.src = imgEl ? imgEl.src : (item.dataset.img || '');
     popupImg.alt = imgEl ? imgEl.alt || 'Preview undangan' : 'Preview undangan';
 
+    // ambil harga untuk dikirim ke WhatsApp
     if(hargaEl) {
-      popupHarga.textContent = hargaEl.textContent.trim();
+      hargaKatalog = hargaEl.textContent.trim();
+      popupHarga.textContent = hargaKatalog;
     } else if(item.dataset.price){
-      popupHarga.textContent = 'Harga: ' + item.dataset.price;
+      hargaKatalog = item.dataset.price;
+      popupHarga.textContent = 'Harga: ' + hargaKatalog;
     }
 
     popup.style.display = 'flex';
@@ -208,6 +216,8 @@
 `Halo, saya ingin pesan undangan.
 
 Katalog: ${namaKatalog}
+Harga: ${hargaKatalog}
+
 Tanggal: ${tgl}
 Nama: ${nama}`;
 
