@@ -9,13 +9,16 @@
 
 /*===Filter===*/
 .filter-box {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 25px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+  gap: 12px;
+  max-width: 350px;       /* biar tidak terlalu lebar */
+  margin: 0 auto 25px;    /* center + jarak bawah */
 }
 
-.filter-btn {
+.filter-btn,
+.btn-kat {
+  width: 100%;             /* tombol memenuhi kolom */
   padding: 12px 22px;
   background: #3498db;
   color: white;
@@ -27,7 +30,8 @@
   transition: 0.2s;
 }
 
-.filter-btn:hover {
+.filter-btn:hover,
+.btn-kat:hover {
   opacity: 0.85;
   transform: translateY(-3px);
 }
@@ -35,6 +39,7 @@
 .filter-btn.active {
   background: #1d6fa5;
 }
+
     
     /* ==== FIX TOTAL: PAKSA 2 KOLOM SELAMANYA ==== */
     .grid {
@@ -150,23 +155,37 @@
 
 
 
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und3">
-      <img src="1234.webp" alt="Undangan 3">
-      <div class="harga">Rp 50.000</div>
-      <div class="btn-group">
-        <button onclick="preview(this)">Preview</button>
-        <button onclick="pesan(this)">Pesan</button>
-      </div>
-    </div>
+    <div class="item" 
+     data-category="premium"
+     data-name="Katalog Undangan MODERN"
+     data-price="Rp 70.000"
+     data-img="https://via.placeholder.com/400x250" 
+     data-preview="https://example.com/und2">
 
-    <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und4">
-      <img src="https://via.placeholder.com/400x250" alt="Undangan 4">
-      <div class="harga">Rp 50.000</div>
-      <div class="btn-group">
-        <button onclick="preview(this)">Preview</button>
-        <button onclick="pesan(this)">Pesan</button>
-      </div>
-    </div>
+  <img src="1234.webp" alt="Undangan 2">
+  <div class="katalog">Modern</div>
+  <div class="harga">Rp 70.000</div>
+  <div class="btn-group">
+    <button onclick="preview(this)">Preview</button>
+    <button onclick="pesan(this)">Pesan</button>
+  </div>
+</div>
+
+    <div class="item" 
+     data-category="premium"
+     data-name="Katalog Undangan ISLAMIC"
+     data-price="Rp 60.000"
+     data-img="https://via.placeholder.com/400x250" 
+     data-preview="https://example.com/und2">
+
+  <img src="1234.webp" alt="Undangan 2">
+  <div class="katalog">Islamic</div>
+  <div class="harga">Rp 60.000</div>
+  <div class="btn-group">
+    <button onclick="preview(this)">Preview</button>
+    <button onclick="pesan(this)">Pesan</button>
+  </div>
+</div>
 
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und5">
       <img src="1234.webp" alt="Undangan 5">
