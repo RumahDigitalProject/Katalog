@@ -190,8 +190,10 @@
 
       if(!tgl || !nama){ alert('Harap isi semua kolom sebelum mengirim!'); return; }
 
-      const pesan = `Halo, saya ingin pesan undangan. Tanggal: ${tgl}, Nama: ${nama}`;
-      const wa = 'https://wa.me/6281234567890?text=' + encodeURIComponent(pesan);
+      const pesan = `Halo, saya ingin pesan undangan \n\n` +
+        'Tanggal: ${tgl} \n\n` +
+        'Nama: ${nama}`;
+      const wa = 'https://6285706889273=' + encodeURIComponent(pesan);
       window.open(wa, '_blank');
     }
 
