@@ -6,38 +6,38 @@
   <title>Katalog Undangan Digital</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 20px; }
+
+    /* ==== FIX TOTAL: PAKSA 2 KOLOM SELAMANYA ==== */
     .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      display: flex;
+      flex-wrap: wrap;
       width: 100%;
       max-width: 100vw;
       margin: auto;
       padding: 0 5px;
+      gap: 10px;
     }
 
-    /* Perbaikan tampilan item katalog */
     .item {
+      width: 50%; /* INI YANG MEMAKSA 2 KOLOM DI HP */
+      box-sizing: border-box;
+      padding-bottom: 10px;
       background: white;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 3px 8px rgba(0,0,0,0.1);
       text-align: center;
-      padding-bottom: 10px; /* sedikit saja agar tidak melebar */
-      transition: 0.2s;
     }
-    .item:hover { transform: translateY(-4px); }
 
     .item img {
       width: 100%;
-      height: 130px; /* sedang: cukup kecil agar muat 2 kolom, tapi tetap jelas */
+      height: 130px; /* sedang */
       object-fit: cover;
       display: block;
     }
 
-    /* Harga di bawah foto */
     .harga {
-      font-size: 14px; /* sedang */
+      font-size: 14px;
       font-weight: bold;
       margin-top: 8px;
       color: #27ae60;
@@ -51,37 +51,20 @@
     }
 
     button {
-      padding: 6px 10px; /* lebih kecil agar muat 2 kolom */
+      padding: 6px 10px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       background: #3498db;
       color: white;
-      font-size: 12px; /* ukuran sedang */
+      font-size: 12px;
     }
-    button:hover { opacity: 0.9; }
 
-    .popup-bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999999;
-    }
+    .popup-bg { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; z-index: 9999999; }
     .popup-box { width: 90%; max-width: 600px; background:white; padding:20px; border-radius:12px; display:flex; gap:20px; }
-    .popup-box img { width:180px; border-radius:10px; object-fit:cover; }
+    .popup-box img { width:180px; border-radius:10px; }
     .form input { width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:1px solid #ccc; }
     .close { margin-top:10px; background:#e74c3c; }
-
-    /* Responsive */
-    @media (max-width:700px){
-      .grid{ grid-template-columns: 1fr; }
-      .popup-box{ flex-direction: column; align-items: center; }
-      .popup-box img{ width:100%; max-width:320px; }
-    }
   </style>
 </head>
 <body>
@@ -90,7 +73,7 @@
   <div class="grid">
     <!-- ITEM BARU DENGAN DESAIN RAPI -->
     <div class="item" data-img="https://via.placeholder.com/400x250" data-preview="https://example.com/und1">
-      <img src="1234.webp" alt="Undangan 1">
+      <img src="https://via.placeholder.com/400x250" alt="Undangan 1">
       <div class="harga">Rp 50.000</div>
       <div class="btn-group">
         <button onclick="preview(this)">Preview</button>
