@@ -3,275 +3,355 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Katalog Undangan Digital Modern</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+  <title>Katalog Undangan Eksklusif</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
   <style>
+    /* === VARIABEL WARNA PREMIUM === */
     :root {
-      --primary: #3498db;
-      --secondary: #f3a302;
-      --success: #27ae60;
-      --bg: #f4f7f6;
-      --text: #333;
+      --gold: #D4AF37;
+      --gold-hover: #b5952f;
+      --dark: #2C3E50;
+      --light-bg: #FAFAFA;
+      --white: #FFFFFF;
+      --text-gray: #666666;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     }
 
-    body { 
-      font-family: 'Poppins', sans-serif; 
-      background: var(--bg); 
-      color: var(--text);
-      margin: 0;
-      padding: 20px; 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark);
+      padding-bottom: 50px;
     }
 
-    h2 {
-      font-weight: 600;
-      margin-bottom: 30px;
-      color: #2c3e50;
+    /* === HERO SECTION (HEADER KEREN) === */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: linear-gradient(135deg, var(--white) 0%, #f0f4f8 100%);
+      border-bottom: 1px solid #eaeaea;
+      margin-bottom: 40px;
     }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .hero p { color: var(--text-gray); font-size: 16px; max-width: 500px; margin: 0 auto; }
 
-    /*=== Filter Styling ===*/
-    .filter-box {
+    /* === NAVIGASI FILTER === */
+    .filter-container {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
-      margin-bottom: 30px;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      padding: 0 20px;
     }
-
-    .filter-btn, .btn-kat {
-      padding: 10px 20px;
-      background: white;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      border-radius: 50px;
-      font-size: 14px;
+    .filter-btn {
+      padding: 10px 25px;
+      border: 2px solid #eaeaea;
+      background: var(--white);
+      color: var(--text-gray);
+      border-radius: 30px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
       cursor: pointer;
-      font-weight: 600;
       transition: all 0.3s ease;
     }
-
     .filter-btn:hover, .filter-btn.active {
-      background: var(--primary);
-      color: white;
+      background: var(--dark);
+      color: var(--gold);
+      border-color: var(--dark);
+      box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
     }
 
-    /* ==== Grid Layout ==== */
-    .grid {
+    /* === GRID SISTEM CERDAS (OTOMATIS RESPONSIP) === */
+    .katalog-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Tetap 2 kolom di HP */
-      gap: 15px;
-      max-width: 1000px;
+      /* INI RAHASIANYA: Otomatis menyesuaikan ukuran layar dari HP ke Laptop */
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 0 20px;
     }
 
-    /* Desktop View: Jadi 3 atau 4 kolom */
-    @media (min-width: 768px) {
-      .grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    /* ==== Card Item ==== */
-    .item {
-      background: white;
-      border-radius: 15px;
+    /* === KARTU PRODUK (TAMPILAN ELEGAN) === */
+    .card {
+      background: var(--white);
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease;
+      box-shadow: var(--shadow);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
-
-    .item:hover {
-      transform: translateY(-5px);
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
     }
-
-    .img-container {
+    .card-img {
       width: 100%;
-      aspect-ratio: 4/3; /* Memastikan semua gambar punya ukuran sama */
-      overflow: hidden;
-      background: #eee;
-    }
-
-    .item img {
-      width: 100%;
-      height: 100%;
+      aspect-ratio: 4/3;
       object-fit: cover;
+      border-bottom: 3px solid var(--gold);
     }
-
-    .card-content {
-      padding: 15px;
-      text-align: center;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .katalog {
-      font-family: 'Great Vibes', cursive;
+    .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; text-align: center;}
+    
+    .card-title {
+      font-family: 'Playfair Display', serif;
       font-size: 22px;
-      color: var(--secondary);
+      font-weight: 700;
       margin-bottom: 5px;
     }
+    .card-category { font-size: 12px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600;}
+    .card-price { font-size: 18px; font-weight: 600; color: var(--dark); margin-bottom: 20px; }
 
-    .harga {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--success);
-      margin-bottom: 15px;
+    /* === TOMBOL KARTU === */
+    .btn-group { display: flex; gap: 10px; margin-top: auto; }
+    .btn {
+      flex: 1; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer;
+      border: none; transition: 0.3s; font-family: 'Poppins', sans-serif; font-size: 14px;
     }
+    .btn-outline { background: transparent; border: 2px solid var(--dark); color: var(--dark); }
+    .btn-outline:hover { background: #f8f9fa; }
+    .btn-fill { background: var(--dark); color: var(--gold); }
+    .btn-fill:hover { background: #1a252f; }
 
-    /* ==== Buttons ==== */
-    .btn-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+    /* === MODAL POPUP CANGGIH (GLASSMORPHISM) === */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px); /* Efek blur ala Apple */
+      display: none; justify-content: center; align-items: center;
+      z-index: 1000; padding: 20px; opacity: 0; transition: opacity 0.3s ease;
     }
-
-    .btn-group button {
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      transition: opacity 0.2s;
-    }
-
-    .btn-preview { background: #ebf5fb; color: var(--primary); }
-    .btn-pesan { background: var(--primary); color: white; }
-    .btn-group button:hover { opacity: 0.8; }
-
-    /* POPUP MODAL */
-    .popup-bg { 
-      position: fixed; top:0; left:0; width:100%; height:100%; 
-      background: rgba(0,0,0,0.7); 
-      display:none; justify-content:center; align-items:center; 
-      z-index: 1000; padding: 20px;
-    }
-    .popup-box { 
-      width: 100%; max-width: 500px; 
-      background:white; padding:25px; border-radius:20px; 
-      display:block; text-align: center;
-    }
-    .popup-box img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 15px;}
-    .form input { width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:1px solid #ddd; box-sizing: border-box;}
+    .modal-overlay.show { display: flex; opacity: 1; }
     
-    .btn-wa { width: 100%; background: #25d366; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px;}
-    .close { color: #888; cursor: pointer; font-size: 14px; text-decoration: underline; }
+    .modal-content {
+      background: var(--white); width: 100%; max-width: 450px;
+      border-radius: 20px; overflow: hidden; position: relative;
+      transform: translateY(20px); transition: transform 0.3s ease;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+    .modal-overlay.show .modal-content { transform: translateY(0); }
+    
+    .modal-header { background: var(--dark); color: var(--gold); padding: 20px; text-align: center;}
+    .modal-header h3 { font-family: 'Playfair Display', serif; font-size: 24px; }
+    .modal-close { position: absolute; top: 15px; right: 20px; color: var(--gold); font-size: 28px; cursor: pointer; background:none; border:none;}
+    
+    .modal-body { padding: 25px; }
+    .form-group { margin-bottom: 15px; text-align: left; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--text-gray); }
+    .form-control {
+      width: 100%; padding: 12px 15px; border: 1px solid #ddd;
+      border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;
+      background: #fdfdfd; transition: border 0.3s;
+    }
+    .form-control:focus { outline: none; border-color: var(--gold); background: var(--white); }
+    
+    .btn-checkout {
+      width: 100%; background: #25D366; color: white; padding: 15px;
+      border: none; border-radius: 10px; font-size: 16px; font-weight: 600;
+      cursor: pointer; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px;
+    }
+    .btn-checkout:hover { background: #1ebe57; }
+
   </style>
 </head>
 <body>
 
-  <h2 style="text-align:center;">Pilih Desain Undanganmu</h2>
+  <header class="hero">
+    <h1>Koleksi Undangan Digital</h1>
+    <p>Pilih desain eksklusif untuk momen paling berharga dalam hidupmu. Elegan, modern, dan mudah dipesan.</p>
+  </header>
 
-  <div class="filter-box">
-    <button class="filter-btn" onclick="filterKategori('all')">Semua</button>
-    <button class="filter-btn" onclick="filterKategori('premium')">Premium</button>
-    <button class="filter-btn" onclick="filterKategori('sedang')">Sedang</button>
-    <button class="filter-btn" onclick="filterKategori('low')">Minimalis</button>
+  <div class="filter-container">
+    <button class="filter-btn active" onclick="filterData('all', this)">Semua Desain</button>
+    <button class="filter-btn" onclick="filterData('luxury', this)">Luxury</button>
+    <button class="filter-btn" onclick="filterData('minimalist', this)">Minimalis</button>
+    <button class="filter-btn" onclick="filterData('floral', this)">Floral & Adat</button>
   </div>
 
-  <div class="grid">
-    <div class="item" data-category="premium" data-name="Undangan JAWA" data-price="Rp 50.000" data-preview="#">
-      <div class="img-container">
-        <img src="https://via.placeholder.com/400x300" alt="Jawa">
-      </div>
-      <div class="card-content">
-        <div>
-          <div class="katalog">Jawa Series</div>
-          <div class="harga">Rp 50.000</div>
-        </div>
-        <div class="btn-group">
-          <button class="btn-preview" onclick="preview(this)">Preview</button>
-          <button class="btn-pesan" onclick="pesan(this)">Pesan</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="item" data-category="low" data-name="Undangan Modern" data-price="Rp 80.000" data-preview="#">
-      <div class="img-container">
-        <img src="https://via.placeholder.com/400x300" alt="Modern">
-      </div>
-      <div class="card-content">
-        <div>
-          <div class="katalog">Modern Minimalis</div>
-          <div class="harga">Rp 80.000</div>
-        </div>
-        <div class="btn-group">
-          <button class="btn-preview" onclick="preview(this)">Preview</button>
-          <button class="btn-pesan" onclick="pesan(this)">Pesan</button>
-        </div>
-      </div>
-    </div>
+  <main class="katalog-grid">
     
-    </div>
+    <article class="card" data-category="luxury">
+      <img src="https://images.unsplash.com/photo-1544079873-1996160352eb?w=500&q=80" alt="Royal Gold" class="card-img">
+      <div class="card-body">
+        <span class="card-category">Luxury Series</span>
+        <h2 class="card-title">Royal Gold</h2>
+        <p class="card-price">Rp 150.000</p>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="window.open('#', '_blank')">Live Demo</button>
+          <button class="btn btn-fill" onclick="bukaPesan('Royal Gold', 'Rp 150.000')">Pesan Sekarang</button>
+        </div>
+      </div>
+    </article>
 
-  <div class="popup-bg" id="popup">
-    <div class="popup-box">
-      <img id="popup-img" src="" alt="Preview" />
-      <h3 id="popup-title" style="margin-top:0">Form Pemesanan</h3>
-      <div class="form">
-        <input type="date" id="tanggal" />
-        <input type="text" id="nama" placeholder="Nama Panggilan Pengantin" />
-        <p id="popup-harga" style="font-weight: bold; color: var(--success);"></p>
-        <button class="btn-wa" onclick="kirimWa()">Pesan via WhatsApp</button>
-        <div class="close" onclick="closePopup()">Kembali</div>
+    <article class="card" data-category="minimalist">
+      <img src="https://images.unsplash.com/photo-1596450096531-15b597cfaed2?w=500&q=80" alt="White Elegance" class="card-img">
+      <div class="card-body">
+        <span class="card-category">Minimalist Series</span>
+        <h2 class="card-title">White Elegance</h2>
+        <p class="card-price">Rp 90.000</p>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="window.open('#', '_blank')">Live Demo</button>
+          <button class="btn btn-fill" onclick="bukaPesan('White Elegance', 'Rp 90.000')">Pesan Sekarang</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-category="floral">
+      <img src="https://images.unsplash.com/photo-1505934333218-8efabde60081?w=500&q=80" alt="Javanese Heritage" class="card-img">
+      <div class="card-body">
+        <span class="card-category">Floral & Adat</span>
+        <h2 class="card-title">Javanese Heritage</h2>
+        <p class="card-price">Rp 120.000</p>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="window.open('#', '_blank')">Live Demo</button>
+          <button class="btn btn-fill" onclick="bukaPesan('Javanese Heritage', 'Rp 120.000')">Pesan Sekarang</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-category="minimalist">
+      <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=500&q=80" alt="Modern Monokrom" class="card-img">
+      <div class="card-body">
+        <span class="card-category">Minimalist Series</span>
+        <h2 class="card-title">Modern Monokrom</h2>
+        <p class="card-price">Rp 85.000</p>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="window.open('#', '_blank')">Live Demo</button>
+          <button class="btn btn-fill" onclick="bukaPesan('Modern Monokrom', 'Rp 85.000')">Pesan Sekarang</button>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <div class="modal-overlay" id="modalPesan">
+    <div class="modal-content">
+      <button class="modal-close" onclick="tutupPesan()">&times;</button>
+      <div class="modal-header">
+        <h3 id="namaProdukModal">Nama Produk</h3>
+        <p id="hargaProdukModal" style="font-size: 16px; margin-top: 5px;">Rp 0</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nama Pengantin / Pemesan</label>
+          <input type="text" id="inputNama" class="form-control" placeholder="Contoh: Romeo & Juliet" required>
+        </div>
+        <div class="form-group">
+          <label>Nomor WhatsApp Anda</label>
+          <input type="tel" id="inputWA" class="form-control" placeholder="Contoh: 08123456789" required>
+        </div>
+        <div class="form-group">
+          <label>Tanggal Acara Pernikahan</label>
+          <input type="date" id="inputTanggal" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Pilih Metode Pembayaran</label>
+          <select id="inputBayar" class="form-control">
+            <option value="Transfer BCA">Transfer Bank BCA</option>
+            <option value="Transfer BRI">Transfer Bank BRI</option>
+            <option value="ShopeePay / Dana">E-Wallet (ShopeePay/Dana)</option>
+          </select>
+        </div>
+        
+        <button class="btn-checkout" onclick="prosesPesanan()">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+          </svg>
+          Kirim Pesanan ke WhatsApp
+        </button>
       </div>
     </div>
   </div>
 
-<script>
-  let namaKatalog = '';
-  let hargaKatalog = '';
+  <script>
+    // 1. FITUR FILTER CERDAS
+    function filterData(kategori, elemenTombol) {
+      // Ubah gaya tombol yang aktif
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      elemenTombol.classList.add('active');
 
-  function filterKategori(kat){
-    const items = document.querySelectorAll('.item');
-    items.forEach(item => {
-      const kategori = item.dataset.category || '';
-      item.style.display = (kat === 'all' || kategori === kat) ? 'flex' : 'none';
-    });
-    
-    // Ubah status aktif tombol
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.classList.remove('active');
-      if(btn.textContent.toLowerCase() === kat || (kat === 'all' && btn.textContent === 'Semua')) {
-        btn.classList.add('active');
-      }
-    });
-  }
-
-  function preview(btn){
-    const item = btn.closest('.item');
-    window.open(item.dataset.preview, '_blank');
-  }
-
-  function pesan(btn){
-    const item = btn.closest('.item');
-    namaKatalog = item.dataset.name;
-    hargaKatalog = item.dataset.price;
-
-    document.getElementById('popup-img').src = item.querySelector('img').src;
-    document.getElementById('popup-harga').textContent = "Harga: " + hargaKatalog;
-    document.getElementById('popup-title').textContent = namaKatalog;
-    document.getElementById('popup').style.display = 'flex';
-  }
-
-  function closePopup(){
-    document.getElementById('popup').style.display = 'none';
-  }
-
-  function kirimWa(){
-    const tgl = document.getElementById('tanggal').value;
-    const nama = document.getElementById('nama').value;
-
-    if(!tgl || !nama){
-      alert('Harap isi Nama dan Tanggal!');
-      return;
+      // Filter kartu produk
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        if (kategori === 'all' || card.dataset.category === kategori) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
 
-    const teks = `Halo Admin, saya ingin pesan undangan:\n\n*Produk:* ${namaKatalog}\n*Harga:* ${hargaKatalog}\n*Nama:* ${nama}\n*Tanggal:* ${tgl}`;
-    const url = `https://wa.me/6285706889273?text=${encodeURIComponent(teks)}`;
-    window.open(url, '_blank');
-  }
-</script>
+    // 2. FITUR POPUP PEMESANAN
+    let produkPilihan = '';
+    let hargaPilihan = '';
+
+    function bukaPesan(nama, harga) {
+      produkPilihan = nama;
+      hargaPilihan = harga;
+      
+      document.getElementById('namaProdukModal').innerText = nama;
+      document.getElementById('hargaProdukModal').innerText = harga;
+      
+      const modal = document.getElementById('modalPesan');
+      modal.classList.add('show');
+    }
+
+    function tutupPesan() {
+      const modal = document.getElementById('modalPesan');
+      modal.classList.remove('show');
+    }
+
+    // 3. FITUR KIRIM DATA SUPER LENGKAP KE WHATSAPP
+    function prosesPesanan() {
+      const nama = document.getElementById('inputNama').value;
+      const wa = document.getElementById('inputWA').value;
+      const tgl = document.getElementById('inputTanggal').value;
+      const bayar = document.getElementById('inputBayar').value;
+
+      // Validasi sederhana jika form kosong
+      if(!nama || !wa || !tgl) {
+        alert("Mohon lengkapi Nama, Nomor WA, dan Tanggal Acara ya!");
+        return;
+      }
+
+      // Format Pesan WhatsApp yang Rapih dan Profesional
+      const teksPesan = 
+`*Pusat Pemesanan Undangan Digital* 💍✨
+Halo Admin, saya ingin melakukan pemesanan dengan detail berikut:
+
+🛍️ *DETAIL PRODUK*
+• Desain: ${produkPilihan}
+• Harga: ${hargaPilihan}
+
+📋 *DATA PEMESAN*
+• Nama: ${nama}
+• No. WA: ${wa}
+• Tgl Acara: ${tgl}
+
+💳 *METODE PEMBAYARAN*
+• Pilihan: ${bayar}
+
+Mohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. Terima kasih! 🙏`;
+
+      // Ganti dengan nomor WhatsApp kamu (pastikan pakai kode 62)
+      const nomorAdmin = "6285706889273"; 
+      const linkWhatsApp = `https://wa.me/${nomorAdmin}?text=${encodeURIComponent(teksPesan)}`;
+      
+      window.open(linkWhatsApp, '_blank');
+      tutupPesan(); // Tutup popup setelah diklik
+    }
+  </script>
 </body>
 </html>
