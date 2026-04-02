@@ -7,13 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   
   <style>
-    /* === VARIABEL WARNA (ELEGAN, TIDAK BIKIN MATA SAKIT) === */
+    /* === VARIABEL WARNA (ELEGAN & NYAMAN DI MATA) === */
     :root {
-      --bg-main: #f8fafc; /* Abu-abu sangat terang / putih salju */
+      --bg-main: #f8fafc;
       --card-bg: #ffffff;
-      --navy: #0f172a;    /* Biru gelap elegan */
+      --navy: #0f172a;
       --navy-light: #1e293b;
-      --gold: #D4AF37;    /* Emas mewah */
+      --gold: #D4AF37;
       --text-dark: #334155;
       --text-muted: #64748b;
       --radius: 16px;
@@ -27,7 +27,6 @@
        TAMPILAN PEMBELI (BUYER VIEW)
        ========================================= */
     #buyerView { padding-bottom: 100px; }
-
     .hero { background: var(--navy); color: white; text-align: center; padding: 60px 20px 40px; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: 34px; color: var(--gold); margin-bottom: 10px; }
     .hero p { color: #cbd5e1; font-size: 15px; max-width: 500px; margin: 0 auto; }
@@ -114,12 +113,12 @@
     th, td { padding: 12px; border-bottom: 1px solid #e2e8f0; text-align: left; }
     th { background: #f8fafc; color: var(--text-muted); }
     .badge-status { padding: 4px 10px; border-radius: 50px; font-size: 12px; font-weight: bold; }
-    .status-1 { background: #fee2e2; color: #ef4444; } /* Baru */
-    .status-2 { background: #fef3c7; color: #d97706; } /* Proses */
-    .status-3 { background: #dcfce3; color: #10b981; } /* Selesai */
+    .status-1 { background: #fee2e2; color: #ef4444; }
+    .status-2 { background: #fef3c7; color: #d97706; }
+    .status-3 { background: #dcfce3; color: #10b981; }
 
-    /* TRIGGER RAHASIA */
     .footer-secret { text-align: center; padding: 30px; font-size: 12px; color: #cbd5e1; cursor: pointer; user-select: none; }
+    .loading-text { text-align: center; padding: 50px; font-size: 16px; color: var(--navy); font-weight: bold; width: 100%;}
   </style>
 </head>
 <body>
@@ -136,8 +135,9 @@
     </div>
 
     <div class="category-scroll" id="catContainer"></div>
-
-    <div class="catalog-grid" id="katalogGrid"></div>
+    <div class="catalog-grid" id="katalogGrid">
+      <div class="loading-text">Tunggu sebentar ya, sedang memuat katalog dari server...</div>
+    </div>
 
     <div class="footer-secret" id="triggerAdmin">© 2026 Rumah Digital Project (Klik 3x untuk Admin)</div>
 
@@ -210,7 +210,6 @@
     </div>
   </div>
 
-
   <div id="adminView">
     <div class="admin-header">
       <h1>Panel Admin - Rumah Digital</h1>
@@ -225,7 +224,6 @@
       </div>
 
       <div class="admin-content">
-        
         <div id="adm-dash">
           <h2 style="margin-bottom: 20px; color:var(--navy);">Ringkasan Bisnis</h2>
           <div class="dash-cards">
@@ -239,22 +237,14 @@
           <h2 style="margin-bottom: 20px; color:var(--navy);">Rekapitulasi Orderan Masuk</h2>
           <table>
             <thead>
-              <tr>
-                <th>No Pesanan</th>
-                <th>Pemesan</th>
-                <th>Produk</th>
-                <th>Status Pengerjaan</th>
-                <th>Link Undangan Jadi</th>
-              </tr>
+              <tr><th>No Pesanan</th><th>Pemesan</th><th>Produk</th><th>Status Pengerjaan</th><th>Link Undangan Jadi</th></tr>
             </thead>
-            <tbody id="tablePesananBody">
-              </tbody>
+            <tbody id="tablePesananBody"></tbody>
           </table>
         </div>
 
         <div id="adm-katalog" style="display:none;">
           <h2 style="margin-bottom: 20px; color:var(--navy);">Kelola Data Katalog</h2>
-          
           <div style="background:#f8fafc; padding:15px; border-radius:12px; margin-bottom:20px; border:1px solid #cbd5e1;">
             <h4 style="margin-bottom:10px;">Tambah Undangan Baru</h4>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -264,63 +254,77 @@
               <input type="number" id="addHargaDiskon" class="form-control" placeholder="Harga Diskon" style="width:130px;" oninput="hitungPersenDiskon()">
             </div>
             <div style="display:flex; gap:10px; margin-top:10px;">
-              <input type="text" id="addDemo" class="form-control" placeholder="Link Preview (Contoh: https://undangan.com/demo1)" style="flex:1;">
-              <button class="btn-action" style="margin-top:0; width:150px; border-radius:8px;" onclick="tambahKatalog()">+ Simpan</button>
+              <input type="text" id="addDemo" class="form-control" placeholder="Link Preview (https://...)" style="flex:1;">
+              <button class="btn-action" style="margin-top:0; width:150px; border-radius:8px;" onclick="tambahKatalogServer()">+ Simpan</button>
             </div>
             <p style="font-size:12px; color:var(--text-muted); margin-top:10px;">Otomatis Diskon: <strong id="lblDiskon" style="color:#ef4444;">0%</strong></p>
           </div>
-
           <table>
-            <thead><tr><th>Nama Desain</th><th>Kategori</th><th>Harga Jual</th><th>Aksi</th></tr></thead>
+            <thead><tr><th>Nama Desain</th><th>Harga Jual</th><th>Aksi</th></tr></thead>
             <tbody id="tableKatalogBody"></tbody>
           </table>
         </div>
-
       </div>
     </div>
   </div>
 
   <script>
     // ==========================================
-    // 1. DATABASE LOKAL (PENGGANTI GOOGLE SHEET SEMENTARA)
+    // URL WEB APP GOOGLE SCRIPT MILIKMU
     // ==========================================
-    let dataKategori = [{id:'all', nama:'Semua'}, {id:'luxury', nama:'Luxury'}, {id:'minimalist', nama:'Minimalist'}];
-    
-    // Tarik data dari LocalStorage, jika kosong pakai data default ini
-    let dataKatalog = JSON.parse(localStorage.getItem('db_katalog')) || [
-      { id: 'K1', kat: 'luxury', nama: 'Royal Gold', hargaAsli: 200000, hargaDiskon: 150000, img: 'https://images.unsplash.com/photo-1544079873-1996160352eb?w=400', linkDemo: '#' },
-      { id: 'K2', kat: 'minimalist', nama: 'White Peach', hargaAsli: 150000, hargaDiskon: 85000, img: 'https://images.unsplash.com/photo-1596450096531-15b597cfaed2?w=400', linkDemo: '#' }
-    ];
-    
-    let dataPesanan = JSON.parse(localStorage.getItem('db_pesanan')) || [];
+    const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbxpMeUWvYWNe-u8lx63AsdCr8Ol-y23jt0TRCKUdTWKtnr-i_JM69E3pFUWNMhXjy6trA/exec"; 
+
+    // Variabel Penampung Data
+    let dataKategori = [];
+    let dataKatalog = [];
+    let dataPesanan = [];
     let myResi = localStorage.getItem('my_resi') || '';
 
-    // ==========================================
-    // INISIALISASI SAAT WEB DIMUAT
-    // ==========================================
-    window.onload = () => {
-      renderKategori();
-      renderKatalog('all');
-      if(myResi !== '') document.getElementById('btnProgress').style.display = 'flex';
-      refreshDataAdmin();
+    // INISIALISASI (Tarik data dari Google Sheet)
+    window.onload = async () => {
+      try {
+        const respon = await fetch(GOOGLE_APP_URL);
+        const hasil = await respon.json();
+        
+        dataKategori = hasil.kategori || [];
+        dataKatalog = hasil.katalog || [];
+        dataPesanan = hasil.pesanan || [];
+
+        renderKategori();
+        renderKatalog('all');
+        if(myResi !== '') document.getElementById('btnProgress').style.display = 'flex';
+      } catch(e) {
+        document.getElementById('katalogGrid').innerHTML = '<div class="loading-text">Gagal memuat data dari Google Sheets. Pastikan Sheet "Kategori" dan "Katalog" sudah diisi dan struktur baris pertamanya benar.</div>';
+      }
     }
 
-    function simpanData() {
-      localStorage.setItem('db_katalog', JSON.stringify(dataKatalog));
-      localStorage.setItem('db_pesanan', JSON.stringify(dataPesanan));
-      refreshDataAdmin();
+    // ==========================================
+    // FUNGSI KOMUNIKASI KE GOOGLE SHEETS (BACKGROUND)
+    // ==========================================
+    function postToGoogle(action, dataObj) {
+      fetch(GOOGLE_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: action, data: dataObj, id: dataObj.id, status: dataObj.status, linkSelesai: dataObj.linkSelesai })
+      }).catch(err => console.log("Gagal sync ke server", err));
     }
 
+
     // ==========================================
-    // 2. LOGIKA PEMBELI (BUYER AREA)
+    // TAMPILAN PEMBELI
     // ==========================================
     function renderKategori() {
-      let html = '';
-      dataKategori.forEach((k, i) => {
-        let act = i === 0 ? 'active' : '';
-        html += `<button class="tab-btn ${act}" onclick="filterKat('${k.id}', this)">${k.nama}</button>`;
+      let html = '<button class="tab-btn active" onclick="filterKat(\'all\', this)">Semua Desain</button>';
+      dataKategori.forEach(k => {
+        if(k.ID && k.Nama) {
+          html += `<button class="tab-btn" onclick="filterKat('${k.ID}', this)">${k.Nama}</button>`;
+        }
       });
       document.getElementById('catContainer').innerHTML = html;
+      
+      // Isi select box admin otomatis
+      let optAdmin = '';
+      dataKategori.forEach(k => { if(k.ID && k.Nama) { optAdmin += `<option value="${k.ID}">${k.Nama}</option>`; } });
+      document.getElementById('addKat').innerHTML = optAdmin;
     }
 
     function filterKat(kat, btn) {
@@ -332,28 +336,29 @@
     function renderKatalog(kat) {
       const grid = document.getElementById('katalogGrid');
       grid.innerHTML = '';
-      let saring = kat === 'all' ? dataKatalog : dataKatalog.filter(k => k.kat === kat);
+      let saring = kat === 'all' ? dataKatalog : dataKatalog.filter(k => k.Kat === kat);
       
+      if(saring.length === 0) {
+        grid.innerHTML = '<div class="loading-text" style="color:#64748b;">Belum ada katalog. Silakan tambah data di Admin Panel atau Google Sheets.</div>';
+        return;
+      }
+
       saring.forEach(item => {
-        let persen = Math.round(((item.hargaAsli - item.hargaDiskon) / item.hargaAsli) * 100);
+        if(!item.ID) return; // Skip baris kosong
+        let persen = Math.round(((item.HargaAsli - item.HargaDiskon) / item.HargaAsli) * 100);
         let badge = persen > 0 ? `<div class="badge-discount">${persen}% OFF</div>` : '';
-        
-        let fAsli = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0}).format(item.hargaAsli);
-        let fDiskon = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0}).format(item.hargaDiskon);
+        let fAsli = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0}).format(item.HargaAsli);
+        let fDiskon = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0}).format(item.HargaDiskon);
 
         grid.innerHTML += `
           <div class="card">
             ${badge}
-            <div class="card-img-wrapper"><img src="${item.img}" alt="${item.nama}"></div>
+            <div class="card-img-wrapper"><img src="${item.Img}" alt="${item.Nama}"></div>
             <div class="card-body">
-              <div>
-                <h3 class="card-title">${item.nama}</h3>
-                <div class="price-coret">${fAsli}</div>
-                <div class="price-final">${fDiskon}</div>
-              </div>
+              <div><h3 class="card-title">${item.Nama}</h3><div class="price-coret">${fAsli}</div><div class="price-final">${fDiskon}</div></div>
               <div class="btn-group">
-                <button class="btn-demo" onclick="window.open('${item.linkDemo}', '_blank')">Preview</button>
-                <button class="btn-order" onclick="siapPesan('${item.id}', '${item.nama}', ${item.hargaDiskon})">Pesan</button>
+                <button class="btn-demo" onclick="window.open('${item.LinkDemo}', '_blank')">Preview</button>
+                <button class="btn-order" onclick="siapPesan('${item.ID}', '${item.Nama}', ${item.HargaDiskon})">Pesan</button>
               </div>
             </div>
           </div>
@@ -371,7 +376,7 @@
 
     function tutup(id) { document.getElementById(id).style.display = 'none'; }
 
-    // === FORMAT PESAN WA & ORDER ID ===
+    // FITUR ORDER (SIMPAN LOKAL & KIRIM GOOGLE SHEET & BUKA WA)
     function kirimPesananWA() {
       const nama = document.getElementById('mNama').value;
       const tgl = document.getElementById('mTanggal').value;
@@ -379,101 +384,70 @@
 
       if(!nama || !tgl) return alert("Harap isi Nama dan Tanggal!");
 
-      // Bikin ID: Huruf + 5 Angka + Huruf (Contoh: A98683B)
       const abjad = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       const orderID = abjad[Math.floor(Math.random()*26)] + Math.floor(10000+Math.random()*90000) + abjad[Math.floor(Math.random()*26)];
 
-      // Simpan pesanan ke database
-      dataPesanan.push({
-        id: orderID, nama: nama, produk: tmpPesan.nama, 
-        harga: tmpPesan.harga, status: 1, linkSelesai: ''
-      });
-      simpanData();
-
-      // Simpan resi di memori HP pembeli
+      const dataBaru = { id: orderID, nama: nama, produk: tmpPesan.nama, harga: tmpPesan.harga, tanggal: tgl, metode: bayar, status: 1, linkSelesai: '' };
+      
+      // Update UI langsung
+      dataPesanan.push({ ID: orderID, Nama: nama, Produk: tmpPesan.nama, Harga: tmpPesan.harga, Tanggal: tgl, Metode: bayar, Status: 1, LinkSelesai: '' });
       localStorage.setItem('my_resi', orderID);
       myResi = orderID;
       document.getElementById('btnProgress').style.display = 'flex';
 
-      // Format Chat WA (Persis Sesuai Permintaan)
-      const teksWA = 
-`*RUMAH DIGITAL PROJECT✨*
+      // Kirim Background ke Server Google
+      postToGoogle('add_order', dataBaru);
 
-Halo Admin, saya ingin melakukan pemesanan dengan detail berikut:
-
-No pesanan *${orderID}*
-
-🛍️ *DETAIL PRODUK*
-• Desain: ${tmpPesan.nama}
-• Harga: Rp ${tmpPesan.harga.toLocaleString('id-ID')}
-
-📋 *DATA PEMESAN*
-• Nama: ${nama}
-• Tgl Acara: ${tgl}
-
-💳 *METODE PEMBAYARAN*
-• Pilihan: ${bayar}
-
-Mohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. Terima kasih! 🙏`;
-
+      const teksWA = `*RUMAH DIGITAL PROJECT✨*\n\nHalo Admin, saya ingin melakukan pemesanan dengan detail berikut:\n\nNo pesanan *${orderID}*\n\n🛍️ *DETAIL PRODUK*\n• Desain: ${tmpPesan.nama}\n• Harga: Rp ${tmpPesan.harga.toLocaleString('id-ID')}\n\n📋 *DATA PEMESAN*\n• Nama: ${nama}\n• Tgl Acara: ${tgl}\n\n💳 *METODE PEMBAYARAN*\n• Pilihan: ${bayar}\n\nMohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. Terima kasih! 🙏`;
       window.open(`https://wa.me/6285706889273?text=${encodeURIComponent(teksWA)}`, '_blank');
       tutup('modalPesan');
     }
 
-    // === LOGIKA TIMELINE PROGRES ===
+    // FITUR TIMELINE PROGRES
     function cekResiManual() {
       const input = document.getElementById('inputTrack').value.trim();
-      const cari = dataPesanan.find(o => o.id === input);
+      const cari = dataPesanan.find(o => o.ID === input || o.id === input);
       if(cari) {
         localStorage.setItem('my_resi', input);
         myResi = input;
         bukaModalProgress();
-      } else { alert("Nomor pesanan tidak ditemukan."); }
+      } else { alert("Nomor pesanan tidak ditemukan di database."); }
     }
 
     function bukaModalProgress() {
-      if(!myResi) return alert("Belum ada pesanan yang tersimpan di HP ini.");
-      const data = dataPesanan.find(o => o.id === myResi);
+      if(!myResi) return alert("Belum ada pesanan.");
+      const data = dataPesanan.find(o => o.ID === myResi || o.id === myResi);
       if(!data) return;
 
-      document.getElementById('pResi').innerText = data.id;
-      document.getElementById('pNama').innerText = data.nama;
-      document.getElementById('pProduk').innerText = data.produk;
+      document.getElementById('pResi').innerText = data.ID || data.id;
+      document.getElementById('pNama').innerText = data.Nama || data.nama;
+      document.getElementById('pProduk').innerText = data.Produk || data.produk;
 
-      // Update warna Timeline (1:Masuk, 2:Proses, 3:Selesai)
-      document.getElementById('tl-1').className = data.status >= 1 ? 'timeline-item active' : 'timeline-item';
-      document.getElementById('tl-2').className = data.status >= 2 ? 'timeline-item active' : 'timeline-item';
-      document.getElementById('tl-3').className = data.status >= 3 ? 'timeline-item active' : 'timeline-item';
+      let st = parseInt(data.Status || data.status);
+      document.getElementById('tl-1').className = st >= 1 ? 'timeline-item active' : 'timeline-item';
+      document.getElementById('tl-2').className = st >= 2 ? 'timeline-item active' : 'timeline-item';
+      document.getElementById('tl-3').className = st >= 3 ? 'timeline-item active' : 'timeline-item';
 
-      // Tampilkan Tombol Link kalau Selesai
       const areaLink = document.getElementById('areaLinkSelesai');
-      if(data.status == 3 && data.linkSelesai !== '') {
+      let linkSelesai = data.LinkSelesai || data.linkSelesai;
+      if(st == 3 && linkSelesai) {
         areaLink.style.display = 'block';
-        document.getElementById('btnLihatUndangan').onclick = () => window.open(data.linkSelesai, '_blank');
-      } else {
-        areaLink.style.display = 'none';
-      }
+        document.getElementById('btnLihatUndangan').onclick = () => window.open(linkSelesai, '_blank');
+      } else { areaLink.style.display = 'none'; }
 
       document.getElementById('modalProgress').style.display = 'flex';
     }
 
-
     // ==========================================
-    // 3. LOGIKA HALAMAN ADMIN (FULL DASHBOARD)
+    // HALAMAN ADMIN & CRUD GOOGLE SHEETS
     // ==========================================
-    
-    // Trigger Rahasia 3x Klik
     let klikCount = 0;
     document.getElementById('triggerAdmin').addEventListener('click', () => {
       klikCount++;
-      if(klikCount >= 3) {
-        klikCount = 0;
-        switchView('admin');
-      }
+      if(klikCount >= 3) { klikCount = 0; switchView('admin'); }
       setTimeout(() => klikCount = 0, 2000);
     });
 
-    // Pindah Tampilan Pembeli <-> Admin
     function switchView(view) {
       if(view === 'admin') {
         document.getElementById('buyerView').style.display = 'none';
@@ -482,7 +456,7 @@ Mohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. T
       } else {
         document.getElementById('adminView').style.display = 'none';
         document.getElementById('buyerView').style.display = 'block';
-        renderKatalog('all'); // Refresh tampilan depan
+        renderKatalog('all');
       }
     }
 
@@ -495,98 +469,102 @@ Mohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. T
     }
 
     function refreshDataAdmin() {
-      // 1. Update Dashboard
-      let totalUang = 0;
-      let orderProses = 0;
+      let totalUang = 0, orderProses = 0;
       dataPesanan.forEach(p => { 
-        totalUang += parseInt(p.harga); 
-        if(p.status == 2) orderProses++;
+        if(!p.ID && !p.id) return;
+        totalUang += parseInt(p.Harga || p.harga || 0); 
+        if((p.Status || p.status) == 2) orderProses++;
       });
       document.getElementById('admOmzet').innerText = "Rp " + totalUang.toLocaleString('id-ID');
       document.getElementById('admTotalOrder').innerText = dataPesanan.length;
       document.getElementById('admOrderProses').innerText = orderProses;
 
-      // 2. Render Tabel Pesanan
       let tbPesan = '';
-      [...dataPesanan].reverse().forEach((p, indexList) => {
-        let indexAsli = dataPesanan.findIndex(x => x.id === p.id);
+      [...dataPesanan].reverse().forEach((p) => {
+        let idAsli = p.ID || p.id;
+        if(!idAsli) return;
+        let indexArray = dataPesanan.findIndex(x => (x.ID || x.id) === idAsli);
+        let st = p.Status || p.status;
+        let ls = p.LinkSelesai || p.linkSelesai || '';
         
-        let statusBadge = p.status == 1 ? '<span class="badge-status status-1">1. Masuk</span>' : 
-                          p.status == 2 ? '<span class="badge-status status-2">2. Proses</span>' : 
-                                          '<span class="badge-status status-3">3. Selesai</span>';
+        let statusBadge = st == 1 ? '<span class="badge-status status-1">1. Masuk</span>' : 
+                          st == 2 ? '<span class="badge-status status-2">2. Proses</span>' : '<span class="badge-status status-3">3. Selesai</span>';
 
         tbPesan += `<tr>
-          <td><strong>${p.id}</strong></td>
-          <td>${p.nama}</td>
-          <td>${p.produk}</td>
+          <td><strong>${idAsli}</strong></td>
+          <td>${p.Nama || p.nama}</td>
+          <td>${p.Produk || p.produk}</td>
           <td>
             <div style="display:flex; flex-direction:column; gap:5px;">
               ${statusBadge}
-              <select onchange="updateStatusPesan(${indexAsli}, this.value)" style="padding:4px; font-size:12px; border-radius:4px;">
-                <option value="1" ${p.status==1?'selected':''}>Set: Masuk</option>
-                <option value="2" ${p.status==2?'selected':''}>Set: Proses</option>
-                <option value="3" ${p.status==3?'selected':''}>Set: Selesai</option>
+              <select onchange="updateStatusServer(${indexArray}, this.value)" style="padding:4px; font-size:12px;">
+                <option value="1" ${st==1?'selected':''}>Set: Masuk</option>
+                <option value="2" ${st==2?'selected':''}>Set: Proses</option>
+                <option value="3" ${st==3?'selected':''}>Set: Selesai</option>
               </select>
             </div>
           </td>
-          <td>
-            <input type="text" placeholder="Tempel link URL jadi" value="${p.linkSelesai}" onchange="updateLinkPesan(${indexAsli}, this.value)" style="padding:6px; width:100%; border:1px solid #cbd5e1; border-radius:4px;">
-          </td>
+          <td><input type="text" placeholder="Tempel link URL jadi" value="${ls}" onchange="updateLinkServer(${indexArray}, this.value)" style="padding:6px; width:100%;"></td>
         </tr>`;
       });
       document.getElementById('tablePesananBody').innerHTML = tbPesan;
 
-      // 3. Render Tabel Katalog
       let tbKat = '';
       dataKatalog.forEach((k, i) => {
+        if(!k.ID) return;
         tbKat += `<tr>
-          <td><strong>${k.nama}</strong></td>
-          <td>${k.kat}</td>
-          <td>Rp ${k.hargaDiskon.toLocaleString('id-ID')}</td>
-          <td><button onclick="hapusKatalog(${i})" style="color:#ef4444; border:none; background:transparent; cursor:pointer; font-weight:bold;">Hapus</button></td>
+          <td><strong>${k.Nama}</strong></td>
+          <td>Rp ${(k.HargaDiskon).toLocaleString('id-ID')}</td>
+          <td><button onclick="hapusKatalogServer(${i}, '${k.ID}')" style="color:#ef4444; border:none; background:transparent; font-weight:bold; cursor:pointer;">Hapus</button></td>
         </tr>`;
       });
       document.getElementById('tableKatalogBody').innerHTML = tbKat;
     }
 
-    // Aksi Admin Pesanan
-    function updateStatusPesan(idx, val) { dataPesanan[idx].status = parseInt(val); simpanData(); alert("Status diupdate!"); }
-    function updateLinkPesan(idx, val) { dataPesanan[idx].linkSelesai = val; simpanData(); alert("Link undangan disimpan!"); }
+    // UPDATE DATA KE GOOGLE SHEET
+    function updateStatusServer(idx, val) { 
+      dataPesanan[idx].Status = val; dataPesanan[idx].status = val;
+      postToGoogle('update_order', { id: dataPesanan[idx].ID || dataPesanan[idx].id, status: val, linkSelesai: dataPesanan[idx].LinkSelesai || dataPesanan[idx].linkSelesai });
+      alert("Status dikirim ke server!"); refreshDataAdmin();
+    }
+    
+    function updateLinkServer(idx, val) { 
+      dataPesanan[idx].LinkSelesai = val; dataPesanan[idx].linkSelesai = val;
+      postToGoogle('update_order', { id: dataPesanan[idx].ID || dataPesanan[idx].id, status: dataPesanan[idx].Status || dataPesanan[idx].status, linkSelesai: val });
+      alert("Link disimpan di server!"); refreshDataAdmin();
+    }
 
-    // Aksi Admin Katalog
     function hitungPersenDiskon() {
       const hA = document.getElementById('addHargaAsli').value;
       const hD = document.getElementById('addHargaDiskon').value;
-      if(hA && hD) {
-        document.getElementById('lblDiskon').innerText = Math.round(((hA - hD) / hA) * 100) + "%";
-      }
+      if(hA && hD) document.getElementById('lblDiskon').innerText = Math.round(((hA - hD) / hA) * 100) + "%";
     }
-    
-    function tambahKatalog() {
+
+    function tambahKatalogServer() {
       const kat = document.getElementById('addKat').value;
       const nama = document.getElementById('addNama').value;
       const hAsli = parseInt(document.getElementById('addHargaAsli').value);
       const hDiskon = parseInt(document.getElementById('addHargaDiskon').value);
       const demo = document.getElementById('addDemo').value || '#';
 
-      if(!nama || !hAsli || !hDiskon) return alert("Lengkapi data undangan!");
+      if(!nama || !hAsli || !hDiskon) return alert("Lengkapi data!");
 
-      dataKatalog.push({
-        id: 'K'+Date.now(), kat: kat, nama: nama, hargaAsli: hAsli, hargaDiskon: hDiskon,
-        img: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400', linkDemo: demo
-      });
+      let idBaru = 'K'+Date.now();
+      let item = { id: idBaru, kat: kat, nama: nama, hargaAsli: hAsli, hargaDiskon: hDiskon, img: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400', linkDemo: demo };
       
-      // Bersihkan form
-      document.getElementById('addNama').value = '';
-      document.getElementById('addHargaAsli').value = '';
-      document.getElementById('addHargaDiskon').value = '';
+      dataKatalog.push({ ID: idBaru, Kat: kat, Nama: nama, HargaAsli: hAsli, HargaDiskon: hDiskon, Img: item.img, LinkDemo: demo });
+      postToGoogle('add_katalog', item);
       
-      simpanData();
-      alert("Katalog berhasil ditambahkan!");
+      document.getElementById('addNama').value = ''; document.getElementById('addHargaAsli').value = ''; document.getElementById('addHargaDiskon').value = '';
+      alert("Sedang mengunggah ke Server..."); refreshDataAdmin();
     }
 
-    function hapusKatalog(idx) {
-      if(confirm("Yakin hapus desain ini?")) { dataKatalog.splice(idx, 1); simpanData(); }
+    function hapusKatalogServer(idx, idKat) {
+      if(confirm("Yakin hapus dari server?")) { 
+        dataKatalog.splice(idx, 1); 
+        postToGoogle('del_katalog', { id: idKat });
+        refreshDataAdmin(); 
+      }
     }
   </script>
 </body>
