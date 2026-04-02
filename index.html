@@ -1,357 +1,385 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Katalog Undangan Eksklusif</title>
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Undangan Premium</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   <style>
-    /* === VARIABEL WARNA PREMIUM === */
+    /* === VARIABEL WARNA ELEGAN (ROSE GOLD & DARK) === */
     :root {
-      --gold: #D4AF37;
-      --gold-hover: #b5952f;
-      --dark: #2C3E50;
-      --light-bg: #FAFAFA;
-      --white: #FFFFFF;
-      --text-gray: #666666;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --primary: #C8A97E; /* Warna Mocca / Rose Gold */
+      --primary-dark: #A6875E;
+      --dark: #2c2c2c;
+      --gray: #6b6b6b;
+      --bg-color: #FAFAFC;
+      --white: #ffffff;
+      --radius: 12px;
+      --shadow: 0 8px 20px rgba(0,0,0,0.06);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: var(--light-bg);
+      background-color: var(--bg-color);
       color: var(--dark);
-      padding-bottom: 50px;
+      padding-bottom: 60px;
     }
 
-    /* === HERO SECTION (HEADER KEREN) === */
+    /* === 1. HERO SECTION (BAGIAN ATAS) === */
     .hero {
       text-align: center;
-      padding: 60px 20px 40px;
-      background: linear-gradient(135deg, var(--white) 0%, #f0f4f8 100%);
-      border-bottom: 1px solid #eaeaea;
-      margin-bottom: 40px;
+      padding: 60px 20px;
+      background: linear-gradient(to bottom, #ffffff, var(--bg-color));
     }
     .hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 36px;
+      font-size: 32px;
       color: var(--dark);
       margin-bottom: 10px;
     }
-    .hero p { color: var(--text-gray); font-size: 16px; max-width: 500px; margin: 0 auto; }
+    .hero p {
+      font-size: 15px;
+      color: var(--gray);
+      max-width: 500px;
+      margin: 0 auto 25px;
+      line-height: 1.6;
+    }
+    .btn-hero {
+      background-color: var(--dark);
+      color: var(--primary);
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    .btn-hero:hover { background-color: var(--primary-dark); color: var(--white); }
 
-    /* === NAVIGASI FILTER === */
-    .filter-container {
+    /* === 2. FITUR KEUNGGULAN (SEPERTI DI WEB REFERENSI) === */
+    .features {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-      padding: 0 20px;
+      padding: 0 20px 40px;
+      max-width: 900px;
+      margin: 0 auto;
     }
-    .filter-btn {
-      padding: 10px 25px;
-      border: 2px solid #eaeaea;
+    .feature-item {
       background: var(--white);
-      color: var(--text-gray);
-      border-radius: 30px;
-      font-family: 'Poppins', sans-serif;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-size: 13px;
       font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--dark);
-      color: var(--gold);
-      border-color: var(--dark);
-      box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+      color: var(--dark);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      border: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    /* === GRID SISTEM CERDAS (OTOMATIS RESPONSIP) === */
-    .katalog-grid {
+    /* === 3. TAB KATEGORI BISA SCROLL DI HP === */
+    .category-wrapper {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      padding: 0 20px;
+    }
+    .category-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      /* Menyembunyikan scrollbar tapi tetap bisa di-scroll */
+      -ms-overflow-style: none;  
+      scrollbar-width: none;  
+    }
+    .category-scroll::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      white-space: nowrap;
+      padding: 10px 25px;
+      background: var(--white);
+      border: 1px solid #e0e0e0;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      color: var(--gray);
+      transition: all 0.3s ease;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(200, 169, 126, 0.4);
+    }
+
+    /* === 4. GRID KATALOG CERDAS === */
+    .catalog-grid {
       display: grid;
-      /* INI RAHASIANYA: Otomatis menyesuaikan ukuran layar dari HP ke Laptop */
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
+      /* Auto menyesuaikan: Minimal lebar 160px (bisa 2 kolom di HP kecil), maks fleksibel */
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 20px;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
     }
+    @media (min-width: 768px) {
+      .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px;}
+    }
 
-    /* === KARTU PRODUK (TAMPILAN ELEGAN) === */
     .card {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      border: 1px solid #f2f2f2;
       display: flex;
       flex-direction: column;
-      position: relative;
+      animation: fadeIn 0.5s ease;
     }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    }
-    .card-img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      border-bottom: 3px solid var(--gold);
-    }
-    .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; text-align: center;}
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card-img-wrapper { position: relative; width: 100%; padding-top: 130%; /* Rasio portrait ala undangan */ overflow: hidden; background: #eee;}
+    .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;}
+    .card:hover .card-img-wrapper img { transform: scale(1.05); }
+
+    .card-body { padding: 15px; text-align: center; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;}
+    .card-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; color: var(--dark);}
+    .card-price { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 15px;}
     
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-    .card-category { font-size: 12px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600;}
-    .card-price { font-size: 18px; font-weight: 600; color: var(--dark); margin-bottom: 20px; }
+    .card-actions { display: flex; flex-direction: column; gap: 8px;}
+    .btn-sm { padding: 8px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: 'Poppins'; transition: 0.2s;}
+    .btn-demo { background: #f5f5f5; color: var(--dark); border: 1px solid #e0e0e0;}
+    .btn-demo:hover { background: #e0e0e0; }
+    .btn-order { background: var(--dark); color: var(--white); }
+    .btn-order:hover { background: var(--primary); }
 
-    /* === TOMBOL KARTU === */
-    .btn-group { display: flex; gap: 10px; margin-top: auto; }
-    .btn {
-      flex: 1; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer;
-      border: none; transition: 0.3s; font-family: 'Poppins', sans-serif; font-size: 14px;
-    }
-    .btn-outline { background: transparent; border: 2px solid var(--dark); color: var(--dark); }
-    .btn-outline:hover { background: #f8f9fa; }
-    .btn-fill { background: var(--dark); color: var(--gold); }
-    .btn-fill:hover { background: #1a252f; }
-
-    /* === MODAL POPUP CANGGIH (GLASSMORPHISM) === */
+    /* === 5. MODAL FORM PEMESANAN CANGGIH === */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px); /* Efek blur ala Apple */
-      display: none; justify-content: center; align-items: center;
-      z-index: 1000; padding: 20px; opacity: 0; transition: opacity 0.3s ease;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px;
     }
-    .modal-overlay.show { display: flex; opacity: 1; }
-    
-    .modal-content {
-      background: var(--white); width: 100%; max-width: 450px;
-      border-radius: 20px; overflow: hidden; position: relative;
-      transform: translateY(20px); transition: transform 0.3s ease;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    .modal-box {
+      background: var(--white); width: 100%; max-width: 400px;
+      border-radius: var(--radius); padding: 25px; position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
-    .modal-overlay.show .modal-content { transform: translateY(0); }
+    .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: var(--gray); }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 5px; color: var(--dark);}
+    .modal-price { color: var(--primary); font-weight: 600; margin-bottom: 20px; font-size: 14px;}
     
-    .modal-header { background: var(--dark); color: var(--gold); padding: 20px; text-align: center;}
-    .modal-header h3 { font-family: 'Playfair Display', serif; font-size: 24px; }
-    .modal-close { position: absolute; top: 15px; right: 20px; color: var(--gold); font-size: 28px; cursor: pointer; background:none; border:none;}
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 12px; color: var(--gray); margin-bottom: 5px; }
+    .form-control { width: 100%; padding: 10px 15px; border: 1px solid #e0e0e0; border-radius: 8px; font-family: 'Poppins'; font-size: 13px;}
+    .form-control:focus { outline: none; border-color: var(--primary); }
     
-    .modal-body { padding: 25px; }
-    .form-group { margin-bottom: 15px; text-align: left; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--text-gray); }
-    .form-control {
-      width: 100%; padding: 12px 15px; border: 1px solid #ddd;
-      border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;
-      background: #fdfdfd; transition: border 0.3s;
+    .btn-wa {
+      width: 100%; padding: 12px; background: #25D366; color: white; border: none; border-radius: 8px;
+      font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px;
     }
-    .form-control:focus { outline: none; border-color: var(--gold); background: var(--white); }
-    
-    .btn-checkout {
-      width: 100%; background: #25D366; color: white; padding: 15px;
-      border: none; border-radius: 10px; font-size: 16px; font-weight: 600;
-      cursor: pointer; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px;
-    }
-    .btn-checkout:hover { background: #1ebe57; }
-
   </style>
 </head>
 <body>
 
-  <header class="hero">
-    <h1>Koleksi Undangan Digital</h1>
-    <p>Pilih desain eksklusif untuk momen paling berharga dalam hidupmu. Elegan, modern, dan mudah dipesan.</p>
-  </header>
+  <section class="hero">
+    <h1>Katalog Undangan Digital</h1>
+    <p>Berbagi momen spesial dengan Mudah, Murah, dan Cepat. Dipercaya oleh ribuan pasangan.</p>
+    <a href="#katalog" class="btn-hero">Lihat Katalog Kami</a>
+  </section>
 
-  <div class="filter-container">
-    <button class="filter-btn active" onclick="filterData('all', this)">Semua Desain</button>
-    <button class="filter-btn" onclick="filterData('luxury', this)">Luxury</button>
-    <button class="filter-btn" onclick="filterData('minimalist', this)">Minimalis</button>
-    <button class="filter-btn" onclick="filterData('floral', this)">Floral & Adat</button>
-  </div>
+  <section class="features">
+    <div class="feature-item">⏱️ Pengerjaan 24 Jam</div>
+    <div class="feature-item">♾️ Revisi Sepuasnya</div>
+    <div class="feature-item">👥 Tamu Tak Terbatas</div>
+    <div class="feature-item">🎵 Bebas Request Musik</div>
+  </section>
 
-  <main class="katalog-grid">
+  <section id="katalog" class="category-wrapper">
+    <div class="category-scroll">
+      <button class="tab-btn active" onclick="filterKatalog('all', this)">Semua Desain</button>
+      <button class="tab-btn" onclick="filterKatalog('spesial-foto', this)">Spesial (Pakai Foto)</button>
+      <button class="tab-btn" onclick="filterKatalog('spesial-tanpa-foto', this)">Spesial (Tanpa Foto)</button>
+      <button class="tab-btn" onclick="filterKatalog('minimalis', this)">Minimalist Luxury</button>
+      <button class="tab-btn" onclick="filterKatalog('premium-motion', this)">Premium Motion</button>
+    </div>
+  </section>
+
+  <main class="catalog-grid" id="gridKatalog">
     
-    <article class="card" data-category="luxury">
-      <img src="https://images.unsplash.com/photo-1544079873-1996160352eb?w=500&q=80" alt="Royal Gold" class="card-img">
+    <div class="card" data-category="spesial-foto">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&q=80" alt="Spesial Foto 01">
+      </div>
       <div class="card-body">
-        <span class="card-category">Luxury Series</span>
-        <h2 class="card-title">Royal Gold</h2>
-        <p class="card-price">Rp 150.000</p>
-        <div class="btn-group">
-          <button class="btn btn-outline" onclick="window.open('#', '_blank')">Live Demo</button>
-          <button class="btn btn-fill" onclick="bukaPesan('Royal Gold', 'Rp 150.000')">Pesan Sekarang</button>
+        <div>
+          <h3 class="card-title">SPESIAL FOTO 01</h3>
+          <p class="card-price">Rp 85.000</p>
+        </div>
+        <div class="card-actions">
+          <button class="btn-sm btn-demo" onclick="window.open('https://contoh-link-demo.com', '_blank')">Lihat Contoh</button>
+          <button class="btn-sm btn-order" onclick="bukaModal('SPESIAL FOTO 01', 'Rp 85.000')">Pesan Sekarang</button>
         </div>
       </div>
-    </article>
+    </div>
 
-    <article class="card" data-category="minimalist">
-      <img src="https://images.unsplash.com/photo-1596450096531-15b597cfaed2?w=500&q=80" alt="White Elegance" class="card-img">
+    <div class="card" data-category="spesial-tanpa-foto">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1544079873-1996160352eb?w=400&q=80" alt="Spesial Tanpa Foto 01">
+      </div>
       <div class="card-body">
-        <span class="card-category">Minimalist Series</span>
-        <h2 class="card-title">White Elegance</h2>
-        <p class="card-price">Rp 90.000</p>
-        <div class="btn-group">
-          <button class="btn btn-outline" onclick="window.open('#', '_blank')">Live Demo</button>
-          <button class="btn btn-fill" onclick="bukaPesan('White Elegance', 'Rp 90.000')">Pesan Sekarang</button>
+        <div>
+          <h3 class="card-title">SPESIAL TANPA FOTO 01</h3>
+          <p class="card-price">Rp 65.000</p>
+        </div>
+        <div class="card-actions">
+          <button class="btn-sm btn-demo" onclick="window.open('https://contoh-link-demo.com', '_blank')">Lihat Contoh</button>
+          <button class="btn-sm btn-order" onclick="bukaModal('SPESIAL TANPA FOTO 01', 'Rp 65.000')">Pesan Sekarang</button>
         </div>
       </div>
-    </article>
+    </div>
 
-    <article class="card" data-category="floral">
-      <img src="https://images.unsplash.com/photo-1505934333218-8efabde60081?w=500&q=80" alt="Javanese Heritage" class="card-img">
+    <div class="card" data-category="minimalis">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1596450096531-15b597cfaed2?w=400&q=80" alt="Minimalis 01">
+      </div>
       <div class="card-body">
-        <span class="card-category">Floral & Adat</span>
-        <h2 class="card-title">Javanese Heritage</h2>
-        <p class="card-price">Rp 120.000</p>
-        <div class="btn-group">
-          <button class="btn btn-outline" onclick="window.open('#', '_blank')">Live Demo</button>
-          <button class="btn btn-fill" onclick="bukaPesan('Javanese Heritage', 'Rp 120.000')">Pesan Sekarang</button>
+        <div>
+          <h3 class="card-title">MINIMALIST LUXURY 01</h3>
+          <p class="card-price">Rp 90.000</p>
+        </div>
+        <div class="card-actions">
+          <button class="btn-sm btn-demo" onclick="window.open('https://contoh-link-demo.com', '_blank')">Lihat Contoh</button>
+          <button class="btn-sm btn-order" onclick="bukaModal('MINIMALIST LUXURY 01', 'Rp 90.000')">Pesan Sekarang</button>
         </div>
       </div>
-    </article>
+    </div>
 
-    <article class="card" data-category="minimalist">
-      <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=500&q=80" alt="Modern Monokrom" class="card-img">
+    <div class="card" data-category="premium-motion">
+      <div class="card-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=400&q=80" alt="Motion 01">
+      </div>
       <div class="card-body">
-        <span class="card-category">Minimalist Series</span>
-        <h2 class="card-title">Modern Monokrom</h2>
-        <p class="card-price">Rp 85.000</p>
-        <div class="btn-group">
-          <button class="btn btn-outline" onclick="window.open('#', '_blank')">Live Demo</button>
-          <button class="btn btn-fill" onclick="bukaPesan('Modern Monokrom', 'Rp 85.000')">Pesan Sekarang</button>
+        <div>
+          <h3 class="card-title">PREMIUM MOTION 01</h3>
+          <p class="card-price">Rp 150.000</p>
+        </div>
+        <div class="card-actions">
+          <button class="btn-sm btn-demo" onclick="window.open('https://contoh-link-demo.com', '_blank')">Lihat Contoh</button>
+          <button class="btn-sm btn-order" onclick="bukaModal('PREMIUM MOTION 01', 'Rp 150.000')">Pesan Sekarang</button>
         </div>
       </div>
-    </article>
-
+    </div>
+    
   </main>
 
   <div class="modal-overlay" id="modalPesan">
-    <div class="modal-content">
-      <button class="modal-close" onclick="tutupPesan()">&times;</button>
-      <div class="modal-header">
-        <h3 id="namaProdukModal">Nama Produk</h3>
-        <p id="hargaProdukModal" style="font-size: 16px; margin-top: 5px;">Rp 0</p>
+    <div class="modal-box">
+      <div class="modal-close" onclick="tutupModal()">×</div>
+      <h3 class="modal-title" id="mJudul">Nama Produk</h3>
+      <p class="modal-price" id="mHarga">Rp 0</p>
+      
+      <div class="form-group">
+        <label>Nama Kedua Mempelai</label>
+        <input type="text" id="mNama" class="form-control" placeholder="Cth: Dilan & Milea">
       </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Nama Pengantin / Pemesan</label>
-          <input type="text" id="inputNama" class="form-control" placeholder="Contoh: Romeo & Juliet" required>
-        </div>
-        <div class="form-group">
-          <label>Nomor WhatsApp Anda</label>
-          <input type="tel" id="inputWA" class="form-control" placeholder="Contoh: 08123456789" required>
-        </div>
-        <div class="form-group">
-          <label>Tanggal Acara Pernikahan</label>
-          <input type="date" id="inputTanggal" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label>Pilih Metode Pembayaran</label>
-          <select id="inputBayar" class="form-control">
-            <option value="Transfer BCA">Transfer Bank BCA</option>
-            <option value="Transfer BRI">Transfer Bank BRI</option>
-            <option value="ShopeePay / Dana">E-Wallet (ShopeePay/Dana)</option>
-          </select>
-        </div>
-        
-        <button class="btn-checkout" onclick="prosesPesanan()">
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-          </svg>
-          Kirim Pesanan ke WhatsApp
-        </button>
+      <div class="form-group">
+        <label>Nomor WhatsApp</label>
+        <input type="number" id="mWA" class="form-control" placeholder="Cth: 08123456789">
       </div>
+      <div class="form-group">
+        <label>Pilih Metode Pembayaran</label>
+        <select id="mBayar" class="form-control">
+          <option value="BCA">Transfer BCA</option>
+          <option value="BRI">Transfer BRI</option>
+          <option value="Mandiri">Transfer Mandiri</option>
+          <option value="E-Wallet">DANA / ShopeePay</option>
+        </select>
+      </div>
+
+      <button class="btn-wa" onclick="kirimPesanan()">
+        <svg width="18" height="18" fill="white" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+        Pesan Sekarang via WA
+      </button>
     </div>
   </div>
 
   <script>
-    // 1. FITUR FILTER CERDAS
-    function filterData(kategori, elemenTombol) {
-      // Ubah gaya tombol yang aktif
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      elemenTombol.classList.add('active');
+    // FUNGSI 1: Filter Kategori dengan Animasi Halus
+    function filterKatalog(kategori, elemen) {
+      // Mengatur tombol mana yang aktif
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      elemen.classList.add('active');
 
-      // Filter kartu produk
       const cards = document.querySelectorAll('.card');
       cards.forEach(card => {
+        // Hilangkan dulu dari layar
+        card.style.display = 'none'; 
+        
+        // Cek apakah kategorinya cocok
         if (kategori === 'all' || card.dataset.category === kategori) {
+          // Jika cocok, tampilkan dengan animasi
           card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
+          card.style.animation = 'none'; // reset animasi
+          card.offsetHeight; /* trigger reflow biar animasi tereset */
+          card.style.animation = 'fadeIn 0.5s ease';
         }
       });
     }
 
-    // 2. FITUR POPUP PEMESANAN
+    // FUNGSI 2: Modal Pemesanan
     let produkPilihan = '';
     let hargaPilihan = '';
 
-    function bukaPesan(nama, harga) {
+    function bukaModal(nama, harga) {
       produkPilihan = nama;
       hargaPilihan = harga;
-      
-      document.getElementById('namaProdukModal').innerText = nama;
-      document.getElementById('hargaProdukModal').innerText = harga;
-      
-      const modal = document.getElementById('modalPesan');
-      modal.classList.add('show');
+      document.getElementById('mJudul').innerText = nama;
+      document.getElementById('mHarga').innerText = harga;
+      document.getElementById('modalPesan').style.display = 'flex';
     }
 
-    function tutupPesan() {
-      const modal = document.getElementById('modalPesan');
-      modal.classList.remove('show');
+    function tutupModal() {
+      document.getElementById('modalPesan').style.display = 'none';
     }
 
-    // 3. FITUR KIRIM DATA SUPER LENGKAP KE WHATSAPP
-    function prosesPesanan() {
-      const nama = document.getElementById('inputNama').value;
-      const wa = document.getElementById('inputWA').value;
-      const tgl = document.getElementById('inputTanggal').value;
-      const bayar = document.getElementById('inputBayar').value;
+    // FUNGSI 3: Kirim Data ke WhatsApp
+    function kirimPesanan() {
+      const nama = document.getElementById('mNama').value;
+      const wa = document.getElementById('mWA').value;
+      const bayar = document.getElementById('mBayar').value;
 
-      // Validasi sederhana jika form kosong
-      if(!nama || !wa || !tgl) {
-        alert("Mohon lengkapi Nama, Nomor WA, dan Tanggal Acara ya!");
+      if(!nama || !wa) {
+        alert("Harap lengkapi Nama dan Nomor WA ya!");
         return;
       }
 
-      // Format Pesan WhatsApp yang Rapih dan Profesional
-      const teksPesan = 
-`*Pusat Pemesanan Undangan Digital* 💍✨
-Halo Admin, saya ingin melakukan pemesanan dengan detail berikut:
+      const pesanText = 
+`*ORDER UNDANGAN DIGITAL* 💍
+Halo Kak, saya mau pesan undangan:
 
-🛍️ *DETAIL PRODUK*
-• Desain: ${produkPilihan}
-• Harga: ${hargaPilihan}
+*PRODUK:* ${produkPilihan}
+*HARGA:* ${hargaPilihan}
 
-📋 *DATA PEMESAN*
-• Nama: ${nama}
-• No. WA: ${wa}
-• Tgl Acara: ${tgl}
+*Nama Mempelai:* ${nama}
+*No. WhatsApp:* ${wa}
+*Pembayaran:* via ${bayar}
 
-💳 *METODE PEMBAYARAN*
-• Pilihan: ${bayar}
+Mohon arahannya untuk proses pengisian data ya Kak. Terima kasih! 🙏`;
 
-Mohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. Terima kasih! 🙏`;
-
-      // Ganti dengan nomor WhatsApp kamu (pastikan pakai kode 62)
-      const nomorAdmin = "6285706889273"; 
-      const linkWhatsApp = `https://wa.me/${nomorAdmin}?text=${encodeURIComponent(teksPesan)}`;
-      
-      window.open(linkWhatsApp, '_blank');
-      tutupPesan(); // Tutup popup setelah diklik
+      // GANTI NOMOR INI DENGAN NOMOR WA KAMU
+      const noWA = "6285706889273"; 
+      window.open(`https://wa.me/${noWA}?text=${encodeURIComponent(pesanText)}`, '_blank');
+      tutupModal();
     }
   </script>
 </body>
 </html>
+
