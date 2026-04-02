@@ -3,336 +3,435 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katalog Undangan Digital Gen-Z</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <title>Katalog Undangan Ceria & Canggih</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   
   <style>
-    /* === VARIABEL TEMA DARK MODERN (ANAK MUDA) === */
+    /* === TEMA CERAH, BERSEMANGAT & ELEGAN === */
     :root {
-      --bg-dark: #0f172a;
-      --card-bg: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent-1: #38bdf8; /* Neon Blue */
-      --accent-2: #818cf8; /* Neon Purple */
-      --gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      --bg-main: #FFFDF9; /* Cream sangat lembut */
+      --card-bg: #FFFFFF;
+      --text-dark: #2D3748;
+      --text-muted: #718096;
+      --primary: #FF6B81; /* Coral Pink yang ceria */
+      --secondary: #FFA502; /* Warm Gold/Orange */
+      --gradient: linear-gradient(135deg, var(--primary), #FF8E9E);
       --radius: 16px;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --shadow: 0 8px 25px rgba(255, 107, 129, 0.15);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Outfit', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      padding-bottom: 100px; /* Ruang untuk tombol melayang */
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+    body { background-color: var(--bg-main); color: var(--text-dark); padding-bottom: 100px; }
 
-    /* === 1. HERO SECTION === */
-    .hero {
-      text-align: center;
-      padding: 70px 20px 40px;
-      position: relative;
-      overflow: hidden;
-    }
-    /* Efek cahaya neon di background */
-    .hero::before {
-      content: ''; position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
-      width: 300px; height: 300px; background: var(--accent-2); filter: blur(120px); opacity: 0.3; z-index: -1;
-    }
-    .hero h1 {
-      font-size: 38px; font-weight: 800; margin-bottom: 15px;
-      background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .hero p { color: var(--text-muted); font-size: 16px; max-width: 500px; margin: 0 auto; line-height: 1.6; }
+    /* HERO SECTION */
+    .hero { text-align: center; padding: 60px 20px 30px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+    .hero p { color: var(--text-muted); font-size: 15px; max-width: 500px; margin: 0 auto; }
 
-    /* === 2. FILTER KATEGORI === */
+    /* KOLOM LACAK PESANAN */
+    .tracking-box {
+      max-width: 500px; margin: 0 auto 30px; padding: 0 20px;
+      display: flex; gap: 10px;
+    }
+    .track-input {
+      flex: 1; padding: 12px 15px; border: 2px solid #EDF2F7; border-radius: 12px;
+      font-size: 14px; outline: none; transition: 0.3s;
+    }
+    .track-input:focus { border-color: var(--primary); }
+    .btn-track {
+      background: var(--primary); color: white; border: none; padding: 0 20px;
+      border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s;
+    }
+    .btn-track:hover { background: #E0566B; box-shadow: var(--shadow); }
+
+    /* FILTER KATEGORI */
     .category-scroll {
-      display: flex; gap: 12px; overflow-x: auto; padding: 10px 20px 20px;
-      max-width: 1200px; margin: 0 auto; -ms-overflow-style: none; scrollbar-width: none;
+      display: flex; gap: 10px; overflow-x: auto; padding: 10px 20px 20px;
+      max-width: 1200px; margin: 0 auto; scrollbar-width: none;
     }
     .category-scroll::-webkit-scrollbar { display: none; }
-    
     .tab-btn {
-      white-space: nowrap; padding: 10px 24px; background: var(--card-bg);
-      border: 1px solid #334155; border-radius: 30px; cursor: pointer;
-      font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--text-muted);
-      transition: all 0.3s ease;
+      white-space: nowrap; padding: 10px 22px; background: white;
+      border: 1px solid #EDF2F7; border-radius: 30px; cursor: pointer;
+      font-weight: 600; color: var(--text-muted); transition: 0.3s;
     }
-    .tab-btn.active {
-      background: var(--gradient); color: #fff; border-color: transparent;
-      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
-    }
+    .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: var(--shadow); }
 
-    /* === 3. GRID KATALOG CERDAS === */
+    /* GRID KATALOG */
     .catalog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px;
     }
-    @media (min-width: 768px) {
-      .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px;}
-    }
-
+    @media (min-width: 768px) { .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
+    
     .card {
       background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
-      box-shadow: var(--shadow); border: 1px solid #334155; display: flex; flex-direction: column;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 2px solid transparent;
+      display: flex; flex-direction: column; transition: 0.3s;
     }
-    .card:hover { transform: translateY(-8px); border-color: var(--accent-1); }
+    .card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: var(--shadow); }
+    .card-img-wrapper { position: relative; width: 100%; padding-top: 130%; background: #f0f0f0; overflow: hidden; }
+    .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-title { font-size: 16px; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; }
+    .card-price { font-size: 14px; color: var(--secondary); font-weight: 800; margin-bottom: 15px; }
+    .btn-order { background: var(--gradient); color: white; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer; width: 100%; }
 
-    .card-img-wrapper { position: relative; width: 100%; padding-top: 130%; overflow: hidden; background: #000; }
-    .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
-    .card:hover .card-img-wrapper img { opacity: 1; transform: scale(1.05); }
-
-    .card-body { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-    .card-title { font-size: 16px; font-weight: 800; margin-bottom: 5px; color: var(--text-main); }
-    .card-price { font-size: 14px; color: var(--accent-1); font-weight: 600; margin-bottom: 15px; }
-    
-    .card-actions { display: flex; flex-direction: column; gap: 10px; }
-    .btn-sm { padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; font-family: 'Outfit'; transition: 0.2s; }
-    .btn-demo { background: #334155; color: var(--text-main); }
-    .btn-demo:hover { background: #475569; }
-    .btn-order { background: var(--gradient); color: #fff; }
-    .btn-order:hover { box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4); }
-
-    /* === 4. MODAL GLASSMORPHISM (FORM & PROGRES) === */
+    /* MODAL UMUM */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px);
       display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px;
     }
     .modal-box {
-      background: rgba(30, 41, 59, 0.95); width: 100%; max-width: 400px;
-      border-radius: 24px; padding: 25px; position: relative;
-      border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+      background: white; width: 100%; max-width: 400px; border-radius: 24px;
+      padding: 25px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-height: 90vh; overflow-y: auto;
     }
-    .modal-close { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-muted); }
+    .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: var(--text-muted); font-weight: bold;}
     
+    /* FORM INPUT */
     .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
-    .form-control {
-      width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; color: white;
-      border-radius: 12px; font-family: 'Outfit'; font-size: 14px;
-    }
-    .form-control:focus { outline: none; border-color: var(--accent-1); }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; }
+    .form-control { width: 100%; padding: 12px; border: 1px solid #EDF2F7; border-radius: 10px; font-size: 14px; background: #F7FAFC; }
+    .form-control:focus { outline: none; border-color: var(--primary); background: white; }
+    .btn-action { width: 100%; padding: 14px; background: #25D366; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 15px; margin-top: 10px; }
 
-    .btn-action {
-      width: 100%; padding: 14px; background: var(--gradient); color: white; border: none; border-radius: 12px;
-      font-weight: 800; cursor: pointer; font-size: 15px; margin-top: 10px;
-    }
-
-    /* === 5. FLOATING BUTTONS (WA & PROGRESS) === */
-    .fab-container {
-      position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 1000;
-    }
-    .fab {
-      width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-      cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s ease; border: none;
-    }
+    /* FLOATING BUTTONS */
+    .fab-container { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+    .fab { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: var(--shadow); border: none; transition: 0.3s; }
     .fab:hover { transform: scale(1.1); }
-    
-    .fab-wa { background: #25D366; } /* WA di Atas Kertas */
-    .fab-progress { background: var(--card-bg); border: 2px solid var(--accent-1); display: none; } /* Kertas di Bawah WA */
+    .fab-wa { background: #25D366; }
+    .fab-progress { background: white; border: 2px solid var(--primary); display: none; }
 
-    /* Timeline Styling untuk Progres */
-    .timeline { margin-top: 20px; border-left: 2px solid #334155; padding-left: 20px; }
+    /* TIMELINE PROGRES */
+    .timeline { margin-top: 20px; border-left: 3px solid #EDF2F7; padding-left: 20px; }
     .timeline-item { margin-bottom: 20px; position: relative; }
     .timeline-item::before {
-      content: ''; position: absolute; left: -27px; top: 2px; width: 12px; height: 12px;
-      border-radius: 50%; background: #334155; border: 2px solid var(--card-bg);
+      content: ''; position: absolute; left: -28.5px; top: 2px; width: 14px; height: 14px;
+      border-radius: 50%; background: #EDF2F7; border: 3px solid white;
     }
-    .timeline-item.active::before { background: var(--accent-1); box-shadow: 0 0 10px var(--accent-1); }
-    .timeline-title { font-size: 14px; font-weight: 800; color: var(--text-main); }
+    .timeline-item.active::before { background: var(--primary); box-shadow: 0 0 0 3px rgba(255, 107, 129, 0.2); }
+    .timeline-title { font-size: 14px; font-weight: 800; color: var(--text-dark); }
     .timeline-desc { font-size: 12px; color: var(--text-muted); }
+
+    /* ADMIN PANEL (Tampilan Lebar) */
+    .admin-box { max-width: 600px; }
+    .admin-card { background: #F7FAFC; padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #EDF2F7; display: flex; justify-content: space-between; align-items: center;}
+    .footer-secret { text-align: center; margin-top: 40px; padding: 20px; font-size: 12px; color: #CBD5E0; cursor: pointer; user-select: none; }
   </style>
 </head>
 <body>
 
   <section class="hero">
-    <h1>Katalog Digital Premium</h1>
-    <p>Desain eksklusif, fitur canggih, dan pemesanan super instan. Jadikan momen spesialmu tak terlupakan.</p>
+    <h1>Rumah Digital Project ✨</h1>
+    <p>Pilih desain undangan impianmu dengan tampilan ceria, proses instan, dan pantau pengerjaan secara langsung.</p>
   </section>
 
-  <div class="category-scroll">
-    <button class="tab-btn active" onclick="filterKatalog('all', this)">All Designs</button>
-    <button class="tab-btn" onclick="filterKatalog('luxury', this)">Luxury Dark</button>
-    <button class="tab-btn" onclick="filterKatalog('neon', this)">Neon Vibes</button>
-    <button class="tab-btn" onclick="filterKatalog('minimalist', this)">Minimalist</button>
+  <div class="tracking-box">
+    <input type="text" id="inputResi" class="track-input" placeholder="Masukkan Nomor Pesanan (Cth: A12345B)">
+    <button class="btn-track" onclick="cekResiManual()">Cek Pesanan</button>
   </div>
 
-  <main class="catalog-grid">
-    <div class="card" data-category="luxury">
-      <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1544079873-1996160352eb?w=400&q=80" alt="Luxury"></div>
-      <div class="card-body">
-        <div><h3 class="card-title">Midnight Gold</h3><p class="card-price">Rp 120.000</p></div>
-        <div class="card-actions">
-          <button class="btn-sm btn-demo" onclick="window.open('#', '_blank')">Live Preview</button>
-          <button class="btn-sm btn-order" onclick="bukaModalPesan('Midnight Gold', 'Rp 120.000')">Pesan Sekarang</button>
-        </div>
-      </div>
-    </div>
+  <div class="category-scroll">
+    <button class="tab-btn active" onclick="filterKategori('all', this)">Semua Desain</button>
+    <button class="tab-btn" onclick="filterKategori('luxury', this)">Luxury</button>
+    <button class="tab-btn" onclick="filterKategori('minimalist', this)">Minimalist</button>
+  </div>
 
-    <div class="card" data-category="neon">
-      <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=400&q=80" alt="Neon"></div>
-      <div class="card-body">
-        <div><h3 class="card-title">Cyberpunk Pink</h3><p class="card-price">Rp 99.000</p></div>
-        <div class="card-actions">
-          <button class="btn-sm btn-demo" onclick="window.open('#', '_blank')">Live Preview</button>
-          <button class="btn-sm btn-order" onclick="bukaModalPesan('Cyberpunk Pink', 'Rp 99.000')">Pesan Sekarang</button>
-        </div>
-      </div>
-    </div>
-  </main>
+  <main class="catalog-grid" id="katalogContainer"></main>
+
+  <div class="footer-secret" id="rahasiaAdmin">
+    © 2026 Rumah Digital Project (Klik 3x area ini untuk Admin)
+  </div>
 
   <div class="fab-container">
-    <button class="fab fab-wa" onclick="waUmum()">
+    <button class="fab fab-wa" onclick="window.open('https://wa.me/6285706889273', '_blank')">
       <svg width="28" height="28" fill="white" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
     </button>
-    <button class="fab fab-progress" id="btnProgress" onclick="bukaProgress()">
-      <svg width="24" height="24" fill="var(--accent-1)" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/><path d="M4.5 10a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/></svg>
+    <button class="fab fab-progress" id="btnProgress" onclick="bukaModal('modalProgress')">
+      <svg width="24" height="24" fill="var(--primary)" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/><path d="M4.5 10a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/></svg>
     </button>
   </div>
 
   <div class="modal-overlay" id="modalPesan">
     <div class="modal-box">
       <div class="modal-close" onclick="tutupModal('modalPesan')">×</div>
-      <h3 style="font-size: 20px; font-weight:800; margin-bottom: 5px;" id="mJudul">Nama Produk</h3>
-      <p style="color: var(--accent-1); margin-bottom: 20px; font-weight: 600;" id="mHarga">Rp 0</p>
+      <h3 style="font-size: 22px; color: var(--primary);" id="mJudul">Nama Produk</h3>
+      <p style="font-weight: bold; margin-bottom: 20px;" id="mHarga">Rp 0</p>
       
       <div class="form-group">
-        <label>Nama Pemesan (Mempelai)</label>
-        <input type="text" id="mNama" class="form-control" placeholder="Contoh: Budi & Ani">
+        <label>Nama Pemesan</label>
+        <input type="text" id="mNama" class="form-control" placeholder="Contoh: Romeo">
       </div>
       <div class="form-group">
-        <label>Tanggal Pernikahan</label>
+        <label>Tanggal Acara</label>
         <input type="date" id="mTanggal" class="form-control">
       </div>
       <div class="form-group">
-        <label>Metode Pembayaran</label>
+        <label>Pilihan Metode Pembayaran</label>
         <select id="mBayar" class="form-control">
-          <option value="1. Transfer BCA">1. Transfer BCA</option>
-          <option value="2. Transfer SeaBank">2. Transfer SeaBank</option>
-          <option value="3. Uang Elektronik">3. Uang Elektronik (DANA/OVO/GoPay)</option>
-          <option value="4. Scan QRIS">4. Scan QR (QRIS)</option>
+          <option value="Transfer BCA">Transfer BCA</option>
+          <option value="Transfer SeaBank">Transfer SeaBank</option>
+          <option value="Uang Elektronik">Uang Elektronik</option>
+          <option value="QRIS">Scan QRIS</option>
         </select>
       </div>
-
-      <button class="btn-action" onclick="prosesPesanan()">Pesan via WhatsApp</button>
+      <button class="btn-action" onclick="kirimPesanan()">Kirim Form Pemesanan</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="modalProgress">
     <div class="modal-box">
       <div class="modal-close" onclick="tutupModal('modalProgress')">×</div>
-      <h3 style="font-size: 20px; font-weight:800; margin-bottom: 10px;">Status Pesanan</h3>
-      <div style="background: #0f172a; padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 4px;">Atas Nama: <strong id="pNama" style="color:white;">-</strong></p>
-        <p style="font-size: 13px; color: var(--text-muted);">Paket: <strong id="pProduk" style="color:white;">-</strong></p>
+      <h3 style="font-size: 20px; margin-bottom: 15px; color: var(--primary);">Status Pesananmu</h3>
+      
+      <div style="background: #F7FAFC; padding: 15px; border-radius: 12px; border: 1px solid #EDF2F7;">
+        <p style="font-size: 13px; color: var(--text-muted);">No Resi: <strong id="pResi" style="color: var(--text-dark);"></strong></p>
+        <p style="font-size: 13px; color: var(--text-muted);">Nama: <strong id="pNama" style="color: var(--text-dark);"></strong></p>
+        <p style="font-size: 13px; color: var(--text-muted);">Produk: <strong id="pProduk" style="color: var(--text-dark);"></strong></p>
       </div>
 
       <div class="timeline">
-        <div class="timeline-item active">
+        <div class="timeline-item" id="tl-1">
           <div class="timeline-title">Pesanan Diterima</div>
           <div class="timeline-desc">Menunggu konfirmasi pembayaran.</div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-title">Proses Desain</div>
-          <div class="timeline-desc">Data sedang dimasukkan ke desain.</div>
+        <div class="timeline-item" id="tl-2">
+          <div class="timeline-title">Proses Pengerjaan</div>
+          <div class="timeline-desc">Desain sedang dibuat oleh tim.</div>
         </div>
-        <div class="timeline-item">
+        <div class="timeline-item" id="tl-3">
           <div class="timeline-title">Selesai</div>
-          <div class="timeline-desc">Undangan siap dibagikan!</div>
+          <div class="timeline-desc">Undangan siap digunakan!</div>
         </div>
       </div>
     </div>
   </div>
 
-  <script>
-    const NOMOR_WA = "6285706889273"; // Ganti dengan nomor WA kamu
+  <div class="modal-overlay" id="modalAdmin">
+    <div class="modal-box admin-box">
+      <div class="modal-close" onclick="tutupModal('modalAdmin')">×</div>
+      <h2 style="margin-bottom: 20px; color: var(--primary);">Panel Admin</h2>
 
-    // 1. CEK LOKAL STORAGE SAAT WEB DIBUKA
-    window.onload = function() {
-      const pesananAktif = localStorage.getItem('pesananUndangan');
-      if(pesananAktif) {
-        document.getElementById('btnProgress').style.display = 'flex';
-      }
+      <div style="margin-bottom: 20px; border-bottom: 2px solid #EDF2F7; padding-bottom: 20px;">
+        <h4>Tambah Katalog Baru</h4>
+        <div style="display: flex; gap:10px; margin-top: 10px;">
+          <select id="aKat" class="form-control" style="width:30%;"><option value="luxury">Luxury</option><option value="minimalist">Minimalist</option></select>
+          <input type="text" id="aNama" class="form-control" placeholder="Nama Desain" style="width:40%;">
+          <input type="text" id="aHarga" class="form-control" placeholder="Harga" style="width:30%;">
+        </div>
+        <button class="btn-action" style="background: var(--text-dark);" onclick="tambahKatalog()">+ Tambah Desain</button>
+      </div>
+
+      <h4>Daftar Pesanan Masuk</h4>
+      <div id="adminOrderList" style="margin-top: 10px; max-height: 250px; overflow-y: auto;">
+        </div>
+    </div>
+  </div>
+
+  <script>
+    // === 1. DATABASE SIMULASI (LocalStorage) ===
+    let dbProducts = JSON.parse(localStorage.getItem('dbKatalog')) || [
+      { id: 1, category: 'luxury', name: 'Royal Gold', price: 'Rp 150.000', img: 'https://images.unsplash.com/photo-1544079873-1996160352eb?w=400' },
+      { id: 2, category: 'minimalist', name: 'White Peach', price: 'Rp 85.000', img: 'https://images.unsplash.com/photo-1596450096531-15b597cfaed2?w=400' }
+    ];
+    let dbOrders = JSON.parse(localStorage.getItem('dbPesanan')) || [];
+    let myCurrentResi = localStorage.getItem('myResi') || '';
+
+    // INISIALISASI SAAT WEB DIBUKA
+    window.onload = () => {
+      renderKatalog();
+      if(myCurrentResi) tampilkanTombolProgres(myCurrentResi);
     }
 
-    // 2. FILTER KATALOG
-    function filterKatalog(kategori, elemen) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      elemen.classList.add('active');
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        card.style.display = (kategori === 'all' || card.dataset.category === kategori) ? 'flex' : 'none';
+    // === 2. RENDER KATALOG KE LAYAR ===
+    function renderKatalog() {
+      const container = document.getElementById('katalogContainer');
+      container.innerHTML = '';
+      dbProducts.forEach(prod => {
+        container.innerHTML += `
+          <div class="card" data-category="${prod.category}">
+            <div class="card-img-wrapper"><img src="${prod.img}" alt="${prod.name}"></div>
+            <div class="card-body">
+              <h3 class="card-title">${prod.name}</h3>
+              <p class="card-price">${prod.price}</p>
+              <button class="btn-order" onclick="siapPesan('${prod.name}', '${prod.price}')">Pesan Sekarang</button>
+            </div>
+          </div>
+        `;
       });
     }
 
-    // 3. LOGIK MODAL PEMESANAN
-    let produkTerpilih = '';
-    let hargaTerpilih = '';
+    function filterKategori(kat, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.display = (kat === 'all' || card.dataset.category === kat) ? 'flex' : 'none';
+      });
+    }
 
-    function bukaModalPesan(nama, harga) {
-      produkTerpilih = nama;
-      hargaTerpilih = harga;
+    // === 3. ALUR PEMESANAN BARU ===
+    let pilihanNama = '', pilihanHarga = '';
+    
+    function siapPesan(nama, harga) {
+      pilihanNama = nama; pilihanHarga = harga;
       document.getElementById('mJudul').innerText = nama;
       document.getElementById('mHarga').innerText = harga;
       document.getElementById('modalPesan').style.display = 'flex';
     }
 
-    function tutupModal(id) {
-      document.getElementById(id).style.display = 'none';
+    function generateID() {
+      const char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const L1 = char[Math.floor(Math.random()*26)];
+      const L2 = char[Math.floor(Math.random()*26)];
+      const num = Math.floor(10000 + Math.random() * 90000);
+      return L1 + num + L2; // Cth: A98683B
     }
 
-    // 4. PROSES PESANAN & SIMPAN KE MEMORI HP
-    function prosesPesanan() {
+    function kirimPesanan() {
       const nama = document.getElementById('mNama').value;
       const tgl = document.getElementById('mTanggal').value;
       const bayar = document.getElementById('mBayar').value;
 
-      if(!nama || !tgl) { alert("Tolong isi Nama dan Tanggal Pernikahan ya!"); return; }
+      if(!nama || !tgl) return alert("Lengkapi Nama dan Tanggal Acara!");
 
-      // Simpan data ke LocalStorage untuk fitur tracking
-      const dataPesanan = { nama: nama, produk: produkTerpilih, status: 1 };
-      localStorage.setItem('pesananUndangan', JSON.stringify(dataPesanan));
+      const idPesanan = generateID();
+      
+      // Simpan ke Database Simulasi
+      dbOrders.push({ id: idPesanan, nama: nama, produk: pilihanNama, status: 1 });
+      localStorage.setItem('dbPesanan', JSON.stringify(dbOrders));
+      
+      // Simpan resi di memori HP Pembeli
+      localStorage.setItem('myResi', idPesanan);
+      myCurrentResi = idPesanan;
+      tampilkanTombolProgres(idPesanan);
 
-      // Tampilkan tombol tracking
-      document.getElementById('btnProgress').style.display = 'flex';
+      // Format Pesan WA Persis Permintaan
+      const teks = 
+`*RUMAH DIGITAL PROJECT✨*
 
-      // Format Pesan WA
-      const teksWA = 
-`*Pusat Undangan Digital* 🚀
-Halo Admin, saya mau pesan:
+Halo Admin, saya ingin melakukan pemesanan dengan detail berikut:
 
-*📦 PAKET:* ${produkTerpilih} (${hargaTerpilih})
-*👤 PEMESAN:* ${nama}
-*📅 TANGGAL ACARA:* ${tgl}
-*💳 METODE BAYAR:* ${bayar}
+No pesanan *${idPesanan}*
 
-Mohon info nomor rekening/QRIS untuk pembayarannya. Terima kasih!`;
+🛍️ *DETAIL PRODUK*
+• Desain: ${pilihanNama}
+• Harga: ${pilihanHarga}
 
-      window.open(`https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(teksWA)}`, '_blank');
+📋 *DATA PEMESAN*
+• Nama: ${nama}
+• Tgl Acara: ${tgl}
+
+💳 *METODE PEMBAYARAN*
+• Pilihan: ${bayar}
+
+Mohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. Terima kasih! 🙏`;
+
+      window.open(`https://wa.me/6285706889273?text=${encodeURIComponent(teks)}`, '_blank');
       tutupModal('modalPesan');
     }
 
-    // 5. BUKA POPUP PROGRES
-    function bukaProgress() {
-      const data = JSON.parse(localStorage.getItem('pesananUndangan'));
-      if(data) {
-        document.getElementById('pNama').innerText = data.nama;
-        document.getElementById('pProduk').innerText = data.produk;
-        document.getElementById('modalProgress').style.display = 'flex';
+    // === 4. FITUR LACAK / PROGRES PESANAN ===
+    function cekResiManual() {
+      const input = document.getElementById('inputResi').value.trim();
+      const cari = dbOrders.find(o => o.id === input);
+      
+      if(cari) {
+        localStorage.setItem('myResi', input); // Kembalikan ke memori HP
+        myCurrentResi = input;
+        tampilkanTombolProgres(input);
+        alert("Pesanan ditemukan! Silakan cek ikon Kertas di pojok kanan bawah.");
+      } else {
+        alert("Nomor Pesanan tidak ditemukan.");
       }
     }
 
-    // 6. TOMBOL WA MELAYANG UMUM
-    function waUmum() {
-      const teks = "Halo Admin, saya ingin bertanya tentang pembuatan undangan digital.";
-      window.open(`https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(teks)}`, '_blank');
+    function tampilkanTombolProgres(resi) {
+      document.getElementById('btnProgress').style.display = 'flex';
+      
+      // Update isi popup progres
+      const data = dbOrders.find(o => o.id === resi);
+      if(data) {
+        document.getElementById('pResi').innerText = data.id;
+        document.getElementById('pNama').innerText = data.nama;
+        document.getElementById('pProduk').innerText = data.produk;
+        
+        // Atur warna indikator timeline
+        document.getElementById('tl-1').className = data.status >= 1 ? 'timeline-item active' : 'timeline-item';
+        document.getElementById('tl-2').className = data.status >= 2 ? 'timeline-item active' : 'timeline-item';
+        document.getElementById('tl-3').className = data.status >= 3 ? 'timeline-item active' : 'timeline-item';
+      }
     }
+
+    // === 5. PANEL ADMIN RAHASIA ===
+    let klikRahasia = 0;
+    document.getElementById('rahasiaAdmin').addEventListener('click', () => {
+      klikRahasia++;
+      if(klikRahasia >= 3) {
+        klikRahasia = 0;
+        bukaAdmin();
+      }
+      setTimeout(() => klikRahasia = 0, 2000); // Reset hitungan dlm 2 dtk
+    });
+
+    function bukaAdmin() {
+      document.getElementById('modalAdmin').style.display = 'flex';
+      renderDaftarPesanan();
+    }
+
+    function tambahKatalog() {
+      const kat = document.getElementById('aKat').value;
+      const nama = document.getElementById('aNama').value;
+      const harga = document.getElementById('aHarga').value;
+      if(!nama || !harga) return alert("Isi form desain!");
+
+      dbProducts.push({ 
+        id: Date.now(), category: kat, name: nama, price: harga, 
+        img: 'https://images.unsplash.com/photo-1510076857177-7470076d4098?w=400' // Gambar default
+      });
+      localStorage.setItem('dbKatalog', JSON.stringify(dbProducts));
+      renderKatalog();
+      alert("Desain berhasil ditambahkan ke Katalog!");
+    }
+
+    function renderDaftarPesanan() {
+      const list = document.getElementById('adminOrderList');
+      list.innerHTML = '';
+      dbOrders.reverse().forEach(o => {
+        list.innerHTML += `
+          <div class="admin-card">
+            <div>
+              <strong style="color:var(--primary);">${o.id}</strong><br>
+              <span style="font-size:12px;">${o.nama} - ${o.produk}</span>
+            </div>
+            <select class="form-control" style="width:120px; padding:8px;" onchange="updateStatus('${o.id}', this.value)">
+              <option value="1" ${o.status == 1 ? 'selected' : ''}>Diterima</option>
+              <option value="2" ${o.status == 2 ? 'selected' : ''}>Proses</option>
+              <option value="3" ${o.status == 3 ? 'selected' : ''}>Selesai</option>
+            </select>
+          </div>
+        `;
+      });
+      dbOrders.reverse(); // Kembalikan urutan array
+    }
+
+    function updateStatus(id, newStatus) {
+      const pesanan = dbOrders.find(o => o.id === id);
+      if(pesanan) {
+        pesanan.status = parseInt(newStatus);
+        localStorage.setItem('dbPesanan', JSON.stringify(dbOrders));
+        alert(`Status resi ${id} berhasil diperbarui!`);
+        if(id === myCurrentResi) tampilkanTombolProgres(id); // Langsung update di HP yg sama
+      }
+    }
+
+    // UTILS MODAL
+    function bukaModal(id) { 
+      document.getElementById(id).style.display = 'flex'; 
+      if(id === 'modalProgress') tampilkanTombolProgres(myCurrentResi);
+    }
+    function tutupModal(id) { document.getElementById(id).style.display = 'none'; }
   </script>
 </body>
 </html>
