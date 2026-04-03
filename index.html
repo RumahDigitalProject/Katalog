@@ -4,14 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rumah Digital Project</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   
   <style>
-    /* VARIABEL WARNA */
+    /* =========================================
+       VARIABEL WARNA (DARK MODE PREMIUM & YOUTHFUL)
+       ========================================= */
     :root {
-      --bg-main: #f8fafc; --card-bg: #ffffff; --navy: #0f172a; --navy-light: #1e293b; 
-      --gold: #D4AF37; --text-dark: #334155; --text-muted: #64748b; --radius: 16px;
-      --shadow: 0 10px 25px rgba(0,0,0,0.05); --danger: #ef4444; --success: #10b981;
+      --bg-main: #0B1120; /* Midnight Blue sangat gelap */
+      --card-bg: #151E32; /* Abu kebiruan untuk kartu */
+      --navy: #070B14; /* Hampir hitam untuk header/modal */
+      --navy-light: #1E293B; 
+      --gold: #FBBF24; /* Emas cerah */
+      --accent: #F43F5E; /* Rose Pink cerah (Anak muda) */
+      --accent-gradient: linear-gradient(135deg, #FBBF24 0%, #F43F5E 100%); /* Sunset Glow */
+      
+      --text-dark: #F8FAFC; /* Teks utama putih/terang */
+      --text-muted: #94A3B8; /* Teks sekunder abu-abu */
+      
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.4);
+      --danger: #ef4444; 
+      --success: #10b981;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
@@ -22,163 +36,147 @@
        ========================================= */
     #buyerView { padding-bottom: 100px; min-height: 100vh;}
     
-    /* HERO SECTION */
-    .hero { background: var(--navy); color: white; text-align: center; padding: 60px 20px 40px; overflow: hidden;}
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: 34px; color: var(--gold); margin-bottom: 10px; }
-    .hero p { color: #cbd5e1; font-size: 15px; max-width: 500px; margin: 0 auto; }
-
-    /* =========================================
-       ANIMASI FITUR PREMIUM (RINGAN & ANTI-LAG)
-       ========================================= */
-    .premium-features-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      max-width: 650px;
-      margin: 35px auto 10px;
-      min-height: 90px; /* Menjaga jarak agar tata letak tidak melompat */
+    /* HERO SECTION DENGAN COPYWRITING MEMIKAT */
+    .hero { background: var(--navy); color: white; text-align: center; padding: 70px 20px 50px; overflow: hidden; position: relative;}
+    
+    /* Efek Cahaya Latar Belakang Hero */
+    .hero::before { content: ''; position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; background: var(--accent); filter: blur(150px); opacity: 0.15; z-index: 0; }
+    
+    .hero h1 { 
+      position: relative; z-index: 1; font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 900;
+      background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+      margin-bottom: 15px; line-height: 1.2;
     }
+    .hero p { position: relative; z-index: 1; color: #cbd5e1; font-size: 15px; max-width: 550px; margin: 0 auto; line-height: 1.6; }
 
-    /* BENTUK LONJONG (PILL) FITUR */
+    /* ANIMASI FITUR PREMIUM */
+    .premium-features-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 650px; margin: 35px auto 10px; min-height: 90px; position: relative; z-index: 1;}
     .feat-pill {
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      padding: 8px 18px;
-      border-radius: 50px;
-      font-size: 13px;
-      font-weight: 600;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      will-change: transform; /* Instruksi untuk GPU (Anti-Lag) */
+      background: rgba(251, 191, 36, 0.1); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.3);
+      padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 600; backdrop-filter: blur(4px);
+      will-change: transform; 
     }
-
-    /* SIKLUS MUNCUL & MENGHILANG (Total 20 Detik) */
-    .pill-wrapper {
-      opacity: 0;
-      animation-duration: 20s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
-      will-change: transform, opacity;
-    }
-
-    /* Translasi Halus dari Berbagai Arah */
+    .pill-wrapper { opacity: 0; animation-duration: 20s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; will-change: transform, opacity; }
     @keyframes enterLeft { 0% { opacity:0; transform: translateX(-40px); } 7.5%, 75% { opacity:1; transform: translateX(0); } 82.5%, 100% { opacity:0; transform: translateX(-20px); } }
     @keyframes enterRight { 0% { opacity:0; transform: translateX(40px); } 7.5%, 75% { opacity:1; transform: translateX(0); } 82.5%, 100% { opacity:0; transform: translateX(20px); } }
     @keyframes enterTop { 0% { opacity:0; transform: translateY(-40px); } 7.5%, 75% { opacity:1; transform: translateY(0); } 82.5%, 100% { opacity:0; transform: translateY(-20px); } }
     @keyframes enterBottom { 0% { opacity:0; transform: translateY(40px); } 7.5%, 75% { opacity:1; transform: translateY(0); } 82.5%, 100% { opacity:0; transform: translateY(20px); } }
-
-    .from-left { animation-name: enterLeft; }
-    .from-right { animation-name: enterRight; }
-    .from-top { animation-name: enterTop; }
-    .from-bottom { animation-name: enterBottom; }
-
-    /* EFEK BERGOYANG (HANYA HORIZONTAL) */
+    .from-left { animation-name: enterLeft; } .from-right { animation-name: enterRight; } .from-top { animation-name: enterTop; } .from-bottom { animation-name: enterBottom; }
     @keyframes swayA { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
     @keyframes swayB { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-5px); } }
-
-    .sway-a { animation: swayA 4s ease-in-out infinite; }
-    .sway-b { animation: swayB 5.5s ease-in-out infinite; } /* Beda durasi agar bergoyangnya acak/natural */
-
+    .sway-a { animation: swayA 4s ease-in-out infinite; } .sway-b { animation: swayB 5.5s ease-in-out infinite; }
 
     /* TRACKING */
-    .tracking-box { max-width: 600px; margin: -25px auto 30px; background: white; padding: 15px; border-radius: 12px; box-shadow: var(--shadow); display: flex; gap: 10px; width: 90%; position: relative; z-index: 10;}
-    .track-input { flex: 1; padding: 12px 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
-    .track-input:focus { border-color: var(--navy); }
-    .btn-track { background: var(--gold); color: var(--navy); border: none; padding: 0 20px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+    .tracking-box { max-width: 600px; margin: -25px auto 30px; background: var(--card-bg); padding: 15px; border-radius: 12px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.05); display: flex; gap: 10px; width: 90%; position: relative; z-index: 10;}
+    .track-input { flex: 1; padding: 12px 15px; background: var(--navy); color: var(--text-dark); border: 1px solid var(--navy-light); border-radius: 8px; outline: none; font-size:14px;}
+    .track-input:focus { border-color: var(--gold); }
+    .track-input::placeholder { color: #64748b; }
+    .btn-track { background: var(--accent-gradient); color: white; border: none; padding: 0 20px; border-radius: 8px; font-weight: 800; cursor: pointer; }
 
     /* KATEGORI */
     .category-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 0 20px 20px; max-width: 1200px; margin: 0 auto; scrollbar-width: none; }
     .category-scroll::-webkit-scrollbar { display: none; }
-    .tab-btn { white-space: nowrap; padding: 10px 24px; background: white; border: 1px solid #cbd5e1; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--text-muted); }
-    .tab-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+    .tab-btn { white-space: nowrap; padding: 10px 24px; background: var(--card-bg); border: 1px solid var(--navy-light); border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--text-muted); transition: 0.3s;}
+    .tab-btn.active { background: var(--accent-gradient); color: white; border: none; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);}
 
     /* KATALOG GRID */
     .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     @media (min-width: 768px) { .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
     
-    .card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; position: relative; }
-    .badge-discount { position: absolute; top: 10px; right: 10px; background: var(--danger); color: white; padding: 4px 8px; font-size: 12px; font-weight: 800; border-radius: 6px; z-index: 2; }
-    .card-img-wrapper { position: relative; width: 100%; padding-top: 130%; background: #e2e8f0; }
-    .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+    .card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; position: relative; transition: transform 0.3s; }
+    .card:hover { transform: translateY(-5px); border-color: rgba(251, 191, 36, 0.4); }
+    .badge-discount { position: absolute; top: 10px; right: 10px; background: var(--accent-gradient); color: white; padding: 4px 10px; font-size: 11px; font-weight: 800; border-radius: 6px; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
+    .card-img-wrapper { position: relative; width: 100%; padding-top: 130%; background: var(--navy); }
+    .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.4s; }
+    .card:hover .card-img-wrapper img { opacity: 1; transform: scale(1.05); }
+    
     .card-body { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-    .card-title { font-size: 16px; font-weight: 800; color: var(--navy); }
-    .price-coret { text-decoration: line-through; color: var(--danger); font-size: 12px; margin-top:5px; }
-    .price-final { color: var(--gold); font-weight: 800; font-size: 18px; margin-bottom: 10px; }
+    .card-title { font-size: 16px; font-weight: 800; color: var(--text-dark); }
+    .price-coret { text-decoration: line-through; color: var(--text-muted); font-size: 12px; margin-top:5px; }
+    .price-final { color: var(--gold); font-weight: 800; font-size: 18px; margin-bottom: 15px; }
     
     .btn-group { display: flex; gap: 8px; width: 100%; margin-top: auto; }
-    .btn-demo, .btn-order { flex: 1; padding: 10px 0; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; text-align: center; border: 1px solid var(--navy); box-sizing: border-box;}
-    .btn-demo { background: white; color: var(--navy); }
-    .btn-order { background: var(--navy); color: white; border: none;}
+    .btn-demo, .btn-order { flex: 1; padding: 10px 0; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; text-align: center; box-sizing: border-box; transition: 0.3s;}
+    .btn-demo { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+    .btn-demo:hover { background: rgba(251, 191, 36, 0.1); }
+    .btn-order { background: var(--accent-gradient); color: white; border: none;}
+    .btn-order:hover { box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4); }
     .btn-action { width: 100%; background: #25D366; color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 15px; margin-top: 10px; }
 
     /* SKELETON */
-    .skeleton-card { background: var(--card-bg); border-radius: var(--radius); padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
-    .skeleton-img { width: 100%; padding-top: 130%; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite; }
-    .skeleton-line { height: 20px; background: #e2e8f0; border-radius: 4px; animation: pulse 1.5s infinite; }
+    .skeleton-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
+    .skeleton-img { width: 100%; padding-top: 130%; background: var(--navy-light); border-radius: 8px; animation: pulse 1.5s infinite; }
+    .skeleton-line { height: 20px; background: var(--navy-light); border-radius: 4px; animation: pulse 1.5s infinite; }
     .skeleton-line.short { width: 60%; }
     .skeleton-line.box { height: 40px; margin-top: 10px; }
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
     /* TOMBOL MELAYANG */
     .fab-container { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
-    .fab { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: none; transition: 0.3s; }
+    .fab { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: none; transition: 0.3s; }
     .fab:hover { transform: scale(1.1); }
     .fab-wa { background: #25D366; }
-    .fab-progress { background: white; border: 2px solid var(--navy); display: none; }
+    .fab-progress { background: var(--card-bg); border: 2px solid var(--gold); display: none; }
 
     /* MODAL */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.8); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
-    .modal-box { background: white; width: 100%; max-width: 450px; border-radius: 20px; padding: 25px; position: relative; max-height: 90vh; overflow-y: auto; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 11, 20, 0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
+    .modal-box { background: var(--card-bg); width: 100%; max-width: 450px; border-radius: 20px; padding: 25px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);}
     .modal-box-lg { max-width: 600px; }
     .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: var(--text-muted); font-weight: bold; }
     
     .form-group { margin-bottom: 12px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--text-muted); }
-    .form-control { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; background: #f8fafc; }
-    .form-control:focus { outline: none; border-color: var(--navy); background: white; }
+    .form-control { width: 100%; padding: 12px 15px; border: 1px solid var(--navy-light); border-radius: 8px; font-size: 14px; background: var(--navy); color: white;}
+    .form-control:focus { outline: none; border-color: var(--gold); }
+    .form-control::placeholder { color: #64748b; }
 
     /* TIMELINE */
-    .timeline { margin-top: 20px; border-left: 2px solid #cbd5e1; padding-left: 20px; margin-left: 10px; }
+    .timeline { margin-top: 20px; border-left: 2px solid var(--navy-light); padding-left: 20px; margin-left: 10px; }
     .timeline-item { margin-bottom: 20px; position: relative; }
-    .timeline-item::before { content: ''; position: absolute; left: -27px; top: 2px; width: 12px; height: 12px; border-radius: 50%; background: #cbd5e1; border: 2px solid white; }
-    .timeline-item.active::before { background: var(--navy); box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.2); }
+    .timeline-item::before { content: ''; position: absolute; left: -27px; top: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--navy-light); border: 2px solid var(--card-bg); }
+    .timeline-item.active::before { background: var(--gold); box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); border-color: var(--gold);}
     .timeline-title { font-size: 14px; font-weight: 800; color: var(--text-dark); }
     .timeline-desc { font-size: 12px; color: var(--text-muted); }
 
-    /* TAMPILAN ADMIN */
-    #adminView { display: none; min-height: 100vh; background: #f1f5f9; padding: 20px; }
-    .admin-header { display: flex; justify-content: space-between; align-items: center; background: var(--navy); color: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
+    /* =========================================
+       2. TAMPILAN ADMIN PANEL
+       ========================================= */
+    #adminView { display: none; min-height: 100vh; background: var(--bg-main); padding: 20px; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); color: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
     .btn-exit-admin { background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
     .admin-layout { display: grid; grid-template-columns: 200px 1fr; gap: 20px; }
     @media (max-width: 768px) { .admin-layout { grid-template-columns: 1fr; } }
     
-    .admin-sidebar { background: white; padding: 15px; border-radius: 16px; box-shadow: var(--shadow); height: fit-content; }
+    .admin-sidebar { background: var(--card-bg); padding: 15px; border-radius: 16px; box-shadow: var(--shadow); height: fit-content; border: 1px solid rgba(255,255,255,0.05);}
     .admin-menu-btn { width: 100%; text-align: left; padding: 12px; background: transparent; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; color: var(--text-muted); margin-bottom: 5px; }
-    .admin-menu-btn.active { background: var(--navy); color: white; }
+    .admin-menu-btn.active { background: var(--navy-light); color: var(--gold); }
 
-    .admin-content { background: white; padding: 20px; border-radius: 16px; box-shadow: var(--shadow); overflow-x: auto; }
+    .admin-content { background: var(--card-bg); padding: 20px; border-radius: 16px; box-shadow: var(--shadow); overflow-x: auto; border: 1px solid rgba(255,255,255,0.05);}
     
     table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px; }
-    th, td { padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
-    th { background: #f8fafc; color: var(--text-muted); }
-    .badge-status { padding: 4px 10px; border-radius: 50px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 5px;}
-    .status-1 { background: #fee2e2; color: #ef4444; } .status-2 { background: #fef3c7; color: #d97706; } .status-3 { background: #dcfce3; color: #10b981; } .status-4 { background: #e2e8f0; color: #64748b; }
+    th, td { padding: 12px; border-bottom: 1px solid var(--navy-light); text-align: left; }
+    th { background: var(--navy); color: var(--gold); font-weight: 800;}
+    .badge-status { padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 5px;}
+    .status-1 { background: rgba(239, 68, 68, 0.2); color: #ef4444; } 
+    .status-2 { background: rgba(245, 158, 11, 0.2); color: #f59e0b; } 
+    .status-3 { background: rgba(16, 185, 129, 0.2); color: #10b981; } 
+    .status-4 { background: var(--navy-light); color: var(--text-muted); }
 
-    .btn-sm { padding: 5px 10px; border-radius: 4px; border:none; cursor: pointer; font-size: 12px; font-weight:bold; }
-    .btn-edit { background: var(--gold); color: var(--navy); }
-    .btn-del { background: #fee2e2; color: var(--danger); }
+    .btn-sm { padding: 6px 12px; border-radius: 6px; border:none; cursor: pointer; font-size: 12px; font-weight:bold; }
+    .btn-edit { background: rgba(251, 191, 36, 0.15); color: var(--gold); }
+    .btn-del { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
 
-    .footer-secret { text-align: center; padding: 30px; font-size: 12px; color: #cbd5e1; cursor: pointer; user-select: none; }
+    /* RAHASIA ADMIN (DISEMBUNYIKAN SECARA VISUAL) */
+    .footer-secret { text-align: center; padding: 30px; font-size: 12px; color: #1e293b; cursor: default; user-select: none; }
+    .loading-text { text-align: center; font-size: 14px; color: var(--text-muted); font-weight: 600; width: 100%; grid-column: 1 / -1;}
   </style>
 </head>
 <body>
 
   <div id="buyerView">
     <header class="hero">
-      <h1>Rumah Digital Project ✨</h1>
-      <p>Buat undangan digital impianmu dengan mudah. Elegan, proses cepat, dan fitur tracking pesanan.</p>
+      <h1>Ciptakan Kesan Pertama yang Tak Terlupakan</h1>
+      <p>Undangan digital eksklusif, proses kilat, dan desain premium kekinian. Sebarkan momen bahagiamu dengan gaya yang elegan.</p>
 
       <div class="premium-features-grid">
         <div class="pill-wrapper from-left" style="animation-delay: 0s;">
@@ -219,25 +217,25 @@
       <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
     </div>
 
-    <div class="footer-secret" id="triggerAdmin">© 2026 Rumah Digital Project (Ketuk 3x untuk Admin)</div>
+    <div class="footer-secret" id="triggerAdmin">© 2026 Rumah Digital Project. All Rights Reserved.</div>
 
     <div class="fab-container">
       <button class="fab fab-wa" onclick="window.open('https://wa.me/6285706889273', '_blank')">
         <svg width="28" height="28" fill="white" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
       </button>
       <button class="fab fab-progress" id="btnProgress" onclick="bukaModalProgress()">
-        <svg width="24" height="24" fill="var(--navy)" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/><path d="M4.5 10a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/></svg>
+        <svg width="24" height="24" fill="var(--gold)" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/><path d="M4.5 10a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/></svg>
       </button>
     </div>
 
     <div class="modal-overlay" id="modalPesan">
       <div class="modal-box">
         <div class="modal-close" onclick="tutup('modalPesan')">×</div>
-        <h3 id="mJudul" style="color: var(--navy); font-size:20px;">Nama Produk</h3>
+        <h3 id="mJudul" style="color: var(--text-dark); font-size:22px;">Nama Produk</h3>
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
           <div id="mHargaCoret" class="price-coret" style="font-size:14px;"></div>
-          <div id="mHargaDiskon" class="price-final" style="margin-bottom:0; font-size:22px;">Rp 0</div>
-          <div id="mBadgeDiskon" style="background:var(--danger); color:white; padding:2px 8px; border-radius:5px; font-size:12px; font-weight:bold; display:none;"></div>
+          <div id="mHargaDiskon" class="price-final" style="margin-bottom:0; font-size:24px;">Rp 0</div>
+          <div id="mBadgeDiskon" style="background:var(--accent-gradient); color:white; padding:3px 10px; border-radius:6px; font-size:12px; font-weight:800; display:none;"></div>
         </div>
         <div class="form-group"><label>Nama Pemesan (Mempelai)</label><input type="text" id="mNama" class="form-control" placeholder="Cth: Dilan & Milea"></div>
         <div class="form-group"><label>Tanggal Acara</label><input type="date" id="mTanggal" class="form-control"></div>
@@ -252,23 +250,23 @@
     <div class="modal-overlay" id="modalProgress">
       <div class="modal-box">
         <div class="modal-close" onclick="tutup('modalProgress')">×</div>
-        <h3 style="color: var(--navy); margin-bottom: 15px;">Status Pesananmu</h3>
-        <div style="background:#f1f5f9; padding:15px; border-radius:12px; margin-bottom:10px;">
-          <p style="font-size:13px; color:var(--text-muted);">Resi: <strong id="pResi" style="color:var(--navy);"></strong></p>
-          <p style="font-size:13px; color:var(--text-muted);">Nama: <strong id="pNama" style="color:var(--navy);"></strong></p>
-          <p style="font-size:13px; color:var(--text-muted);">Produk: <strong id="pProduk" style="color:var(--navy);"></strong></p>
+        <h3 style="color: var(--text-dark); margin-bottom: 15px;">Status Pesananmu</h3>
+        <div style="background:var(--navy); padding:15px; border-radius:12px; margin-bottom:10px; border:1px solid var(--navy-light);">
+          <p style="font-size:13px; color:var(--text-muted);">Resi: <strong id="pResi" style="color:var(--text-dark);"></strong></p>
+          <p style="font-size:13px; color:var(--text-muted);">Nama: <strong id="pNama" style="color:var(--text-dark);"></strong></p>
+          <p style="font-size:13px; color:var(--text-muted);">Produk: <strong id="pProduk" style="color:var(--text-dark);"></strong></p>
         </div>
         <div class="timeline">
           <div class="timeline-item" id="tl-1"><div class="timeline-title">Pesanan Masuk</div><div class="timeline-desc">Menunggu konfirmasi pembayaran.</div></div>
           <div class="timeline-item" id="tl-2"><div class="timeline-title">Proses Pengerjaan</div><div class="timeline-desc">Undangan sedang didesain.</div></div>
           <div class="timeline-item" id="tl-3"><div class="timeline-title">Selesai</div><div class="timeline-desc">Undangan siap dibagikan!</div></div>
         </div>
-        <div id="areaSelesai" style="display:none; text-align:center; margin-top:20px; border-top:1px solid #e2e8f0; padding-top:15px;">
-          <button class="btn-action" style="background:var(--navy); border-radius:8px; margin-bottom:10px;" id="btnLihatUndangan">Lihat Undangan Saya</button>
-          <div id="areaLinkTamu" style="display:none; margin-bottom:10px;">
-            <a href="#" id="btnLihatTamu" target="_blank" style="color:var(--gold); font-size:13px; font-weight:bold; text-decoration:none;">📝 Lihat Link Daftar Tamu</a>
+        <div id="areaSelesai" style="display:none; text-align:center; margin-top:20px; border-top:1px solid var(--navy-light); padding-top:20px;">
+          <button class="btn-action" style="background:var(--accent-gradient); border-radius:8px; margin-bottom:10px;" id="btnLihatUndangan">Lihat Undangan Saya</button>
+          <div id="areaLinkTamu" style="display:none; margin-bottom:15px;">
+            <a href="#" id="btnLihatTamu" target="_blank" style="color:var(--gold); font-size:13px; font-weight:800; text-decoration:none;">📝 Lihat Link Daftar Tamu</a>
           </div>
-          <button class="btn-action" style="background:#25D366; border-radius:8px;" id="btnBagikanWA">Coba Bagikan ke WA</button>
+          <button class="btn-action" style="background:#25D366; border-radius:8px; margin-top:0;" id="btnBagikanWA">Coba Bagikan ke WA</button>
         </div>
       </div>
     </div>
@@ -289,13 +287,13 @@
       <div class="admin-content">
         <div id="adm-pesanan">
           <div style="display:flex; gap:15px; margin-bottom:20px;">
-            <div style="background:var(--bg-main); padding:15px; border-radius:12px; border:1px solid #cbd5e1; flex:1;">
+            <div style="background:var(--navy); padding:15px; border-radius:12px; border:1px solid var(--navy-light); flex:1;">
               <p style="font-size:12px; color:var(--text-muted);">Total Penghasilan</p>
               <h2 id="admOmzet" style="color:var(--success);">Rp 0</h2>
             </div>
-            <div style="background:var(--bg-main); padding:15px; border-radius:12px; border:1px solid #cbd5e1; flex:1;">
+            <div style="background:var(--navy); padding:15px; border-radius:12px; border:1px solid var(--navy-light); flex:1;">
               <p style="font-size:12px; color:var(--text-muted);">Pesanan Diproses</p>
-              <h2 id="admOrderProses" style="color:var(--navy);">0</h2>
+              <h2 id="admOrderProses" style="color:var(--gold);">0</h2>
             </div>
           </div>
           <h3 style="margin-bottom: 15px;">Riwayat Pesanan</h3>
@@ -308,7 +306,7 @@
         <div id="adm-katalog" style="display:none;">
           <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
             <h3>Daftar Katalog</h3>
-            <button class="btn-action" style="width:auto; margin:0; padding:8px 15px;" onclick="bukaModalKatalog('tambah')">+ Tambah Baru</button>
+            <button class="btn-action" style="width:auto; margin:0; padding:8px 15px; background:var(--gold); color:var(--navy);" onclick="bukaModalKatalog('tambah')">+ Tambah Baru</button>
           </div>
           <table>
             <thead><tr><th>Gambar</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Aksi</th></tr></thead>
@@ -319,7 +317,7 @@
         <div id="adm-kategori" style="display:none;">
           <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
             <h3>Daftar Kategori</h3>
-            <button class="btn-action" style="width:auto; margin:0; padding:8px 15px;" onclick="bukaModalKat('tambah')">+ Kategori Baru</button>
+            <button class="btn-action" style="width:auto; margin:0; padding:8px 15px; background:var(--gold); color:var(--navy);" onclick="bukaModalKat('tambah')">+ Kategori Baru</button>
           </div>
           <table>
             <thead><tr><th>ID Kat</th><th>Nama Kategori</th><th>Aksi</th></tr></thead>
@@ -333,11 +331,11 @@
   <div class="modal-overlay" id="modalSelesaiPesanan">
     <div class="modal-box modal-box-lg">
       <div class="modal-close" onclick="tutup('modalSelesaiPesanan')">×</div>
-      <h3 style="margin-bottom: 15px; color:var(--navy);">Selesaikan Pesanan</h3>
+      <h3 style="margin-bottom: 15px; color:var(--text-dark);">Selesaikan Pesanan</h3>
       <div class="form-group"><label>Link Undangan Jadi</label><input type="text" id="admLinkHasil" class="form-control" placeholder="https://..."></div>
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
         <input type="checkbox" id="cekLinkTamu" onchange="toggleLinkTamu()"> 
-        <label for="cekLinkTamu" style="margin:0; font-size:13px; font-weight:bold;">Beri fitur Link Daftar Tamu?</label>
+        <label for="cekLinkTamu" style="margin:0; font-size:13px; font-weight:bold; color:var(--gold);">Beri fitur Link Daftar Tamu?</label>
       </div>
       <div class="form-group" id="boxLinkTamu" style="display:none;">
         <label>Link Google Sheet Tamu</label>
@@ -345,10 +343,10 @@
       </div>
       <div class="form-group">
         <label>Draft Pesan WhatsApp (Pembeli bisa edit nanti)</label>
-        <textarea id="admTemplateWA" class="form-control" style="height:200px; resize:vertical; font-size:12px;"></textarea>
+        <textarea id="admTemplateWA" class="form-control" style="height:200px; resize:vertical; font-size:13px;"></textarea>
       </div>
       <input type="hidden" id="admOrderIdSelesai">
-      <button class="btn-action" style="background:var(--navy);" onclick="simpanPesananSelesai()">Kirim & Selesaikan</button>
+      <button class="btn-action" style="background:var(--accent-gradient);" onclick="simpanPesananSelesai()">Kirim & Selesaikan</button>
     </div>
   </div>
 
@@ -366,7 +364,7 @@
       <p style="font-size:12px; color:var(--danger); margin-top:-5px; margin-bottom:10px;">Diskon Diterapkan: <strong id="fkLblDiskon">0%</strong></p>
       <div class="form-group"><label>Link Gambar / Foto</label><input type="text" id="fkImg" class="form-control" placeholder="https://..."></div>
       <div class="form-group"><label>Link Preview Undangan</label><input type="text" id="fkDemo" class="form-control" placeholder="https://..."></div>
-      <button class="btn-action" onclick="simpanKatalog()">Simpan Katalog</button>
+      <button class="btn-action" style="background:var(--accent-gradient);" onclick="simpanKatalog()">Simpan Katalog</button>
     </div>
   </div>
 
@@ -374,10 +372,10 @@
     <div class="modal-box">
       <div class="modal-close" onclick="tutup('modalFormKat')">×</div>
       <h3 id="ktTitle" style="margin-bottom: 15px;">Kategori Baru</h3>
-      <div class="form-group"><label>ID Kategori (Gunakan huruf kecil tanpa spasi, cth: luxury)</label><input type="text" id="ktId" class="form-control"></div>
+      <div class="form-group"><label>ID Kategori (Kecil tanpa spasi, cth: luxury)</label><input type="text" id="ktId" class="form-control"></div>
       <div class="form-group"><label>Nama Tampilan (Cth: Luxury Series)</label><input type="text" id="ktNama" class="form-control"></div>
       <input type="hidden" id="ktMode">
-      <button class="btn-action" onclick="simpanKategori()">Simpan Kategori</button>
+      <button class="btn-action" style="background:var(--accent-gradient);" onclick="simpanKategori()">Simpan Kategori</button>
     </div>
   </div>
 
@@ -615,17 +613,17 @@
                   st==3 ? '<span class="badge-status status-3">3. Selesai</span>' : '<span class="badge-status status-4">Diarsipkan</span>';
         
         hP += `<tr>
-          <td><strong>${idAsli}</strong></td><td>${p.Nama||p.nama}</td><td>${p.Produk||p.produk}</td>
+          <td><strong style="color:var(--gold);">${idAsli}</strong></td><td>${p.Nama||p.nama}</td><td>${p.Produk||p.produk}</td>
           <td>
             ${bdg}<br>
-            <select onchange="ubahStatusAdmin(${idx}, this.value)" style="margin-top:5px; padding:3px; font-size:12px;">
+            <select onchange="ubahStatusAdmin(${idx}, this.value)" style="margin-top:5px; padding:3px; font-size:12px; background:var(--navy); color:white; border:1px solid var(--navy-light);">
               <option value="1" ${st==1?'selected':''}>Set: Masuk</option>
               <option value="2" ${st==2?'selected':''}>Set: Proses</option>
               <option value="3" ${(st==3||st==4)?'selected':''}>Set: Selesai</option>
             </select>
             <div style="display:flex; align-items:center; gap:5px; margin-top:8px;">
                <input type="checkbox" id="hd_${idAsli}" onchange="toggleArsipOrder(${idx}, this.checked)" ${st==4?'checked':''} ${st<3?'disabled':''}>
-               <label for="hd_${idAsli}" style="font-size:11px; margin:0; cursor:pointer;">Hilangkan Progres</label>
+               <label for="hd_${idAsli}" style="font-size:11px; margin:0; cursor:pointer; color:var(--text-muted);">Hilangkan Progres</label>
             </div>
           </td>
           <td><button class="btn-sm btn-del" onclick="hapusPesanan(${idx}, '${idAsli}')" style="width:100%;">Hapus Permanen</button></td>
@@ -637,7 +635,7 @@
       dtKatalog.forEach((k) => {
         if(!k.ID) return;
         hK += `<tr>
-          <td><img src="${k.Img}" width="40" style="border-radius:4px;"></td><td><strong>${k.Nama}</strong></td><td>${k.Kat}</td><td>Rp ${k.HargaAsli}</td>
+          <td><img src="${k.Img}" width="40" style="border-radius:4px;"></td><td><strong style="color:white;">${k.Nama}</strong></td><td>${k.Kat}</td><td>Rp ${k.HargaAsli}</td>
           <td><button class="btn-sm btn-edit" onclick="bukaModalKatalog('edit', '${k.ID}')">Edit</button> <button class="btn-sm btn-del" onclick="hapusAdmin('katlog', '${k.ID}')">Hapus</button></td>
         </tr>`;
       });
@@ -647,7 +645,7 @@
       dtKat.forEach((k) => {
         if(!k.ID) return;
         hKt += `<tr>
-          <td>${k.ID}</td><td><strong>${k.Nama}</strong></td>
+          <td style="color:var(--gold);">${k.ID}</td><td><strong style="color:white;">${k.Nama}</strong></td>
           <td><button class="btn-sm btn-edit" onclick="bukaModalKat('edit', '${k.ID}')">Edit</button> <button class="btn-sm btn-del" onclick="hapusAdmin('kat', '${k.ID}')">Hapus</button></td>
         </tr>`;
       });
