@@ -22,75 +22,67 @@
        ========================================= */
     #buyerView { padding-bottom: 100px; min-height: 100vh;}
     
-    /* HERO SECTION & ANIMASI FITUR PREMIUM */
-    .hero { background: var(--navy); color: white; text-align: center; padding: 60px 20px 50px; overflow: hidden; }
+    /* HERO SECTION */
+    .hero { background: var(--navy); color: white; text-align: center; padding: 60px 20px 40px; overflow: hidden;}
     .hero h1 { font-family: 'Playfair Display', serif; font-size: 34px; color: var(--gold); margin-bottom: 10px; }
     .hero p { color: #cbd5e1; font-size: 15px; max-width: 500px; margin: 0 auto; }
 
-    /* WADAH ANIMASI FITUR */
-    .premium-features-wrapper {
-      position: relative;
-      width: 100%;
-      height: 100px; /* Menjaga agar layout tidak naik turun */
-      margin-top: 30px;
+    /* =========================================
+       ANIMASI FITUR PREMIUM (RINGAN & ANTI-LAG)
+       ========================================= */
+    .premium-features-grid {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       justify-content: center;
+      gap: 12px;
+      max-width: 650px;
+      margin: 35px auto 10px;
+      min-height: 90px; /* Menjaga jarak agar tata letak tidak melompat */
     }
 
     /* BENTUK LONJONG (PILL) FITUR */
     .feat-pill {
-      background: rgba(212, 175, 55, 0.15); /* Gold transparan elegan */
+      background: rgba(212, 175, 55, 0.15);
       color: var(--gold);
-      border: 1px solid var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       padding: 8px 18px;
       border-radius: 50px;
       font-size: 13px;
       font-weight: 600;
       backdrop-filter: blur(4px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      will-change: transform; /* Instruksi untuk GPU (Anti-Lag) */
     }
 
-    /* FASE 1: CONTAINER BERJALAN KIRI KE KANAN */
-    .feat-scroll-container {
-      position: absolute;
-      display: flex;
-      gap: 12px;
-      white-space: nowrap;
-      animation: scrollLeftRight 16s linear infinite;
-    }
-
-    /* FASE 2: CONTAINER KUMPUL DI TENGAH */
-    .feat-grid-container {
-      position: absolute;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      max-width: 600px;
-      width: 100%;
+    /* SIKLUS MUNCUL & MENGHILANG (Total 20 Detik) */
+    .pill-wrapper {
       opacity: 0;
-      pointer-events: none; /* Agar tidak mengganggu klik */
-      animation: popCenter 16s ease-in-out infinite;
+      animation-duration: 20s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+      will-change: transform, opacity;
     }
 
-    /* KEYFRAMES ANIMASI ANTI-LAG (Hanya pakai transform & opacity) */
-    @keyframes scrollLeftRight {
-      0% { transform: translateX(-150vw); opacity: 1; }
-      40% { transform: translateX(150vw); opacity: 1; } /* Selesai jalan di detik ke-6.4 */
-      41% { opacity: 0; } /* Langsung sembunyi */
-      100% { opacity: 0; transform: translateX(150vw); }
-    }
+    /* Translasi Halus dari Berbagai Arah */
+    @keyframes enterLeft { 0% { opacity:0; transform: translateX(-40px); } 7.5%, 75% { opacity:1; transform: translateX(0); } 82.5%, 100% { opacity:0; transform: translateX(-20px); } }
+    @keyframes enterRight { 0% { opacity:0; transform: translateX(40px); } 7.5%, 75% { opacity:1; transform: translateX(0); } 82.5%, 100% { opacity:0; transform: translateX(20px); } }
+    @keyframes enterTop { 0% { opacity:0; transform: translateY(-40px); } 7.5%, 75% { opacity:1; transform: translateY(0); } 82.5%, 100% { opacity:0; transform: translateY(-20px); } }
+    @keyframes enterBottom { 0% { opacity:0; transform: translateY(40px); } 7.5%, 75% { opacity:1; transform: translateY(0); } 82.5%, 100% { opacity:0; transform: translateY(20px); } }
 
-    @keyframes popCenter {
-      0%, 42% { opacity: 0; transform: scale(0.9); }
-      48% { opacity: 1; transform: scale(1); } /* Muncul halus di detik ke-7.6 */
-      90% { opacity: 1; transform: scale(1); } /* Bertahan sampai detik ke-14.4 */
-      96%, 100% { opacity: 0; transform: scale(0.9); } /* Menghilang halus */
-    }
+    .from-left { animation-name: enterLeft; }
+    .from-right { animation-name: enterRight; }
+    .from-top { animation-name: enterTop; }
+    .from-bottom { animation-name: enterBottom; }
+
+    /* EFEK BERGOYANG (HANYA HORIZONTAL) */
+    @keyframes swayA { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+    @keyframes swayB { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-5px); } }
+
+    .sway-a { animation: swayA 4s ease-in-out infinite; }
+    .sway-b { animation: swayB 5.5s ease-in-out infinite; } /* Beda durasi agar bergoyangnya acak/natural */
 
 
-    /* TRACKING KODE RESI */
+    /* TRACKING */
     .tracking-box { max-width: 600px; margin: -25px auto 30px; background: white; padding: 15px; border-radius: 12px; box-shadow: var(--shadow); display: flex; gap: 10px; width: 90%; position: relative; z-index: 10;}
     .track-input { flex: 1; padding: 12px 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
     .track-input:focus { border-color: var(--navy); }
@@ -188,25 +180,27 @@
       <h1>Rumah Digital Project ✨</h1>
       <p>Buat undangan digital impianmu dengan mudah. Elegan, proses cepat, dan fitur tracking pesanan.</p>
 
-      <div class="premium-features-wrapper">
-        <div class="feat-scroll-container">
-          <div class="feat-pill">💌 RSVP Online</div>
-          <div class="feat-pill">👥 Nama Tamu Unlimited</div>
-          <div class="feat-pill">🎵 Autoplay Musik</div>
-          <div class="feat-pill">📖 Buku Tamu Digital</div>
-          <div class="feat-pill">📍 Navigasi Maps</div>
-          <div class="feat-pill">⏱️ Countdown Timer</div>
-          <div class="feat-pill">🎁 Amplop Digital</div>
+      <div class="premium-features-grid">
+        <div class="pill-wrapper from-left" style="animation-delay: 0s;">
+          <div class="feat-pill sway-a">💌 RSVP Online</div>
         </div>
-        
-        <div class="feat-grid-container">
-          <div class="feat-pill">💌 RSVP Online</div>
-          <div class="feat-pill">👥 Nama Tamu Unlimited</div>
-          <div class="feat-pill">🎵 Autoplay Musik</div>
-          <div class="feat-pill">📖 Buku Tamu Digital</div>
-          <div class="feat-pill">📍 Navigasi Maps</div>
-          <div class="feat-pill">⏱️ Countdown Timer</div>
-          <div class="feat-pill">🎁 Amplop Digital</div>
+        <div class="pill-wrapper from-right" style="animation-delay: 0.3s;">
+          <div class="feat-pill sway-b">👥 Nama Tamu Unlimited</div>
+        </div>
+        <div class="pill-wrapper from-top" style="animation-delay: 0.6s;">
+          <div class="feat-pill sway-a">🎵 Autoplay Musik</div>
+        </div>
+        <div class="pill-wrapper from-bottom" style="animation-delay: 0.9s;">
+          <div class="feat-pill sway-b">📖 Buku Tamu Digital</div>
+        </div>
+        <div class="pill-wrapper from-left" style="animation-delay: 1.2s;">
+          <div class="feat-pill sway-a">📍 Navigasi Maps</div>
+        </div>
+        <div class="pill-wrapper from-right" style="animation-delay: 1.5s;">
+          <div class="feat-pill sway-b">⏱️ Countdown Timer</div>
+        </div>
+        <div class="pill-wrapper from-bottom" style="animation-delay: 1.8s;">
+          <div class="feat-pill sway-a">🎁 Amplop Digital</div>
         </div>
       </div>
     </header>
