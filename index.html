@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   
   <style>
+    /* VARIABEL WARNA */
     :root {
       --bg-main: #f8fafc; --card-bg: #ffffff; --navy: #0f172a; --navy-light: #1e293b; 
       --gold: #D4AF37; --text-dark: #334155; --text-muted: #64748b; --radius: 16px;
@@ -16,13 +17,80 @@
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
     body { background-color: var(--bg-main); color: var(--text-dark); }
 
-    /* TAMPILAN PEMBELI */
+    /* =========================================
+       1. TAMPILAN PEMBELI (DEPAN)
+       ========================================= */
     #buyerView { padding-bottom: 100px; min-height: 100vh;}
-    .hero { background: var(--navy); color: white; text-align: center; padding: 60px 20px 40px; }
+    
+    /* HERO SECTION & ANIMASI FITUR PREMIUM */
+    .hero { background: var(--navy); color: white; text-align: center; padding: 60px 20px 50px; overflow: hidden; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: 34px; color: var(--gold); margin-bottom: 10px; }
     .hero p { color: #cbd5e1; font-size: 15px; max-width: 500px; margin: 0 auto; }
 
-    /* TRACKING */
+    /* WADAH ANIMASI FITUR */
+    .premium-features-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100px; /* Menjaga agar layout tidak naik turun */
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* BENTUK LONJONG (PILL) FITUR */
+    .feat-pill {
+      background: rgba(212, 175, 55, 0.15); /* Gold transparan elegan */
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    /* FASE 1: CONTAINER BERJALAN KIRI KE KANAN */
+    .feat-scroll-container {
+      position: absolute;
+      display: flex;
+      gap: 12px;
+      white-space: nowrap;
+      animation: scrollLeftRight 16s linear infinite;
+    }
+
+    /* FASE 2: CONTAINER KUMPUL DI TENGAH */
+    .feat-grid-container {
+      position: absolute;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      max-width: 600px;
+      width: 100%;
+      opacity: 0;
+      pointer-events: none; /* Agar tidak mengganggu klik */
+      animation: popCenter 16s ease-in-out infinite;
+    }
+
+    /* KEYFRAMES ANIMASI ANTI-LAG (Hanya pakai transform & opacity) */
+    @keyframes scrollLeftRight {
+      0% { transform: translateX(-150vw); opacity: 1; }
+      40% { transform: translateX(150vw); opacity: 1; } /* Selesai jalan di detik ke-6.4 */
+      41% { opacity: 0; } /* Langsung sembunyi */
+      100% { opacity: 0; transform: translateX(150vw); }
+    }
+
+    @keyframes popCenter {
+      0%, 42% { opacity: 0; transform: scale(0.9); }
+      48% { opacity: 1; transform: scale(1); } /* Muncul halus di detik ke-7.6 */
+      90% { opacity: 1; transform: scale(1); } /* Bertahan sampai detik ke-14.4 */
+      96%, 100% { opacity: 0; transform: scale(0.9); } /* Menghilang halus */
+    }
+
+
+    /* TRACKING KODE RESI */
     .tracking-box { max-width: 600px; margin: -25px auto 30px; background: white; padding: 15px; border-radius: 12px; box-shadow: var(--shadow); display: flex; gap: 10px; width: 90%; position: relative; z-index: 10;}
     .track-input { flex: 1; padding: 12px 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
     .track-input:focus { border-color: var(--navy); }
@@ -111,7 +179,6 @@
     .btn-del { background: #fee2e2; color: var(--danger); }
 
     .footer-secret { text-align: center; padding: 30px; font-size: 12px; color: #cbd5e1; cursor: pointer; user-select: none; }
-    .loading-text { text-align: center; font-size: 14px; color: var(--text-muted); font-weight: 600; width: 100%; grid-column: 1 / -1;}
   </style>
 </head>
 <body>
@@ -120,6 +187,28 @@
     <header class="hero">
       <h1>Rumah Digital Project ✨</h1>
       <p>Buat undangan digital impianmu dengan mudah. Elegan, proses cepat, dan fitur tracking pesanan.</p>
+
+      <div class="premium-features-wrapper">
+        <div class="feat-scroll-container">
+          <div class="feat-pill">💌 RSVP Online</div>
+          <div class="feat-pill">👥 Nama Tamu Unlimited</div>
+          <div class="feat-pill">🎵 Autoplay Musik</div>
+          <div class="feat-pill">📖 Buku Tamu Digital</div>
+          <div class="feat-pill">📍 Navigasi Maps</div>
+          <div class="feat-pill">⏱️ Countdown Timer</div>
+          <div class="feat-pill">🎁 Amplop Digital</div>
+        </div>
+        
+        <div class="feat-grid-container">
+          <div class="feat-pill">💌 RSVP Online</div>
+          <div class="feat-pill">👥 Nama Tamu Unlimited</div>
+          <div class="feat-pill">🎵 Autoplay Musik</div>
+          <div class="feat-pill">📖 Buku Tamu Digital</div>
+          <div class="feat-pill">📍 Navigasi Maps</div>
+          <div class="feat-pill">⏱️ Countdown Timer</div>
+          <div class="feat-pill">🎁 Amplop Digital</div>
+        </div>
+      </div>
     </header>
 
     <div class="tracking-box">
@@ -130,6 +219,8 @@
     <div class="category-scroll" id="catContainer"></div>
     
     <div class="catalog-grid" id="katalogGrid">
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
       <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
       <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
     </div>
@@ -320,7 +411,6 @@
       }
       
       updateIkonProgres(dtPesanan);
-
       fetchServerData();
       setInterval(fetchServerData, 5000); 
     }
@@ -443,7 +533,6 @@
     function updateIkonProgres(databasePesanan) {
       if(!myResi) return;
       const pesananKu = databasePesanan.find(o => o.ID === myResi || o.id === myResi);
-      // Ikon hilang HANYA jika status pesanan adalah 4 (Diarsipkan/Dihilangkan)
       if(pesananKu && parseInt(pesananKu.Status || pesananKu.status) !== 4) {
         document.getElementById('btnProgress').style.display = 'flex';
       } else {
@@ -510,7 +599,6 @@
     }
 
     function renderAdmin() {
-      // Omzet HANYA hitung yang statusnya 3 (Selesai) atau 4 (Arsip)
       let totalUang = 0, orderProses = 0;
       dtPesanan.forEach(p => {
         if(!p.ID && !p.id) return;
@@ -596,7 +684,7 @@
       let st = isChecked ? 4 : 3; 
       dtPesanan[idx].Status = st; dtPesanan[idx].status = st;
       postServer('update_order', { id: dtPesanan[idx].ID || dtPesanan[idx].id, status: st });
-      updateIkonProgres(dtPesanan); // Update ikon HP ini kalau kebetulan ini pesanan dia
+      updateIkonProgres(dtPesanan); 
       renderAdmin();
     }
 
