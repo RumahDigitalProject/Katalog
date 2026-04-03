@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   
   <style>
-    /* VARIABEL WARNA (Navy, Gold, Putih) */
+    /* VARIABEL WARNA */
     :root {
       --bg-main: #f8fafc; --card-bg: #ffffff; --navy: #0f172a; --navy-light: #1e293b; 
       --gold: #D4AF37; --text-dark: #334155; --text-muted: #64748b; --radius: 16px;
@@ -18,7 +18,7 @@
     body { background-color: var(--bg-main); color: var(--text-dark); }
 
     /* =========================================
-       1. TAMPILAN PEMBELI
+       1. TAMPILAN PEMBELI (DEPAN)
        ========================================= */
     #buyerView { padding-bottom: 100px; min-height: 100vh;}
     .hero { background: var(--navy); color: white; text-align: center; padding: 60px 20px 40px; }
@@ -55,6 +55,16 @@
     .btn-demo { border: 1px solid var(--navy); background: white; color: var(--navy); }
     .btn-order { background: var(--navy); color: white; }
     .btn-action { width: 100%; background: #25D366; color: white; margin-top: 10px; font-size: 15px; }
+
+    /* =========================================
+       EFEK SKELETON LOADING (SHIMMER)
+       ========================================= */
+    .skeleton-card { background: var(--card-bg); border-radius: var(--radius); padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
+    .skeleton-img { width: 100%; padding-top: 130%; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite; }
+    .skeleton-line { height: 20px; background: #e2e8f0; border-radius: 4px; animation: pulse 1.5s infinite; }
+    .skeleton-line.short { width: 60%; }
+    .skeleton-line.box { height: 40px; margin-top: 10px; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
     /* TOMBOL MELAYANG */
     .fab-container { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
@@ -123,9 +133,16 @@
       <button class="btn-track" onclick="cekResiManual()">Lacak</button>
     </div>
 
-    <div class="category-scroll" id="catContainer"></div>
+    <div class="category-scroll" id="catContainer">
+      <button class="tab-btn active">Memuat Kategori...</button>
+    </div>
+    
     <div class="catalog-grid" id="katalogGrid">
-      </div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
+    </div>
 
     <div class="footer-secret" id="triggerAdmin">© 2026 Rumah Digital Project (Ketuk 3x untuk Admin)</div>
 
@@ -152,7 +169,7 @@
         <div class="form-group"><label>Nama Pemesan (Mempelai)</label><input type="text" id="mNama" class="form-control" placeholder="Cth: Dilan & Milea"></div>
         <div class="form-group"><label>Tanggal Acara</label><input type="date" id="mTanggal" class="form-control"></div>
         <div class="form-group">
-          <label>Pilihan Metode Pembayaran</label>
+          <label>Metode Pembayaran</label>
           <select id="mBayar" class="form-control"><option value="BCA">BCA</option><option value="SeaBank">SeaBank</option><option value="Uang Elektronik">Uang Elektronik</option><option value="QRIS">QRIS</option></select>
         </div>
         <button class="btn-action" onclick="kirimPesananWA()">Kirim Pesanan (WA)</button>
@@ -179,7 +196,7 @@
         <div id="areaSelesai" style="display:none; text-align:center; margin-top:20px; border-top:1px solid #e2e8f0; padding-top:15px;">
           <button class="btn-action" style="background:var(--navy); border-radius:8px; margin-bottom:10px;" id="btnLihatUndangan">Lihat Undangan Saya</button>
           <div id="areaLinkTamu" style="display:none; margin-bottom:10px;">
-            <a href="#" id="btnLihatTamu" target="_blank" style="color:var(--gold); font-size:13px; font-weight:bold;">Lihat Link Nama Tamu</a>
+            <a href="#" id="btnLihatTamu" target="_blank" style="color:var(--gold); font-size:13px; font-weight:bold; text-decoration:none;">📝 Lihat Link Daftar Tamu</a>
           </div>
           <button class="btn-action" style="background:#25D366; border-radius:8px;" id="btnBagikanWA">Coba Bagikan ke WA</button>
         </div>
@@ -203,7 +220,7 @@
 
       <div class="admin-content">
         <div id="adm-pesanan">
-          <h3 style="margin-bottom: 20px;">Riwayat Pesanan</h3>
+          <h3 style="margin-bottom: 20px;">Riwayat Pesanan (Otomatis Tersinkron)</h3>
           <table>
             <thead><tr><th>Resi</th><th>Pemesan</th><th>Produk</th><th>Status</th></tr></thead>
             <tbody id="tablePesananBody"></tbody>
@@ -243,7 +260,7 @@
       
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
         <input type="checkbox" id="cekLinkTamu" onchange="toggleLinkTamu()"> 
-        <label for="cekLinkTamu" style="margin:0;">Beri fitur Link Nama Tamu?</label>
+        <label for="cekLinkTamu" style="margin:0;">Beri fitur Link Daftar Tamu?</label>
       </div>
       <div class="form-group" id="boxLinkTamu" style="display:none;">
         <label>Link Google Sheet Tamu</label>
@@ -251,12 +268,12 @@
       </div>
 
       <div class="form-group">
-        <label>Draft Pesan WhatsApp</label>
-        <textarea id="admTemplateWA" class="form-control" style="height:200px; resize:vertical;"></textarea>
+        <label>Draft Pesan WhatsApp (Pembeli bisa edit nanti)</label>
+        <textarea id="admTemplateWA" class="form-control" style="height:200px; resize:vertical; font-size:12px;"></textarea>
       </div>
       
       <input type="hidden" id="admOrderIdSelesai">
-      <button class="btn-action" style="background:var(--navy);" onclick="simpanPesananSelesai()">Kirim ke Pelanggan</button>
+      <button class="btn-action" style="background:var(--navy);" onclick="simpanPesananSelesai()">Kirim & Selesaikan</button>
     </div>
   </div>
 
@@ -271,7 +288,7 @@
         <div class="form-group" style="flex:1;"><label>Harga Asli</label><input type="number" id="fkHargaAsli" class="form-control" oninput="htgDsk()"></div>
         <div class="form-group" style="flex:1;"><label>Harga Diskon (Opsional)</label><input type="number" id="fkHargaDiskon" class="form-control" oninput="htgDsk()"></div>
       </div>
-      <p style="font-size:12px; color:var(--danger); margin-top:-5px; margin-bottom:10px;">Diskon: <strong id="fkLblDiskon">0%</strong></p>
+      <p style="font-size:12px; color:var(--danger); margin-top:-5px; margin-bottom:10px;">Diskon Diterapkan: <strong id="fkLblDiskon">0%</strong></p>
       <div class="form-group"><label>Link Gambar / Foto</label><input type="text" id="fkImg" class="form-control" placeholder="https://..."></div>
       <div class="form-group"><label>Link Preview Undangan</label><input type="text" id="fkDemo" class="form-control" placeholder="https://..."></div>
       <button class="btn-action" onclick="simpanKatalog()">Simpan Katalog</button>
@@ -282,7 +299,7 @@
     <div class="modal-box">
       <div class="modal-close" onclick="tutup('modalFormKat')">×</div>
       <h3 id="ktTitle" style="margin-bottom: 15px;">Kategori Baru</h3>
-      <div class="form-group"><label>ID Kategori (Cth: luxury, adat, dll)</label><input type="text" id="ktId" class="form-control"></div>
+      <div class="form-group"><label>ID Kategori (Gunakan huruf kecil, cth: luxury)</label><input type="text" id="ktId" class="form-control"></div>
       <div class="form-group"><label>Nama Tampilan (Cth: Luxury Series)</label><input type="text" id="ktNama" class="form-control"></div>
       <input type="hidden" id="ktMode">
       <button class="btn-action" onclick="simpanKategori()">Simpan Kategori</button>
@@ -291,59 +308,82 @@
 
   <script>
     // ==========================================
-    // PASTE URL WEB APP GOOGLE SCRIPT DI SINI!
+    // MASUKKAN URL GOOGLE APP SCRIPT DI SINI
     // ==========================================
     const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbxpMeUWvYWNe-u8lx63AsdCr8Ol-y23jt0TRCKUdTWKtnr-i_JM69E3pFUWNMhXjy6trA/exec"; 
 
-    // VARIABEL GLOBAL
     let dtKat = [], dtKatalog = [], dtPesanan = [];
     let myResi = localStorage.getItem('my_resi') || '';
+    let kategoriAktif = 'all'; 
+    let initialLoadSelesai = false;
 
     // ==========================================
-    // SINKRONISASI DATA SERVER & LOKAL
+    // 1. SKELETON, CACHE, & REAL-TIME POLLING
     // ==========================================
-    window.onload = async () => {
-      await fetchServerData();
+    window.onload = () => {
+      // 1. Cek memori HP (Cache) untuk load Instan (0 detik)
+      let cKat = localStorage.getItem('cache_kat');
+      let cKatalog = localStorage.getItem('cache_katalog');
+      
+      if(cKat && cKatalog && JSON.parse(cKatalog).length > 0) {
+        dtKat = JSON.parse(cKat);
+        dtKatalog = JSON.parse(cKatalog);
+        dtPesanan = JSON.parse(localStorage.getItem('cache_pesanan')) || [];
+        renderKategoriBuyer();
+        renderKatalogBuyer(kategoriAktif);
+        initialLoadSelesai = true;
+      }
+
       if(myResi !== '') document.getElementById('btnProgress').style.display = 'flex';
+
+      // 2. Tarik data asli dari Google Sheets di latar belakang
+      fetchServerData();
+
+      // 3. Auto-refresh setiap 5 detik tanpa loading screen
+      setInterval(fetchServerData, 5000); 
     }
 
     async function fetchServerData() {
       try {
         const res = await fetch(GOOGLE_APP_URL);
         const data = await res.json();
+        
         dtKat = data.kategori || [];
         dtKatalog = data.katalog || [];
         dtPesanan = data.pesanan || [];
         
-        // Simpan cache ke hp agar cepat kalau loading offline
         localStorage.setItem('cache_kat', JSON.stringify(dtKat));
         localStorage.setItem('cache_katalog', JSON.stringify(dtKatalog));
         localStorage.setItem('cache_pesanan', JSON.stringify(dtPesanan));
 
-        renderKategoriBuyer();
-        renderKatalogBuyer('all');
-      } catch(e) {
-        // Kalau gagal fetch, ambil dari memori hp (cache)
-        dtKat = JSON.parse(localStorage.getItem('cache_kat')) || [];
-        dtKatalog = JSON.parse(localStorage.getItem('cache_katalog')) || [];
-        dtPesanan = JSON.parse(localStorage.getItem('cache_pesanan')) || [];
-        renderKategoriBuyer(); renderKatalogBuyer('all');
-      }
+        // Jika baru pertama kali buka dan memori kosong, hilangkan Skeleton sekarang
+        if(!initialLoadSelesai) {
+          initialLoadSelesai = true;
+        }
+
+        renderKategoriBuyer(); 
+        renderKatalogBuyer(kategoriAktif);
+
+        if(document.getElementById('adminView').style.display === 'block') { renderAdmin(); }
+      } catch(e) {} // Abaikan error silent background polling
     }
 
     function postServer(action, dataObj) {
-      fetch(GOOGLE_APP_URL, { method: 'POST', body: JSON.stringify({ action: action, data: dataObj, id: dataObj.id, status: dataObj.status, linkSelesai: dataObj.linkSelesai, templateWa: dataObj.templateWa, linkTamu: dataObj.linkTamu }) });
+      fetch(GOOGLE_APP_URL, { 
+        method: 'POST', 
+        body: JSON.stringify({ action: action, data: dataObj, id: dataObj.id, status: dataObj.status, linkSelesai: dataObj.linkSelesai, templateWa: dataObj.templateWa, linkTamu: dataObj.linkTamu }) 
+      });
     }
 
     // ==========================================
-    // FRONTEND PEMBELI
+    // 2. FRONTEND PEMBELI
     // ==========================================
     function renderKategoriBuyer() {
-      let html = '<button class="tab-btn active" onclick="filterKat(\'all\', this)">Semua Desain</button>';
+      let html = `<button class="tab-btn ${kategoriAktif==='all'?'active':''}" onclick="filterKat('all', this)">Semua Desain</button>`;
       let optAdmin = '';
       dtKat.forEach(k => {
         if(k.ID && k.Nama) {
-          html += `<button class="tab-btn" onclick="filterKat('${k.ID}', this)">${k.Nama}</button>`;
+          html += `<button class="tab-btn ${kategoriAktif===k.ID?'active':''}" onclick="filterKat('${k.ID}', this)">${k.Nama}</button>`;
           optAdmin += `<option value="${k.ID}">${k.Nama}</option>`;
         }
       });
@@ -352,31 +392,39 @@
     }
 
     function filterKat(kat, btn) {
+      kategoriAktif = kat; 
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if(btn) btn.classList.add('active');
       renderKatalogBuyer(kat);
     }
 
     function renderKatalogBuyer(kat) {
       const grid = document.getElementById('katalogGrid');
-      grid.innerHTML = '';
+      
+      // Jika belum selesai Initial Load (dari server/cache kosong), tampilkan Skeleton
+      if(!initialLoadSelesai) return;
+
       let dataSaring = kat === 'all' ? dtKatalog : dtKatalog.filter(k => k.Kat === kat);
       
+      if(dataSaring.length === 0) {
+        grid.innerHTML = '<div style="text-align:center; color:#64748b; grid-column:1/-1;">Belum ada katalog di kategori ini.</div>';
+        return;
+      }
+
+      let htmlCards = '';
       dataSaring.forEach(item => {
         if(!item.ID) return;
         
-        // Logika Hitung Diskon & Mall Price
         let hAsli = parseInt(item.HargaAsli) || 0;
         let hDiskon = parseInt(item.HargaDiskon);
-        if(isNaN(hDiskon) || hDiskon <= 0) hDiskon = hAsli; // Kalau kosong/0, harga diskon = asli
+        if(isNaN(hDiskon) || hDiskon <= 0) hDiskon = hAsli; 
 
         let persen = hAsli > hDiskon ? Math.round(((hAsli - hDiskon) / hAsli) * 100) : 0;
         let badge = persen > 0 ? `<div class="badge-discount">${persen}% OFF</div>` : '';
-        
         let fAsli = persen > 0 ? new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0}).format(hAsli) : '';
         let fDiskon = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0}).format(hDiskon);
 
-        grid.innerHTML += `
+        htmlCards += `
           <div class="card">
             ${badge}
             <div class="card-img-wrapper"><img src="${item.Img}" alt="${item.Nama}"></div>
@@ -390,15 +438,16 @@
           </div>
         `;
       });
+      grid.innerHTML = htmlCards; 
     }
 
+    // Modal Form Pesan 
     let tmpPsn = {};
     function siapPesan(id, nama, asli, diskon) {
       tmpPsn = { nama: nama, harga: diskon };
       document.getElementById('mJudul').innerText = nama;
       
       let persen = asli > diskon ? Math.round(((asli - diskon) / asli) * 100) : 0;
-      
       if(persen > 0) {
         document.getElementById('mHargaCoret').innerText = "Rp " + asli.toLocaleString('id-ID');
         document.getElementById('mBadgeDiskon').innerText = persen + "% OFF";
@@ -423,8 +472,8 @@
       
       dtPesanan.push({ ID: idBaru, Nama: nama, Produk: tmpPsn.nama, Harga: tmpPsn.harga, Tanggal: tgl, Metode: bayar, Status: 1 });
       localStorage.setItem('my_resi', idUnik); myResi = idUnik;
+      
       document.getElementById('btnProgress').style.display = 'flex';
-
       postServer('add_order', dBaru);
 
       const teksWA = `*RUMAH DIGITAL PROJECT✨*\n\nHalo Admin, saya ingin melakukan pemesanan dengan detail berikut:\n\nNo pesanan *${idUnik}*\n\n🛍️ *DETAIL PRODUK*\n• Desain: ${tmpPsn.nama}\n• Harga: Rp ${tmpPsn.harga.toLocaleString('id-ID')}\n\n📋 *DATA PEMESAN*\n• Nama: ${nama}\n• Tgl Acara: ${tgl}\n\n💳 *METODE PEMBAYARAN*\n• Pilihan: ${bayar}\n\nMohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. Terima kasih! 🙏`;
@@ -432,24 +481,16 @@
       tutup('modalPesan');
     }
 
-    // TRACKING PEMBELI REAL-TIME
-    async function cekResiManual() {
+    // TRACKING PEMBELI 
+    function cekResiManual() {
       const input = document.getElementById('inputTrack').value.trim();
       if(!input) return;
-      
-      // Ambil data terbaru dari server diam-diam biar datanya real time 100%
-      try {
-        const res = await fetch(GOOGLE_APP_URL);
-        const data = await res.json();
-        dtPesanan = data.pesanan || [];
-      } catch(e) {} // abaikan error jika offline
-
       const cari = dtPesanan.find(o => o.ID === input || o.id === input);
       if(cari) {
         localStorage.setItem('my_resi', input); myResi = input;
         document.getElementById('btnProgress').style.display = 'flex';
         bukaModalProgress();
-      } else { alert("Nomor pesanan tidak ditemukan di database."); }
+      } else { alert("Nomor pesanan tidak ditemukan."); }
     }
 
     function bukaModalProgress() {
@@ -474,12 +515,10 @@
         if(lTamu && lTamu !== '') {
           document.getElementById('areaLinkTamu').style.display = 'block';
           document.getElementById('btnLihatTamu').href = lTamu;
-        } else {
-          document.getElementById('areaLinkTamu').style.display = 'none';
-        }
+        } else { document.getElementById('areaLinkTamu').style.display = 'none'; }
 
         document.getElementById('btnBagikanWA').onclick = () => {
-          let tWa = data.TemplateWA || data.templateWa || "Halo, berikut link undangan pernikahan kami.";
+          let tWa = data.TemplateWA || data.templateWa;
           window.open(`https://wa.me/?text=${encodeURIComponent(tWa)}`, '_blank');
         };
       } else { areaSel.style.display = 'none'; }
@@ -489,7 +528,7 @@
 
 
     // ==========================================
-    // BACKEND ADMIN FULL CRUD
+    // 4. BACKEND ADMIN 
     // ==========================================
     let kC = 0;
     document.getElementById('triggerAdmin').addEventListener('click', () => { kC++; if(kC>=3){ kC=0; switchView('admin'); } setTimeout(()=>kC=0, 2000); });
@@ -497,10 +536,10 @@
     function switchView(view) {
       if(view === 'admin') {
         document.getElementById('buyerView').style.display = 'none'; document.getElementById('adminView').style.display = 'block';
-        fetchServerData().then(() => renderAdmin());
+        renderAdmin();
       } else {
         document.getElementById('adminView').style.display = 'none'; document.getElementById('buyerView').style.display = 'block';
-        fetchServerData();
+        renderKatalogBuyer(kategoriAktif);
       }
     }
 
@@ -512,7 +551,6 @@
     }
 
     function renderAdmin() {
-      // Tabel Pesanan
       let hP='';
       [...dtPesanan].reverse().forEach((p) => {
         let idx = dtPesanan.findIndex(x => (x.ID||x.id) === (p.ID||p.id));
@@ -533,7 +571,6 @@
       });
       document.getElementById('tablePesananBody').innerHTML = hP;
 
-      // Tabel Katalog
       let hK='';
       dtKatalog.forEach((k) => {
         if(!k.ID) return;
@@ -548,7 +585,6 @@
       });
       document.getElementById('tableKatalogBody').innerHTML = hK;
 
-      // Tabel Kategori
       let hKt='';
       dtKat.forEach((k) => {
         if(!k.ID) return;
@@ -563,12 +599,11 @@
       document.getElementById('tableKatBody').innerHTML = hKt;
     }
 
-    // LOGIKA ADMIN PESANAN -> SELESAI
+    // ADMIN PESANAN SELESAI
     let tmpIdxOrder = -1;
     function ubahStatusAdmin(idx, val) {
       if(val == '3') {
-        tmpIdxOrder = idx;
-        const p = dtPesanan[idx];
+        tmpIdxOrder = idx; const p = dtPesanan[idx];
         document.getElementById('admOrderIdSelesai').value = p.ID || p.id;
         document.getElementById('admLinkHasil').value = p.LinkSelesai || p.linkSelesai || '';
         document.getElementById('cekLinkTamu').checked = (p.LinkTamu || p.linkTamu) ? true : false;
@@ -601,13 +636,12 @@
       dtPesanan[tmpIdxOrder].LinkTamu = lT; dtPesanan[tmpIdxOrder].linkTamu = lT;
 
       postServer('update_order', { id: dtPesanan[tmpIdxOrder].ID||dtPesanan[tmpIdxOrder].id, status: 3, linkSelesai: lH, templateWa: tW, linkTamu: lT });
-      tutup('modalSelesaiPesanan'); renderAdmin(); alert("Pesanan Selesai dikirim ke Server!");
+      tutup('modalSelesaiPesanan'); renderAdmin(); alert("Data Selesai Tersimpan di Server!");
     }
 
     // CRUD KATALOG
     function htgDsk() {
-      let a = parseInt(document.getElementById('fkHargaAsli').value)||0;
-      let d = parseInt(document.getElementById('fkHargaDiskon').value)||0;
+      let a = parseInt(document.getElementById('fkHargaAsli').value)||0; let d = parseInt(document.getElementById('fkHargaDiskon').value)||0;
       let p = (a>0 && d>0 && a>d) ? Math.round(((a-d)/a)*100) : 0;
       document.getElementById('fkLblDiskon').innerText = p + "%";
     }
@@ -663,7 +697,7 @@
     }
 
     function hapusAdmin(jenis, id) {
-      if(!confirm("Yakin mau hapus?")) return;
+      if(!confirm("Yakin mau hapus permanen?")) return;
       if(jenis==='katlog') { dtKatalog = dtKatalog.filter(x=>x.ID!==id); postServer('del_katalog', {id:id}); }
       if(jenis==='kat') { dtKat = dtKat.filter(x=>x.ID!==id); postServer('del_kat', {id:id}); }
       renderAdmin();
