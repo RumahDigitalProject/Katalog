@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   
   <style>
-    /* VARIABEL WARNA (Tetap Dipertahankan) */
     :root {
       --bg-main: #f8fafc; --card-bg: #ffffff; --navy: #0f172a; --navy-light: #1e293b; 
       --gold: #D4AF37; --text-dark: #334155; --text-muted: #64748b; --radius: 16px;
@@ -17,9 +16,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
     body { background-color: var(--bg-main); color: var(--text-dark); }
 
-    /* =========================================
-       1. TAMPILAN PEMBELI (DEPAN)
-       ========================================= */
+    /* TAMPILAN PEMBELI */
     #buyerView { padding-bottom: 100px; min-height: 100vh;}
     .hero { background: var(--navy); color: white; text-align: center; padding: 60px 20px 40px; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: 34px; color: var(--gold); margin-bottom: 10px; }
@@ -45,23 +42,18 @@
     .badge-discount { position: absolute; top: 10px; right: 10px; background: var(--danger); color: white; padding: 4px 8px; font-size: 12px; font-weight: 800; border-radius: 6px; z-index: 2; }
     .card-img-wrapper { position: relative; width: 100%; padding-top: 130%; background: #e2e8f0; }
     .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-    
     .card-body { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
     .card-title { font-size: 16px; font-weight: 800; color: var(--navy); }
     .price-coret { text-decoration: line-through; color: var(--danger); font-size: 12px; margin-top:5px; }
     .price-final { color: var(--gold); font-weight: 800; font-size: 18px; margin-bottom: 10px; }
     
-    /* PERBAIKAN TOMBOL KATALOG AGAR RAPI & PRESISI */
     .btn-group { display: flex; gap: 8px; width: 100%; margin-top: auto; }
-    .btn-demo, .btn-order { 
-      flex: 1; padding: 10px 0; border-radius: 8px; font-weight: 600; 
-      font-size: 13px; cursor: pointer; text-align: center; border: 1px solid var(--navy); box-sizing: border-box;
-    }
+    .btn-demo, .btn-order { flex: 1; padding: 10px 0; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; text-align: center; border: 1px solid var(--navy); box-sizing: border-box;}
     .btn-demo { background: white; color: var(--navy); }
     .btn-order { background: var(--navy); color: white; border: none;}
     .btn-action { width: 100%; background: #25D366; color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 15px; margin-top: 10px; }
 
-    /* EFEK SKELETON LOADING */
+    /* SKELETON */
     .skeleton-card { background: var(--card-bg); border-radius: var(--radius); padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
     .skeleton-img { width: 100%; padding-top: 130%; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite; }
     .skeleton-line { height: 20px; background: #e2e8f0; border-radius: 4px; animation: pulse 1.5s infinite; }
@@ -76,7 +68,7 @@
     .fab-wa { background: #25D366; }
     .fab-progress { background: white; border: 2px solid var(--navy); display: none; }
 
-    /* MODAL UMUM */
+    /* MODAL */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.8); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
     .modal-box { background: white; width: 100%; max-width: 450px; border-radius: 20px; padding: 25px; position: relative; max-height: 90vh; overflow-y: auto; }
     .modal-box-lg { max-width: 600px; }
@@ -95,9 +87,7 @@
     .timeline-title { font-size: 14px; font-weight: 800; color: var(--text-dark); }
     .timeline-desc { font-size: 12px; color: var(--text-muted); }
 
-    /* =========================================
-       2. TAMPILAN ADMIN PANEL
-       ========================================= */
+    /* TAMPILAN ADMIN */
     #adminView { display: none; min-height: 100vh; background: #f1f5f9; padding: 20px; }
     .admin-header { display: flex; justify-content: space-between; align-items: center; background: var(--navy); color: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
     .btn-exit-admin { background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
@@ -113,7 +103,7 @@
     table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px; }
     th, td { padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
     th { background: #f8fafc; color: var(--text-muted); }
-    .badge-status { padding: 4px 10px; border-radius: 50px; font-size: 12px; font-weight: bold; }
+    .badge-status { padding: 4px 10px; border-radius: 50px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 5px;}
     .status-1 { background: #fee2e2; color: #ef4444; } .status-2 { background: #fef3c7; color: #d97706; } .status-3 { background: #dcfce3; color: #10b981; } .status-4 { background: #e2e8f0; color: #64748b; }
 
     .btn-sm { padding: 5px 10px; border-radius: 4px; border:none; cursor: pointer; font-size: 12px; font-weight:bold; }
@@ -121,6 +111,7 @@
     .btn-del { background: #fee2e2; color: var(--danger); }
 
     .footer-secret { text-align: center; padding: 30px; font-size: 12px; color: #cbd5e1; cursor: pointer; user-select: none; }
+    .loading-text { text-align: center; font-size: 14px; color: var(--text-muted); font-weight: 600; width: 100%; grid-column: 1 / -1;}
   </style>
 </head>
 <body>
@@ -141,8 +132,6 @@
     <div class="catalog-grid" id="katalogGrid">
       <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
       <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
-      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
-      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line box"></div></div>
     </div>
 
     <div class="footer-secret" id="triggerAdmin">© 2026 Rumah Digital Project (Ketuk 3x untuk Admin)</div>
@@ -160,13 +149,11 @@
       <div class="modal-box">
         <div class="modal-close" onclick="tutup('modalPesan')">×</div>
         <h3 id="mJudul" style="color: var(--navy); font-size:20px;">Nama Produk</h3>
-        
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
           <div id="mHargaCoret" class="price-coret" style="font-size:14px;"></div>
           <div id="mHargaDiskon" class="price-final" style="margin-bottom:0; font-size:22px;">Rp 0</div>
           <div id="mBadgeDiskon" style="background:var(--danger); color:white; padding:2px 8px; border-radius:5px; font-size:12px; font-weight:bold; display:none;"></div>
         </div>
-        
         <div class="form-group"><label>Nama Pemesan (Mempelai)</label><input type="text" id="mNama" class="form-control" placeholder="Cth: Dilan & Milea"></div>
         <div class="form-group"><label>Tanggal Acara</label><input type="date" id="mTanggal" class="form-control"></div>
         <div class="form-group">
@@ -181,19 +168,16 @@
       <div class="modal-box">
         <div class="modal-close" onclick="tutup('modalProgress')">×</div>
         <h3 style="color: var(--navy); margin-bottom: 15px;">Status Pesananmu</h3>
-        
         <div style="background:#f1f5f9; padding:15px; border-radius:12px; margin-bottom:10px;">
           <p style="font-size:13px; color:var(--text-muted);">Resi: <strong id="pResi" style="color:var(--navy);"></strong></p>
           <p style="font-size:13px; color:var(--text-muted);">Nama: <strong id="pNama" style="color:var(--navy);"></strong></p>
           <p style="font-size:13px; color:var(--text-muted);">Produk: <strong id="pProduk" style="color:var(--navy);"></strong></p>
         </div>
-
         <div class="timeline">
           <div class="timeline-item" id="tl-1"><div class="timeline-title">Pesanan Masuk</div><div class="timeline-desc">Menunggu konfirmasi pembayaran.</div></div>
           <div class="timeline-item" id="tl-2"><div class="timeline-title">Proses Pengerjaan</div><div class="timeline-desc">Undangan sedang didesain.</div></div>
           <div class="timeline-item" id="tl-3"><div class="timeline-title">Selesai</div><div class="timeline-desc">Undangan siap dibagikan!</div></div>
         </div>
-
         <div id="areaSelesai" style="display:none; text-align:center; margin-top:20px; border-top:1px solid #e2e8f0; padding-top:15px;">
           <button class="btn-action" style="background:var(--navy); border-radius:8px; margin-bottom:10px;" id="btnLihatUndangan">Lihat Undangan Saya</button>
           <div id="areaLinkTamu" style="display:none; margin-bottom:10px;">
@@ -205,13 +189,11 @@
     </div>
   </div>
 
-
   <div id="adminView">
     <div class="admin-header">
       <h2>Dashboard Admin</h2>
       <button class="btn-exit-admin" onclick="switchView('buyer')">Keluar Admin</button>
     </div>
-
     <div class="admin-layout">
       <div class="admin-sidebar">
         <button class="admin-menu-btn active" onclick="gantiMenuAdmin('pesanan', this)">🛒 Kelola Pesanan</button>
@@ -223,7 +205,7 @@
         <div id="adm-pesanan">
           <div style="display:flex; gap:15px; margin-bottom:20px;">
             <div style="background:var(--bg-main); padding:15px; border-radius:12px; border:1px solid #cbd5e1; flex:1;">
-              <p style="font-size:12px; color:var(--text-muted);">Total Penghasilan (Pesanan Selesai)</p>
+              <p style="font-size:12px; color:var(--text-muted);">Total Penghasilan</p>
               <h2 id="admOmzet" style="color:var(--success);">Rp 0</h2>
             </div>
             <div style="background:var(--bg-main); padding:15px; border-radius:12px; border:1px solid #cbd5e1; flex:1;">
@@ -231,10 +213,9 @@
               <h2 id="admOrderProses" style="color:var(--navy);">0</h2>
             </div>
           </div>
-          
           <h3 style="margin-bottom: 15px;">Riwayat Pesanan</h3>
           <table>
-            <thead><tr><th>Resi</th><th>Pemesan</th><th>Produk</th><th>Status</th></tr></thead>
+            <thead><tr><th>Resi</th><th>Pemesan</th><th>Produk</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody id="tablePesananBody"></tbody>
           </table>
         </div>
@@ -269,7 +250,6 @@
       <div class="modal-close" onclick="tutup('modalSelesaiPesanan')">×</div>
       <h3 style="margin-bottom: 15px; color:var(--navy);">Selesaikan Pesanan</h3>
       <div class="form-group"><label>Link Undangan Jadi</label><input type="text" id="admLinkHasil" class="form-control" placeholder="https://..."></div>
-      
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
         <input type="checkbox" id="cekLinkTamu" onchange="toggleLinkTamu()"> 
         <label for="cekLinkTamu" style="margin:0; font-size:13px; font-weight:bold;">Beri fitur Link Daftar Tamu?</label>
@@ -278,12 +258,10 @@
         <label>Link Google Sheet Tamu</label>
         <input type="text" id="admLinkTamu" class="form-control" placeholder="https://docs.google.com/...">
       </div>
-
       <div class="form-group">
         <label>Draft Pesan WhatsApp (Pembeli bisa edit nanti)</label>
         <textarea id="admTemplateWA" class="form-control" style="height:200px; resize:vertical; font-size:12px;"></textarea>
       </div>
-      
       <input type="hidden" id="admOrderIdSelesai">
       <button class="btn-action" style="background:var(--navy);" onclick="simpanPesananSelesai()">Kirim & Selesaikan</button>
     </div>
@@ -330,21 +308,18 @@
     let initialLoadSelesai = false;
 
     // ==========================================
-    // 1. SKELETON, CACHE, & REAL-TIME POLLING
+    // SINKRONISASI & CACHE
     // ==========================================
     window.onload = () => {
       let cKat = localStorage.getItem('cache_kat');
       let cKatalog = localStorage.getItem('cache_katalog');
       
       if(cKat && cKatalog && JSON.parse(cKatalog).length > 0) {
-        dtKat = JSON.parse(cKat);
-        dtKatalog = JSON.parse(cKatalog);
-        dtPesanan = JSON.parse(localStorage.getItem('cache_pesanan')) || [];
-        renderKategoriBuyer();
-        renderKatalogBuyer(kategoriAktif);
-        initialLoadSelesai = true;
+        dtKat = JSON.parse(cKat); dtKatalog = JSON.parse(cKatalog); dtPesanan = JSON.parse(localStorage.getItem('cache_pesanan')) || [];
+        renderKategoriBuyer(); renderKatalogBuyer(kategoriAktif); initialLoadSelesai = true;
       }
-      if(myResi !== '') document.getElementById('btnProgress').style.display = 'flex';
+      
+      updateIkonProgres(dtPesanan);
 
       fetchServerData();
       setInterval(fetchServerData, 5000); 
@@ -355,18 +330,13 @@
         const res = await fetch(GOOGLE_APP_URL);
         const data = await res.json();
         
-        dtKat = data.kategori || [];
-        dtKatalog = data.katalog || [];
-        dtPesanan = data.pesanan || [];
-        
+        dtKat = data.kategori || []; dtKatalog = data.katalog || []; dtPesanan = data.pesanan || [];
         localStorage.setItem('cache_kat', JSON.stringify(dtKat));
         localStorage.setItem('cache_katalog', JSON.stringify(dtKatalog));
         localStorage.setItem('cache_pesanan', JSON.stringify(dtPesanan));
 
         if(!initialLoadSelesai) { initialLoadSelesai = true; }
-
-        renderKategoriBuyer(); 
-        renderKatalogBuyer(kategoriAktif);
+        renderKategoriBuyer(); renderKatalogBuyer(kategoriAktif); updateIkonProgres(dtPesanan);
 
         if(document.getElementById('adminView').style.display === 'block') { renderAdmin(); }
       } catch(e) {} 
@@ -380,7 +350,7 @@
     }
 
     // ==========================================
-    // 2. FRONTEND PEMBELI
+    // FRONTEND PEMBELI
     // ==========================================
     function renderKategoriBuyer() {
       let html = `<button class="tab-btn ${kategoriAktif==='all'?'active':''}" onclick="filterKat('all', this)">Semua Desain</button>`;
@@ -407,17 +377,12 @@
       if(!initialLoadSelesai) return;
 
       let dataSaring = kat === 'all' ? dtKatalog : dtKatalog.filter(k => k.Kat === kat);
-      if(dataSaring.length === 0) {
-        grid.innerHTML = '<div style="text-align:center; color:#64748b; grid-column:1/-1;">Belum ada katalog di kategori ini.</div>';
-        return;
-      }
+      if(dataSaring.length === 0) { grid.innerHTML = '<div style="text-align:center; color:#64748b; grid-column:1/-1;">Belum ada katalog.</div>'; return; }
 
       let htmlCards = '';
       dataSaring.forEach(item => {
         if(!item.ID) return;
-        
-        let hAsli = parseInt(item.HargaAsli) || 0;
-        let hDiskon = parseInt(item.HargaDiskon);
+        let hAsli = parseInt(item.HargaAsli) || 0; let hDiskon = parseInt(item.HargaDiskon);
         if(isNaN(hDiskon) || hDiskon <= 0) hDiskon = hAsli; 
 
         let persen = hAsli > hDiskon ? Math.round(((hAsli - hDiskon) / hAsli) * 100) : 0;
@@ -442,39 +407,31 @@
       grid.innerHTML = htmlCards; 
     }
 
-    // Modal Form Pesan 
     let tmpPsn = {};
     function siapPesan(id, nama, asli, diskon) {
       tmpPsn = { nama: nama, harga: diskon };
       document.getElementById('mJudul').innerText = nama;
-      
       let persen = asli > diskon ? Math.round(((asli - diskon) / asli) * 100) : 0;
       if(persen > 0) {
         document.getElementById('mHargaCoret').innerText = "Rp " + asli.toLocaleString('id-ID');
-        document.getElementById('mBadgeDiskon').innerText = persen + "% OFF";
-        document.getElementById('mBadgeDiskon').style.display = 'block';
+        document.getElementById('mBadgeDiskon').innerText = persen + "% OFF"; document.getElementById('mBadgeDiskon').style.display = 'block';
       } else {
-        document.getElementById('mHargaCoret').innerText = "";
-        document.getElementById('mBadgeDiskon').style.display = 'none';
+        document.getElementById('mHargaCoret').innerText = ""; document.getElementById('mBadgeDiskon').style.display = 'none';
       }
       document.getElementById('mHargaDiskon').innerText = "Rp " + diskon.toLocaleString('id-ID');
-      
       document.getElementById('modalPesan').style.display = 'flex';
     }
 
     function kirimPesananWA() {
-      const nama = document.getElementById('mNama').value;
-      const tgl = document.getElementById('mTanggal').value;
-      const bayar = document.getElementById('mBayar').value;
+      const nama = document.getElementById('mNama').value; const tgl = document.getElementById('mTanggal').value; const bayar = document.getElementById('mBayar').value;
       if(!nama || !tgl) return alert("Isi Nama & Tanggal!");
-
       const idUnik = 'RDP' + Math.floor(10000+Math.random()*90000) + 'X';
       const dBaru = { id: idUnik, nama: nama, produk: tmpPsn.nama, harga: tmpPsn.harga, tanggal: tgl, metode: bayar, status: 1, linkSelesai: '', templateWa: '', linkTamu: '' };
       
       dtPesanan.push({ ID: idBaru, Nama: nama, Produk: tmpPsn.nama, Harga: tmpPsn.harga, Tanggal: tgl, Metode: bayar, Status: 1 });
       localStorage.setItem('my_resi', idUnik); myResi = idUnik;
       
-      document.getElementById('btnProgress').style.display = 'flex';
+      updateIkonProgres(dtPesanan);
       postServer('add_order', dBaru);
 
       const teksWA = `*RUMAH DIGITAL PROJECT✨*\n\nHalo Admin, saya ingin melakukan pemesanan dengan detail berikut:\n\nNo pesanan *${idUnik}*\n\n🛍️ *DETAIL PRODUK*\n• Desain: ${tmpPsn.nama}\n• Harga: Rp ${tmpPsn.harga.toLocaleString('id-ID')}\n\n📋 *DATA PEMESAN*\n• Nama: ${nama}\n• Tgl Acara: ${tgl}\n\n💳 *METODE PEMBAYARAN*\n• Pilihan: ${bayar}\n\nMohon panduan selanjutnya untuk proses pembayaran dan pengisian data undangan. Terima kasih! 🙏`;
@@ -482,18 +439,27 @@
       tutup('modalPesan');
     }
 
-    // TRACKING PEMBELI 
+    // CEK RESI & PROGRESS
+    function updateIkonProgres(databasePesanan) {
+      if(!myResi) return;
+      const pesananKu = databasePesanan.find(o => o.ID === myResi || o.id === myResi);
+      // Ikon hilang HANYA jika status pesanan adalah 4 (Diarsipkan/Dihilangkan)
+      if(pesananKu && parseInt(pesananKu.Status || pesananKu.status) !== 4) {
+        document.getElementById('btnProgress').style.display = 'flex';
+      } else {
+        document.getElementById('btnProgress').style.display = 'none';
+      }
+    }
+
     function cekResiManual() {
       const input = document.getElementById('inputTrack').value.trim();
       if(!input) return;
       const cari = dtPesanan.find(o => o.ID === input || o.id === input);
-      
-      // Jika pesanan ada tapi statusnya 4 (Dihilangkan/Arsip), tolak pencarian
       if(cari && parseInt(cari.Status || cari.status) !== 4) {
         localStorage.setItem('my_resi', input); myResi = input;
-        document.getElementById('btnProgress').style.display = 'flex';
+        updateIkonProgres(dtPesanan);
         bukaModalProgress();
-      } else { alert("Nomor pesanan tidak ditemukan atau data telah diarsipkan karena sudah selesai."); }
+      } else { alert("Nomor pesanan tidak ditemukan atau sudah selesai diarsipkan."); }
     }
 
     function bukaModalProgress() {
@@ -513,38 +479,27 @@
       if(st == 3) {
         areaSel.style.display = 'block';
         document.getElementById('btnLihatUndangan').onclick = () => window.open(data.LinkSelesai || data.linkSelesai, '_blank');
-        
         let lTamu = data.LinkTamu || data.linkTamu;
-        if(lTamu && lTamu !== '') {
-          document.getElementById('areaLinkTamu').style.display = 'block';
-          document.getElementById('btnLihatTamu').href = lTamu;
-        } else { document.getElementById('areaLinkTamu').style.display = 'none'; }
+        if(lTamu) { document.getElementById('areaLinkTamu').style.display = 'block'; document.getElementById('btnLihatTamu').href = lTamu; } 
+        else { document.getElementById('areaLinkTamu').style.display = 'none'; }
 
-        // Tombol Bagikan Mengarah Langsung ke Nomor Admin (6285706889273) Sesuai Permintaan
         document.getElementById('btnBagikanWA').onclick = () => {
           let tWa = data.TemplateWA || data.templateWa;
           window.open(`https://wa.me/6285706889273?text=${encodeURIComponent(tWa)}`, '_blank');
         };
       } else { areaSel.style.display = 'none'; }
-
       document.getElementById('modalProgress').style.display = 'flex';
     }
 
 
     // ==========================================
-    // 4. BACKEND ADMIN FULL CRUD
+    // BACKEND ADMIN PANEL
     // ==========================================
-    let kC = 0;
-    document.getElementById('triggerAdmin').addEventListener('click', () => { kC++; if(kC>=3){ kC=0; switchView('admin'); } setTimeout(()=>kC=0, 2000); });
+    let kC = 0; document.getElementById('triggerAdmin').addEventListener('click', () => { kC++; if(kC>=3){ kC=0; switchView('admin'); } setTimeout(()=>kC=0, 2000); });
 
     function switchView(view) {
-      if(view === 'admin') {
-        document.getElementById('buyerView').style.display = 'none'; document.getElementById('adminView').style.display = 'block';
-        renderAdmin();
-      } else {
-        document.getElementById('adminView').style.display = 'none'; document.getElementById('buyerView').style.display = 'block';
-        renderKategoriBuyer(); renderKatalogBuyer(kategoriAktif);
-      }
+      if(view === 'admin') { document.getElementById('buyerView').style.display = 'none'; document.getElementById('adminView').style.display = 'block'; renderAdmin(); } 
+      else { document.getElementById('adminView').style.display = 'none'; document.getElementById('buyerView').style.display = 'block'; renderKategoriBuyer(); renderKatalogBuyer(kategoriAktif); }
     }
 
     function gantiMenuAdmin(menu, btn) {
@@ -555,7 +510,7 @@
     }
 
     function renderAdmin() {
-      // Hitung Omzet Cerdas (Hanya yang Selesai & Diarsipkan yang dihitung)
+      // Omzet HANYA hitung yang statusnya 3 (Selesai) atau 4 (Arsip)
       let totalUang = 0, orderProses = 0;
       dtPesanan.forEach(p => {
         if(!p.ID && !p.id) return;
@@ -566,7 +521,6 @@
       document.getElementById('admOmzet').innerText = "Rp " + totalUang.toLocaleString('id-ID');
       document.getElementById('admOrderProses').innerText = orderProses;
 
-      // Tabel Pesanan
       let hP='';
       [...dtPesanan].reverse().forEach((p) => {
         let idAsli = p.ID || p.id;
@@ -576,8 +530,7 @@
         
         let bdg = st==1 ? '<span class="badge-status status-1">1. Masuk</span>' : 
                   st==2 ? '<span class="badge-status status-2">2. Proses</span>' : 
-                  st==3 ? '<span class="badge-status status-3">3. Selesai</span>' : 
-                          '<span class="badge-status status-4">Diarsipkan</span>';
+                  st==3 ? '<span class="badge-status status-3">3. Selesai</span>' : '<span class="badge-status status-4">Diarsipkan</span>';
         
         hP += `<tr>
           <td><strong>${idAsli}</strong></td><td>${p.Nama||p.nama}</td><td>${p.Produk||p.produk}</td>
@@ -586,48 +539,40 @@
             <select onchange="ubahStatusAdmin(${idx}, this.value)" style="margin-top:5px; padding:3px; font-size:12px;">
               <option value="1" ${st==1?'selected':''}>Set: Masuk</option>
               <option value="2" ${st==2?'selected':''}>Set: Proses</option>
-              <option value="3" ${(st==3 || st==4)?'selected':''}>Set: Selesai</option>
+              <option value="3" ${(st==3||st==4)?'selected':''}>Set: Selesai</option>
             </select>
             <div style="display:flex; align-items:center; gap:5px; margin-top:8px;">
                <input type="checkbox" id="hd_${idAsli}" onchange="toggleArsipOrder(${idx}, this.checked)" ${st==4?'checked':''} ${st<3?'disabled':''}>
                <label for="hd_${idAsli}" style="font-size:11px; margin:0; cursor:pointer;">Hilangkan Progres</label>
             </div>
           </td>
+          <td><button class="btn-sm btn-del" onclick="hapusPesanan(${idx}, '${idAsli}')" style="width:100%;">Hapus Permanen</button></td>
         </tr>`;
       });
       document.getElementById('tablePesananBody').innerHTML = hP;
 
-      // Tabel Katalog
       let hK='';
       dtKatalog.forEach((k) => {
         if(!k.ID) return;
         hK += `<tr>
-          <td><img src="${k.Img}" width="40" style="border-radius:4px;"></td>
-          <td><strong>${k.Nama}</strong></td><td>${k.Kat}</td><td>Rp ${k.HargaAsli}</td>
-          <td>
-            <button class="btn-sm btn-edit" onclick="bukaModalKatalog('edit', '${k.ID}')">Edit</button>
-            <button class="btn-sm btn-del" onclick="hapusAdmin('katlog', '${k.ID}')">Hapus</button>
-          </td>
+          <td><img src="${k.Img}" width="40" style="border-radius:4px;"></td><td><strong>${k.Nama}</strong></td><td>${k.Kat}</td><td>Rp ${k.HargaAsli}</td>
+          <td><button class="btn-sm btn-edit" onclick="bukaModalKatalog('edit', '${k.ID}')">Edit</button> <button class="btn-sm btn-del" onclick="hapusAdmin('katlog', '${k.ID}')">Hapus</button></td>
         </tr>`;
       });
       document.getElementById('tableKatalogBody').innerHTML = hK;
 
-      // Tabel Kategori
       let hKt='';
       dtKat.forEach((k) => {
         if(!k.ID) return;
         hKt += `<tr>
           <td>${k.ID}</td><td><strong>${k.Nama}</strong></td>
-          <td>
-            <button class="btn-sm btn-edit" onclick="bukaModalKat('edit', '${k.ID}')">Edit</button>
-            <button class="btn-sm btn-del" onclick="hapusAdmin('kat', '${k.ID}')">Hapus</button>
-          </td>
+          <td><button class="btn-sm btn-edit" onclick="bukaModalKat('edit', '${k.ID}')">Edit</button> <button class="btn-sm btn-del" onclick="hapusAdmin('kat', '${k.ID}')">Hapus</button></td>
         </tr>`;
       });
       document.getElementById('tableKatBody').innerHTML = hKt;
     }
 
-    // ADMIN PESANAN SELESAI & HILANGKAN
+    // ORDER
     let tmpIdxOrder = -1;
     function ubahStatusAdmin(idx, val) {
       if(val == '3') {
@@ -635,11 +580,9 @@
         document.getElementById('admOrderIdSelesai').value = p.ID || p.id;
         document.getElementById('admLinkHasil').value = p.LinkSelesai || p.linkSelesai || '';
         document.getElementById('cekLinkTamu').checked = (p.LinkTamu || p.linkTamu) ? true : false;
-        toggleLinkTamu();
-        document.getElementById('admLinkTamu').value = p.LinkTamu || p.linkTamu || '';
+        toggleLinkTamu(); document.getElementById('admLinkTamu').value = p.LinkTamu || p.linkTamu || '';
         
         let defTmpl = `Assalamu’alaikum Wr. Wb.\n\nBismillahirrahmanirrahim, Dengan memohon ridho Allah SWT dan tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan kami :\n\n*${p.Nama||p.nama}*\n\nyang diselenggarakan pada tanggal *${p.Tanggal||p.tanggal}*\n\nUntuk detail acara, silahkan klik tautan berikut :\n[LINK_UNDANGAN]\n\nE-invitation ini merupakan undangan resmi dari kami karena keterbatasan jarak dan waktu.\nMerupakan suatu kebahagiaan dan kehormatan bagi kami jika Bapak/Ibu/Saudara/i berkenan menghadiri acara resepsi pernikahan kami. Terima kasih banyak atas perhatiannya.\n\nWassalamu’alaikum Wr. Wb.`;
-        
         document.getElementById('admTemplateWA').value = p.TemplateWA || p.templateWa || defTmpl;
         document.getElementById('modalSelesaiPesanan').style.display = 'flex';
       } else {
@@ -650,19 +593,25 @@
     }
 
     function toggleArsipOrder(idx, isChecked) {
-      let st = isChecked ? 4 : 3; // 4 = Hilang dari Publik, 3 = Selesai Publik
+      let st = isChecked ? 4 : 3; 
       dtPesanan[idx].Status = st; dtPesanan[idx].status = st;
       postServer('update_order', { id: dtPesanan[idx].ID || dtPesanan[idx].id, status: st });
+      updateIkonProgres(dtPesanan); // Update ikon HP ini kalau kebetulan ini pesanan dia
+      renderAdmin();
+    }
+
+    function hapusPesanan(idx, id) {
+      if(!confirm("Hapus pesanan ini secara permanen?")) return;
+      dtPesanan.splice(idx, 1);
+      postServer('del_order', {id: id});
       renderAdmin();
     }
 
     function toggleLinkTamu() { document.getElementById('boxLinkTamu').style.display = document.getElementById('cekLinkTamu').checked ? 'block' : 'none'; }
-    
     function simpanPesananSelesai() {
       const lH = document.getElementById('admLinkHasil').value;
       const lT = document.getElementById('cekLinkTamu').checked ? document.getElementById('admLinkTamu').value : '';
-      let tW = document.getElementById('admTemplateWA').value;
-      tW = tW.replace('[LINK_UNDANGAN]', lH);
+      let tW = document.getElementById('admTemplateWA').value; tW = tW.replace('[LINK_UNDANGAN]', lH);
 
       dtPesanan[tmpIdxOrder].Status = 3; dtPesanan[tmpIdxOrder].status = 3;
       dtPesanan[tmpIdxOrder].LinkSelesai = lH; dtPesanan[tmpIdxOrder].linkSelesai = lH;
@@ -670,62 +619,39 @@
       dtPesanan[tmpIdxOrder].LinkTamu = lT; dtPesanan[tmpIdxOrder].linkTamu = lT;
 
       postServer('update_order', { id: dtPesanan[tmpIdxOrder].ID||dtPesanan[tmpIdxOrder].id, status: 3, linkSelesai: lH, templateWa: tW, linkTamu: lT });
-      tutup('modalSelesaiPesanan'); renderAdmin(); alert("Data Selesai Tersimpan di Server!");
+      tutup('modalSelesaiPesanan'); renderAdmin();
     }
 
-    // CRUD KATALOG
-    function htgDsk() {
-      let a = parseInt(document.getElementById('fkHargaAsli').value)||0; let d = parseInt(document.getElementById('fkHargaDiskon').value)||0;
-      let p = (a>0 && d>0 && a>d) ? Math.round(((a-d)/a)*100) : 0; document.getElementById('fkLblDiskon').innerText = p + "%";
-    }
-
+    // KATALOG
+    function htgDsk() { let a=parseInt(document.getElementById('fkHargaAsli').value)||0; let d=parseInt(document.getElementById('fkHargaDiskon').value)||0; document.getElementById('fkLblDiskon').innerText = (a>0&&d>0&&a>d)?Math.round(((a-d)/a)*100)+"%":"0%"; }
     function bukaModalKatalog(mode, id='') {
       if(mode==='tambah') {
-        document.getElementById('katTitle').innerText = "Tambah Katalog"; document.getElementById('fkId').value = '';
-        document.getElementById('fkNama').value = ''; document.getElementById('fkHargaAsli').value = ''; document.getElementById('fkHargaDiskon').value = '';
-        document.getElementById('fkImg').value = ''; document.getElementById('fkDemo').value = ''; htgDsk();
+        document.getElementById('katTitle').innerText="Tambah Katalog"; document.getElementById('fkId').value=''; document.getElementById('fkNama').value=''; document.getElementById('fkHargaAsli').value=''; document.getElementById('fkHargaDiskon').value=''; document.getElementById('fkImg').value=''; document.getElementById('fkDemo').value=''; htgDsk();
       } else {
-        document.getElementById('katTitle').innerText = "Edit Katalog"; document.getElementById('fkId').value = id;
-        const d = dtKatalog.find(x=>x.ID===id);
-        document.getElementById('fkKat').value = d.Kat; document.getElementById('fkNama').value = d.Nama; document.getElementById('fkHargaAsli').value = d.HargaAsli;
-        document.getElementById('fkHargaDiskon').value = d.HargaDiskon; document.getElementById('fkImg').value = d.Img; document.getElementById('fkDemo').value = d.LinkDemo; htgDsk();
+        document.getElementById('katTitle').innerText="Edit Katalog"; document.getElementById('fkId').value=id; const d=dtKatalog.find(x=>x.ID===id); document.getElementById('fkKat').value=d.Kat; document.getElementById('fkNama').value=d.Nama; document.getElementById('fkHargaAsli').value=d.HargaAsli; document.getElementById('fkHargaDiskon').value=d.HargaDiskon; document.getElementById('fkImg').value=d.Img; document.getElementById('fkDemo').value=d.LinkDemo; htgDsk();
       }
       document.getElementById('modalFormKatalog').style.display='flex';
     }
-
     function simpanKatalog() {
       let nid = document.getElementById('fkId').value;
-      let data = {
-        id: nid || ('K'+Date.now()), kat: document.getElementById('fkKat').value, nama: document.getElementById('fkNama').value,
-        hargaAsli: document.getElementById('fkHargaAsli').value, hargaDiskon: document.getElementById('fkHargaDiskon').value,
-        img: document.getElementById('fkImg').value || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400', linkDemo: document.getElementById('fkDemo').value
-      };
+      let data = { id: nid||('K'+Date.now()), kat: document.getElementById('fkKat').value, nama: document.getElementById('fkNama').value, hargaAsli: document.getElementById('fkHargaAsli').value, hargaDiskon: document.getElementById('fkHargaDiskon').value, img: document.getElementById('fkImg').value||'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400', linkDemo: document.getElementById('fkDemo').value };
       if(!nid) { dtKatalog.push({ID:data.id, Kat:data.kat, Nama:data.nama, HargaAsli:data.hargaAsli, HargaDiskon:data.hargaDiskon, Img:data.img, LinkDemo:data.linkDemo}); postServer('add_katalog', data); }
-      else { 
-        let ix = dtKatalog.findIndex(x=>x.ID===nid);
-        dtKatalog[ix] = {ID:data.id, Kat:data.kat, Nama:data.nama, HargaAsli:data.hargaAsli, HargaDiskon:data.hargaDiskon, Img:data.img, LinkDemo:data.linkDemo};
-        postServer('edit_katalog', data); 
-      }
+      else { let ix=dtKatalog.findIndex(x=>x.ID===nid); dtKatalog[ix]={ID:data.id, Kat:data.kat, Nama:data.nama, HargaAsli:data.hargaAsli, HargaDiskon:data.hargaDiskon, Img:data.img, LinkDemo:data.linkDemo}; postServer('edit_katalog', data); }
       tutup('modalFormKatalog'); renderAdmin();
     }
 
-    // CRUD KATEGORI PINTAR (Langsung update tampilan)
+    // KATEGORI
     function bukaModalKat(mode, id='') {
       document.getElementById('ktMode').value = mode;
-      if(mode==='tambah'){
-        document.getElementById('ktTitle').innerText = "Kategori Baru"; document.getElementById('ktId').value=''; document.getElementById('ktId').disabled=false; document.getElementById('ktNama').value='';
-      } else {
-        document.getElementById('ktTitle').innerText = "Edit Kategori"; document.getElementById('ktId').value=id; document.getElementById('ktId').disabled=true;
-        document.getElementById('ktNama').value = dtKat.find(x=>x.ID===id).Nama;
-      }
+      if(mode==='tambah'){ document.getElementById('ktTitle').innerText="Kategori Baru"; document.getElementById('ktId').value=''; document.getElementById('ktId').disabled=false; document.getElementById('ktNama').value=''; } 
+      else { document.getElementById('ktTitle').innerText="Edit Kategori"; document.getElementById('ktId').value=id; document.getElementById('ktId').disabled=true; document.getElementById('ktNama').value=dtKat.find(x=>x.ID===id).Nama; }
       document.getElementById('modalFormKat').style.display='flex';
     }
-    
     function simpanKategori() {
       let id = document.getElementById('ktId').value.trim(); let nama = document.getElementById('ktNama').value; let md = document.getElementById('ktMode').value;
       if(md==='tambah') { dtKat.push({ID:id, Nama:nama}); postServer('add_kat', {id:id, nama:nama}); }
-      else { dtKat.find(x=>x.ID===id).Nama = nama; postServer('edit_kat', {id:id, nama:nama}); }
-      tutup('modalFormKat'); renderAdmin(); renderKategoriBuyer(); // Refresh dropdown instan
+      else { dtKat.find(x=>x.ID===id).Nama=nama; postServer('edit_kat', {id:id, nama:nama}); }
+      tutup('modalFormKat'); renderAdmin(); renderKategoriBuyer();
     }
 
     function hapusAdmin(jenis, id) {
